@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="handler"
+            type="com.smile.weather.MainActivity.MainHandler" />
+        <variable
+            name="citySize"
+            type="java.lang.Integer" />
+        <import type="android.view.View"/>
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_cloudy_start"
+    android:fitsSystemWindows="true"
+    >
+
+    <ImageView
+        android:id="@+id/main_more_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/icon_more"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="10dp"
+        android:visibility="invisible"
+        android:layout_marginTop="30dp"/>
+
+    <ImageView
+        android:id="@+id/main_search_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintRight_toLeftOf="@id/main_more_img"
+        app:layout_constraintTop_toTopOf="@id/main_more_img"
+        android:src="@drawable/icon_search"
+        android:visibility="@{citySize>=4?View.GONE:View.VISIBLE}"
+
+        android:onClick="@{(view)->handler.searchCity(view)}"
+       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/site"
+        app:layout_constraintBottom_toBottomOf="@id/main_more_img"
+        app:layout_constraintRight_toLeftOf="@id/main_search_img"
+        android:layout_marginRight="15dp"
+        android:textSize="@dimen/text_16dp"
+        android:textColor="@color/color_white"
+        android:onClick="@{(view)->handler.locationClick(view)}"
+        />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_content_page"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_more_img"/>
+
+
+   <!-- <ImageView
+        android:id="@+id/main_left_more_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/main_content_page"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/icon_left_more"
+        android:layout_marginLeft="10dp" />
+
+    <ImageView
+        android:id="@+id/main_right_more_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toTopOf="@id/main_left_more_img"
+        android:src="@drawable/icon_right_more" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

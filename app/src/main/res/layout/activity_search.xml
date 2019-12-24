@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="handler"
+            type="com.smile.weather.location.SearchActivity.SearchHandler" />
+        
+        <variable
+            name="inputContent"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="@color/color_location_bg">
+        <ImageView
+            android:id="@+id/search_return_img"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_return"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:onClick="@{(view)->handler.back(view)}"
+            android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/search_input_et"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toRightOf="@id/search_return_img"
+            app:layout_constraintTop_toTopOf="@id/search_return_img"
+            app:layout_constraintBottom_toBottomOf="@id/search_return_img"
+            app:layout_constraintRight_toLeftOf="@id/search_img"
+            android:background="@drawable/shape_search_input"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@={inputContent}"
+            />
+        <ImageView
+            android:id="@+id/search_img"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_search"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="20dp"
+            android:onClick="@{(view)->handler.search(view,inputContent)}"
+            app:layout_constraintTop_toTopOf="@id/search_return_img"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_rlv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_input_et"
+            android:layout_marginTop="20dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

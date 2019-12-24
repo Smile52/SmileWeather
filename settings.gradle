@@ -1,0 +1,2 @@
+include ':app', ':baselib'
+rootProject.name='SmileWeather'

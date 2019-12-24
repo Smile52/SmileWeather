@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SmileWeather</string>
+    
+    <string name="site">地点</string>
+
+    <string name="AQI">AQI</string>
+    <string name="pm2_5">PM2.5</string>
+
+    <string name="tg_temp">体感温度&#160;&#160;</string>
+    <string name="du">°</string>
+    
+    <string name="percent">%</string>
+
+    <string name="wind">风</string>
+    <string name="level">级</string>
+    <string name="delete">删除</string>
+</resources>

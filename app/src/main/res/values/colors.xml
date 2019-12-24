@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="black">#000000</color>
+
+    <color name="color_sun_day_start">#F75E2D</color>
+    <color name="color_sun_day_end">#FF9800</color>
+
+    <color name="color_sun_night_start">#19266D</color>
+    <color name="color_sun_night_end">#1D7DA8</color>
+
+    <color name="color_rain_day_start">#01C4C2</color>
+    <color name="color_rain_day_end">#02deb9</color>
+
+    <color name="color_snow_day_start">#135877</color>
+    <color name="color_snow_dat_end">#5199BD</color>
+    
+    <color name="color_cloudy_start">#1FB3F5</color>
+    <color name="color_cloudy_end">#7ACDF7</color>
+
+    <color name="color_fog_start">#626F7D</color>
+    <color name="color_fog_end">#A6AFB8</color>
+
+    <color name="color_white">#ffffff</color>
+
+    <color name="color_now_detail">#E7E6E6</color>
+
+    <color name="shape_index_bg">#3AF841</color>
+
+    <color name="color_air_quality_1">#3AF841</color>
+    <color name="color_air_quality_2">#FF9800</color>
+    <color name="color_air_quality_3">#CE451B</color>
+
+    <color name="color_location_bg">#2E394D</color>
+
+    <color name="color_air_bg">#19FFFFFF</color>
+    <color name="color_locate_text1">#A19E7B</color>
+    <color name="color_locate_site">#FF7D7D</color>
+    <color name="color_locate_divider">#2E598C</color>
+</resources>
