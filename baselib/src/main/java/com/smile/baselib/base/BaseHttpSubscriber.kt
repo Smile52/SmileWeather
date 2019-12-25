@@ -25,10 +25,13 @@ open class BaseHttpSubscriber<T:Any>: FlowableSubscriber<T>{
     }
 
     override fun onSubscribe(s: Subscription) {
-        s!!.request(1)
+        s.request(1)
 
     }
 
+    /**
+     * 这块地方可以根据错误类型来进行不同状态返回
+     */
     override fun onError(t: Throwable?) {
 
     }
@@ -36,9 +39,8 @@ open class BaseHttpSubscriber<T:Any>: FlowableSubscriber<T>{
 
 
     private fun onFinish(t: T){
-        data?.value =t
+        data.value =t
     }
-
 
 
 }

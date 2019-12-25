@@ -35,7 +35,7 @@ class TempView :View{
     private var mTempTextHeight=0f
 
 
-   private var mIsDraw=false//是否绘制
+    private var mIsDraw=false//是否绘制
 
 
     private var mTempIntervalArray=0//数组温度差（7天最高低温度差）
@@ -59,7 +59,7 @@ class TempView :View{
 
     }
 
-    open fun setData(maxArray:Int,minArray:Int ,max:Int,min:Int){
+     fun setData(maxArray:Int,minArray:Int ,max:Int,min:Int){
         mMaxArray=maxArray
         mMinArray=minArray
         mMaxValue=max
@@ -74,7 +74,7 @@ class TempView :View{
     }
 
 
-    open fun setData(maxArray:Int,minArray:Int ,max:Int,min:Int, isShowBottomTemp:Boolean){
+     fun setData(maxArray:Int,minArray:Int ,max:Int,min:Int, isShowBottomTemp:Boolean){
         mMaxArray=maxArray
         mMinArray=minArray
         mMaxValue=max
@@ -109,16 +109,12 @@ class TempView :View{
         paint.isAntiAlias=true
         paint.textSize= mTempTextSize.toFloat()
         paint.strokeWidth=5f
-        //  paint.textAlign = Paint.Align.CENTER;//Paint设置水平居中
 
         val fontMetrics = Paint.FontMetrics()
         paint.getFontMetrics(fontMetrics)
-        val offset = (fontMetrics.descent + fontMetrics.ascent) / 2 //文字偏移量
-
-        // Log.e("dandy","d "+fontMetrics.descent+"  a "+fontMetrics.ascent)
+        val offset = (fontMetrics.descent + fontMetrics.ascent) / 2 // 文字偏移量
 
 
-        // canvas?.drawText(mTempText, x1,mViewHeight-fontMetrics.bottom, paint)
 
         mTempTextHeight= abs(fontMetrics.top)
         // mTempTextHeight=fontMetrics.bottom-fontMetrics.top

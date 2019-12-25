@@ -78,13 +78,11 @@ class MainActivity : BaseActivity() {
             var locationListener=MyLocationListener()
             mLocationClient.registerLocationListener(locationListener)
             mLocationClient.start()
-
         }
         mViewPager.adapter =mAdapter
 
         val list=mDao.getAll()
         list.observe(this,Observer<List<City>>{
-
                 data->Log.e("dandy"," main size "+data.size)
                 mListCity=data
                 initData()
@@ -96,7 +94,6 @@ class MainActivity : BaseActivity() {
         super.initData()
         mFragments= arrayListOf()
         mCityNameArray=arrayOfNulls(mListCity.size)
-      //  var refreshList= arrayListOf<RefreshEntity>()
 
         for ((i, city) in mListCity.withIndex()){
             if (mMapFragment[city.name] == null){
@@ -106,6 +103,7 @@ class MainActivity : BaseActivity() {
             mCityNameArray[i]=city.name!!
 
         }
+        //如果没有则表示当前没有数据，所以创建一个空的fragment
         if (mFragments.isEmpty()){
             mFragments.add(DetailFragment.newInstance(0))
         }
@@ -115,7 +113,7 @@ class MainActivity : BaseActivity() {
             mViewModel.setRefresh(mListCity[0].id!!)
 
         }
-
+        //如果为添加城市则跳转到对应fragment
         if (mIsAddCity){
             mViewPager.setCurrentItem(mAdapter.itemCount-1,true)
             mIsAddCity=false
@@ -168,8 +166,6 @@ class MainActivity : BaseActivity() {
                     val city=City(1,p0.address.district, p0.address.city,1,"")
                     mDao.insertCity(city)
                 }
-
-
             }
 
         }

@@ -9,6 +9,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.smile.baselib.utils.ToastUtil
 
+/**
+ * 权限申请工具类
+ */
 object PermissionUtils{
     private const val RESULT_CODE_LOCATION=1024
 
