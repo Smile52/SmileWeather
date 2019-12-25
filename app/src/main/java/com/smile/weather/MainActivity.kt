@@ -25,7 +25,6 @@ import com.smile.weather.entity.DetailIndex
 import com.smile.weather.entity.RefreshEntity
 import com.smile.weather.location.LocationManageActivity
 import com.smile.weather.location.SearchActivity
-import com.smile.weather.sing.SingLiveData
 import com.smile.weather.utils.PermissionUtils
 import com.smile.weather.vm.MainViewModel
 

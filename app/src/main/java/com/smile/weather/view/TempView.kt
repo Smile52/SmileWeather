@@ -26,7 +26,7 @@ class TempView :View{
     private val mColumnBottomMargin=DisplayUtils.dp2px(context,30f)
     private var baseColumnHeight=0f
 
-   private var mMaxArray=0
+    private var mMaxArray=0
     private var mMinArray=0
     private var mMaxValue=0
     private var mMinValue=0
@@ -172,7 +172,6 @@ class TempView :View{
 
         }
 
-        // canvas?.drawText(mTempText, x1,mViewHeight-fontMetrics.bottom, paint)
 
 
     }

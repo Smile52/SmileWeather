@@ -18,7 +18,6 @@ import com.smile.weather.db.CityDao
 import com.smile.weather.db.City
 import com.smile.weather.db.CityWeatherDao
 import com.smile.weather.entity.LocateEntity
-import com.smile.weather.sing.SingLiveData
 import com.smile.weather.utils.RecycleViewDivider
 import com.smile.weather.vm.LocateViewModel
 
@@ -136,13 +135,6 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity(){
 
         fun delete(view: View){
 
-            for (i in mDeleteArrayPos){
-                L.e("delete $i")
-                mDao.deleteCity(mCityList[i].city)
-               // mCityList.remove(mCityList[i])
-                SingLiveData.deleteCity(i)
-            }
-            //mAdapter.setNewData(mCityList)
             mIsOpen=false
             mBindIng.isOpen=mIsOpen
 
