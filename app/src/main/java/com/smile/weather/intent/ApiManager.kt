@@ -23,6 +23,10 @@ class ApiManager{
             return RetrofitClient.retrofit().loadHourlyData(map)
         }
 
+        fun loadLifeStyle(map: Map<String, String>):Flowable<WeatherEntity>{
+            return RetrofitClient.retrofit().loadLifeStyle(map)
+        }
+
         fun searchCity(map: Map<String, String>):Flowable<CityEntity>{
             return RetrofitClient.retrofitForCity().searchCity(map)
         }
@@ -30,5 +34,7 @@ class ApiManager{
         fun topCities(map: Map<String, String>):Flowable<CityEntity>{
             return RetrofitClient.retrofitForCity().topCities(map)
         }
+
+
     }
 }

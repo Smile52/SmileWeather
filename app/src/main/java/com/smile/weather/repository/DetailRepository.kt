@@ -27,5 +27,10 @@ class DetailRepository : BaseRepository<WeatherEntity>(), IDetailRepository {
         return request(ApiManager.loadForecast(map),"loadForecast").send()!!.get()
     }
 
+    override fun loadLifeStyle(map: Map<String, String>): MutableLiveData<WeatherEntity> {
+        return request(ApiManager.loadLifeStyle(map),"loadLifeStyle").send()!!.get()
+
+    }
+
 
 }

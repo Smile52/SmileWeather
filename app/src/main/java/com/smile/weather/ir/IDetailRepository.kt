@@ -14,4 +14,6 @@ interface IDetailRepository {
 
     fun loadForecast(map: Map<String, String>):MutableLiveData<WeatherEntity>
 
+    fun loadLifeStyle(map: Map<String, String>):MutableLiveData<WeatherEntity>
+
 }

@@ -6,7 +6,9 @@
         android:id="@+id/head_hourly_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/color_air_bg"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
         <com.smile.weather.view.SRecyclerView
             android:id="@+id/head_hourly_rlv"
             android:layout_width="match_parent"

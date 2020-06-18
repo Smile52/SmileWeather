@@ -271,6 +271,15 @@ class DetailFragment : BaseFragment() {
 
             })
         }
+
+        mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
+        if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()){
+            mDetailViewModel.getAirDataForLiveData().observe(this, Observer { data->
+                run {
+                    Log.e("dandy", "生活指数 $data")
+                }
+            })
+        }
         checkIndex()
     }
 
@@ -279,6 +288,7 @@ class DetailFragment : BaseFragment() {
         mDetailViewModel.getForecastData(getParams(mCity.name!!))
         mDetailViewModel.getAirData(getParams(mCity.town!!))
         mDetailViewModel.getHourlyData(getParams(mCity.name!!))
+        mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
     }
 
     /**

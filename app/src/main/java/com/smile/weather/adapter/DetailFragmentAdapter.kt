@@ -26,10 +26,6 @@ class DetailFragmentAdapter (activity: BaseActivity, var fragments:ArrayList<Det
 
    // fun getFragmentName(position: Int) = fragments[position].fragmentClass.simpleName
 
-
-
-
-
      override fun getItemCount(): Int {
          return if (fragments!=null)fragments.size else 0
      }

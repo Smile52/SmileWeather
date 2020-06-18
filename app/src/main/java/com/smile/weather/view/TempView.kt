@@ -73,8 +73,10 @@ class TempView :View{
 
     }
 
-
-     fun setData(maxArray:Int,minArray:Int ,max:Int,min:Int, isShowBottomTemp:Boolean){
+    /**
+     * 是否为底部显示温度的
+     */
+    fun setData(maxArray:Int,minArray:Int ,max:Int,min:Int, isShowBottomTemp:Boolean){
         mMaxArray=maxArray
         mMinArray=minArray
         mMaxValue=max

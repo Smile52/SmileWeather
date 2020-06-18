@@ -38,7 +38,7 @@
 
     <color name="color_location_bg">#2E394D</color>
 
-    <color name="color_air_bg">#19FFFFFF</color>
+    <color name="color_air_bg">#6ACAC8C8</color>
     <color name="color_locate_text1">#A19E7B</color>
     <color name="color_locate_site">#FF7D7D</color>
     <color name="color_locate_divider">#2E598C</color>

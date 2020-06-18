@@ -23,10 +23,15 @@ interface  ApiService{
     @GET("weather/hourly")
     fun loadHourlyData(@QueryMap map: Map<String, String>):Flowable<WeatherEntity>
 
+    @GET("weather/lifestyle")
+    fun loadLifeStyle(@QueryMap map: Map<String, String>):Flowable<WeatherEntity>
+
     @GET("find")
     fun searchCity(@QueryMap map: Map<String, String>):Flowable<CityEntity>
 
     @GET("top")
     fun topCities(@QueryMap map: Map<String, String>):Flowable<CityEntity>
+
+
 
 }
