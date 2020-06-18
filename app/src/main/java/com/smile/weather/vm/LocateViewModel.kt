@@ -27,10 +27,7 @@ class LocateViewModel :ViewModel(){
     private val mRepository by lazy {
         LocateRepository()
     }
-
-
-
-
+    
 
     private lateinit var mSearchLiveData: MutableLiveData<CityEntity>
 

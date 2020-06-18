@@ -67,7 +67,7 @@ class SearchActivity :BaseActivity(){
     }
 
     private fun initListener(){
-        mAdapter.setOnItemClickListener  { adapter, view, position ->
+        mAdapter.setOnItemClickListener  { _, _, position ->
             var c=mCityList[position]
             L.e("name "+c.location)
 

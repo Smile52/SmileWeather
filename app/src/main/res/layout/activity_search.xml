@@ -38,6 +38,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@={inputContent}"
+            android:maxLines="1"
             />
         <ImageView
             android:id="@+id/search_img"

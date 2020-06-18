@@ -27,7 +27,6 @@ object RetrofitClient{
             .baseUrl(Api.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-
             .client(okHttpClient)
             .build()
         return retrofit.create(ApiService::class.java)

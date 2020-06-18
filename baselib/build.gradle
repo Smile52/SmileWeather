@@ -31,6 +31,42 @@ android {
         enabled = true
     }
 
+ /*   productFlavors{
+        version1 {
+            applicationId "com.xxx.xxx1"
+            manifestPlaceholders=[
+                    icLauncher: "@mipmap/ic_launcher_version1",
+                    appId     : "com.xxx.version1",
+                    appName   : "@string/app_name_version1",
+                    appScheme : "@string/app_scheme_version1"            ]
+        }
+        version2 {
+            applicationId "com.xxx.xxx2"
+            manifestPlaceholders=[
+                    icLauncher: "@mipmap/ic_launcher_version2",
+                    appId     : "com.xxx.version2",
+                    appName   : "@string/app_name_version2",
+                    appScheme : "@string/app_scheme_version2"            ]
+        }
+    }
+
+    *//*签名文件*//*
+    signingConfigs{
+        version1 {
+            storeFile file("../key/xxx.keystore")
+            storePassword "xxxxxx"
+            keyAlias "xxx"
+            keyPassword "xxxxxx"
+        }
+
+        version2 {
+            storeFile file("../key/xxx.keystore")
+            storePassword "xxxxxxx"
+            keyAlias "xxx"
+            keyPassword "xxxxxxx"
+        }
+    }*/
+
 }
 
 dependencies {

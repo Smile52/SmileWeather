@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.smile.weather.vm.DetailViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-   >
-    <ImageView
-        android:id="@+id/dl_local_img"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/icon_local"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/dl_city_name_tv"
-        app:layout_constraintRight_toLeftOf="@id/dl_city_name_tv"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        android:layout_marginRight="5dp"
-        app:layout_constraintBottom_toBottomOf="@id/dl_city_name_tv"
-        />
-    <TextView
-        android:id="@+id/dl_city_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/dl_local_img"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="Name"
-        android:layout_marginLeft="5dp"
-        android:textSize="@dimen/text_20dp"
-        android:textColor="@color/color_white"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/dl_refresh_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dl_city_name_tv"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        bind:bind_swipeRefreshLayout_refreshing="@={viewModel.refreshing}"
-        android:layout_marginTop="20dp">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dl_content_view_rlv"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
+
+        <ImageView
+            android:id="@+id/dl_local_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_local"
+            app:layout_constraintBottom_toBottomOf="@id/dl_city_name_tv"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/dl_city_name_tv"
+            app:layout_constraintTop_toTopOf="@id/dl_city_name_tv" />
+
+        <TextView
+            android:id="@+id/dl_city_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Name"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_20dp"
+            app:layout_constraintLeft_toRightOf="@id/dl_local_img"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/dl_refresh_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/dl_city_name_tv"
+            bind:bind_swipeRefreshLayout_refreshing="@={viewModel.refreshing}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dl_content_view_rlv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

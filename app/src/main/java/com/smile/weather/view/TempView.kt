@@ -167,8 +167,6 @@ class TempView :View{
             canvas?.drawText(minText,x2,rect.bottom+mTempTextHeight, paint)
 
         }
-
-
-
+        
     }
 }

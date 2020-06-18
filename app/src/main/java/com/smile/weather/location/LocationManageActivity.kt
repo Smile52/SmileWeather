@@ -24,49 +24,49 @@ import com.smile.weather.vm.LocateViewModel
 /**
  * 地点管理Activity
  */
-class LocationManageActivity : com.smile.weather.base.BaseActivity(){
+class LocationManageActivity : com.smile.weather.base.BaseActivity() {
 
     private lateinit var mCityListView: RecyclerView
-    private var mCityList= arrayListOf<LocateEntity>()
-    private lateinit var mBindIng:ActivityLocationManagerBinding
-    private var mLastId:Int=0
-    private var mIsOpen=false
-    private var mDeleteArrayPos= arrayListOf<Int>()
+    private var mCityList = arrayListOf<LocateEntity>()
+    private lateinit var mBindIng: ActivityLocationManagerBinding
+    private var mLastId: Int = 0
+    private var mIsOpen = false
+    private var mDeleteArrayPos = arrayListOf<Int>()
     private val mDao: CityDao by lazy {
         AppDataBase.instance.getCityDao()
     }
 
-    private val mAdapter:LocateManageAdapter by lazy {
+    private val mAdapter: LocateManageAdapter by lazy {
         LocateManageAdapter(mCityList)
     }
 
-    private val mLocateViewModel:LocateViewModel by lazy {
-        ViewModelProviders.of (this)[LocateViewModel::class.java]
+    private val mLocateViewModel: LocateViewModel by lazy {
+        ViewModelProviders.of(this)[LocateViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBindIng=DataBindingUtil.setContentView(this, R.layout.activity_location_manager)
+        mBindIng = DataBindingUtil.setContentView(this, R.layout.activity_location_manager)
 
-        mBindIng.handler=ManagerHandler()
-        mCityListView=mBindIng.locateCityRlv
-        mBindIng.isOpen=mIsOpen
+        mBindIng.handler = ManagerHandler()
+        mCityListView = mBindIng.locateCityRlv
+        mBindIng.isOpen = mIsOpen
 
         initView()
         initData()
     }
 
     override fun initView() {
-        mCityListView.layoutManager= LinearLayoutManager(this) as RecyclerView.LayoutManager?
-        mCityListView.addItemDecoration(RecycleViewDivider(this,LinearLayoutManager.VERTICAL))
-        mCityListView.adapter=mAdapter
+        mCityListView.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
+        mCityListView.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
+        mCityListView.adapter = mAdapter
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
-                R.id.item_locate_delete_cb ->{
-                    mAdapter.data[position].select= !mAdapter.data[position].select
-                   // mAdapter.notifyItemChanged(position)
-                    if (mAdapter.data[position].select){
+            when (view.id) {
+                R.id.item_locate_delete_cb -> {
+                    mAdapter.data[position].select = !mAdapter.data[position].select
+                    // mAdapter.notifyItemChanged(position)
+                    if (mAdapter.data[position].select) {
                         mDeleteArrayPos.add(position)
                     }
                 }
@@ -78,12 +78,11 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity(){
     override fun initData() {
         super.initData()
 
-        mLocateViewModel.getWeatherList().observe(this, Observer<List<LocateEntity>>{
-            data ->
-            mCityList= data as ArrayList<LocateEntity>
-            if (mCityList.isNotEmpty()){
+        mLocateViewModel.getWeatherList().observe(this, Observer<List<LocateEntity>> { data ->
+            mCityList = data as ArrayList<LocateEntity>
+            if (mCityList.isNotEmpty()) {
                 mAdapter.setNewData(data)
-                mLastId=data[data.size-1].city.id!!
+                mLastId = data[data.size - 1].city.id!!
             }
 
         })
@@ -91,53 +90,52 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity(){
 
     }
 
-    private fun initSelect(){
-        for ((i,locate) in mCityList.withIndex()){
-            mCityList[i].open=mIsOpen
+    private fun initSelect() {
+        for ((i, locate) in mCityList.withIndex()) {
+            mCityList[i].open = mIsOpen
         }
         mAdapter.setNewData(mCityList)
 
-        if (mIsOpen){
-            mBindIng.locateDeleteTv.visibility=View.VISIBLE
-        }else
-            mBindIng.locateDeleteTv.visibility=View.GONE
+        if (mIsOpen) {
+            mBindIng.locateDeleteTv.visibility = View.VISIBLE
+        } else
+            mBindIng.locateDeleteTv.visibility = View.GONE
 
 
     }
 
     override fun onBackPressed() {
-        if(mIsOpen){
-            mIsOpen=false
+        if (mIsOpen) {
+            mIsOpen = false
             initSelect()
-        }else
+        } else
             super.onBackPressed()
 
     }
 
-    inner class ManagerHandler{
+    inner class ManagerHandler {
 
-        fun toSearch(view:View){
-            var intent=Intent(this@LocationManageActivity, SearchActivity::class.java)
+        fun toSearch(view: View) {
+            var intent = Intent(this@LocationManageActivity, SearchActivity::class.java)
             intent.putExtra(SearchActivity.KEY_LAST_ID, mLastId)
             startActivity(intent)
 
         }
 
-        fun back(view: View){
+        fun back(view: View) {
             finish()
         }
 
-        fun openMore(view: View){
-            mIsOpen=true
-            mBindIng.isOpen=mIsOpen
+        fun openMore(view: View) {
+            mIsOpen = true
+            mBindIng.isOpen = mIsOpen
             initSelect()
         }
 
-        fun delete(view: View){
+        fun delete(view: View) {
 
-            mIsOpen=false
-            mBindIng.isOpen=mIsOpen
-
+            mIsOpen = false
+            mBindIng.isOpen = mIsOpen
 
 
         }

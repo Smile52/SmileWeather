@@ -47,9 +47,11 @@ class MainActivity : BaseActivity() {
     private val mViewPager:ViewPager2 by lazy {
         mBinding.mainContentPage
     }
+
     private val mDao: CityDao by lazy {
         AppDataBase.instance.getCityDao()
     }
+
     companion object{
         const val KEY_IS_ADD="key_is_add"
     }
@@ -97,11 +99,10 @@ class MainActivity : BaseActivity() {
 
         for ((i, city) in mListCity.withIndex()){
             if (mMapFragment[city.name] == null){
-                var fragment = DetailFragment.newInstance(city.id!!)
+                val fragment = DetailFragment.newInstance(city.id!!)
                 mFragments.add(fragment)
             }
             mCityNameArray[i]=city.name!!
-
         }
         //如果没有则表示当前没有数据，所以创建一个空的fragment
         if (mFragments.isEmpty()){
@@ -194,9 +195,7 @@ class MainActivity : BaseActivity() {
         fun locationClick(view: View){
             L.e("点击了")
             startActivity(Intent(this@MainActivity, LocationManageActivity::class.java))
-
         }
-
 
         fun searchCity(view: View){
 
