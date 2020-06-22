@@ -18,8 +18,8 @@ object RetrofitClient{
             val loggingInterceptor=HttpLoggingInterceptor()
             loggingInterceptor.level=HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(loggingInterceptor)
-
         }
+
         builder.addInterceptor(initLogInterceptor())
         val okHttpClient = builder.build()
 

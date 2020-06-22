@@ -117,6 +117,7 @@ class DetailFragment : BaseFragment() {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         mBinding.viewModel = mDetailViewModel
+
         mRootView = mBinding.root
         return mRootView
     }
