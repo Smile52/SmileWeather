@@ -16,9 +16,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/cloud1"
-    android:fitsSystemWindows="true"
+    android:background="@drawable/shape_cloudy_start"
     >
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/main_content_page"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/main_more_img"
@@ -53,14 +60,7 @@
         android:textColor="@color/color_white"
         android:onClick="@{(view)->handler.locationClick(view)}"
         />
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_content_page"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_more_img"/>
+
 
 
    <!-- <ImageView

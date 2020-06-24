@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -26,6 +27,7 @@ import com.smile.weather.databinding.HeadNowViewBinding
 import com.smile.weather.db.*
 import com.smile.weather.entity.*
 import com.smile.weather.intent.Api
+import com.smile.weather.utils.BackGroundUtils
 import com.smile.weather.utils.DisplayUtils
 import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
@@ -52,8 +54,9 @@ class DetailFragment : BaseFragment() {
     private var mIsRefreshIng = false//是否为手动刷新
 
     lateinit var mBinding: FragmentDetailBinding
-    lateinit var mContentView: RecyclerView
-    lateinit var mAdapter: DetailContentAdapter
+    private lateinit var mContentView: RecyclerView
+    private lateinit var mAdapter: DetailContentAdapter
+    private lateinit var mContentLayout: ConstraintLayout
 
     private val mCity: City by lazy {
         mCityDao.getCityById(mCityId)
@@ -124,8 +127,8 @@ class DetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        L.e("onViewCreated ")
         mContentView = mBinding.dlContentViewRlv
+        mContentLayout=mBinding.dlContentLayout
         mAdapter = DetailContentAdapter()
         mContentView.layoutManager = LinearLayoutManager(activity)
         mHeadNowViewBinding = DataBindingUtil.inflate(
@@ -211,7 +214,7 @@ class DetailFragment : BaseFragment() {
         if (mCity.isLocal == 1) {
             mBinding.dlLocalImg.visibility = View.VISIBLE
         } else
-            mBinding.dlLocalImg.visibility = View.GONE
+            mBinding.dlLocalImg.visibility = View.INVISIBLE
 
         mDetailViewModel.getNowData(getParams(mCity.name!!))
         if (!mDetailViewModel.getNowDataForLiveData().hasActiveObservers()) {
@@ -220,7 +223,8 @@ class DetailFragment : BaseFragment() {
                     mWeather6 = data.HeWeather6[0]
                     mHeadNowViewBinding.weather = mWeather6
                     mNowWeatherJson = mGson.toJson(data.HeWeather6[0].now)
-
+                    mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(data.HeWeather6[0].now.cond_code.toInt()))
+                    Log.e("dandy1","int "+data.HeWeather6[0].now.cond_code.toInt())
                     mNetInt++
                     if (mNetInt == 2) {
                         insertData()
@@ -274,8 +278,8 @@ class DetailFragment : BaseFragment() {
         }
 
         mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
-        if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()){
-            mDetailViewModel.getAirDataForLiveData().observe(this, Observer { data->
+        if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()) {
+            mDetailViewModel.getAirDataForLiveData().observe(this, Observer { data ->
                 run {
                     Log.e("dandy", "生活指数 $data")
                 }

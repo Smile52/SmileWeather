@@ -1,5 +1,7 @@
 package com.smile.weather.utils
 
+import android.util.Log
+import com.smile.baselib.utils.L
 import com.smile.weather.R
 
 /**
@@ -8,6 +10,8 @@ import com.smile.weather.R
 object BackGroundUtils{
 
     fun getBackGroundByCode(code:Int):Int{
+
+        Log.e("dandy1","code $code")
 
         if (code==100){
             return R.drawable.sun1
@@ -23,6 +27,10 @@ object BackGroundUtils{
         }
         if (code in 301..304){
             return R.drawable.thunder1
+        }
+        if (code==399){
+            return R.drawable.rain1
+
         }
         if (code in 305..318){
             return R.drawable.rain1

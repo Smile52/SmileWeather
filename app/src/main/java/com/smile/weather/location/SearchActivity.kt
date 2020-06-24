@@ -2,6 +2,7 @@ package com.smile.weather.location
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -69,7 +70,6 @@ class SearchActivity :BaseActivity(){
     private fun initListener(){
         mAdapter.setOnItemClickListener  { _, _, position ->
             var c=mCityList[position]
-            L.e("name "+c.location)
 
             var lastId=intent.getIntExtra(KEY_LAST_ID,0)
 
@@ -120,7 +120,6 @@ class SearchActivity :BaseActivity(){
 
     inner class SearchHandler{
         fun  search(view:View,content:String){
-            L.e("content:$content")
             searchCity(content)
         }
 

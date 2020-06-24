@@ -42,4 +42,5 @@
     <color name="color_locate_text1">#A19E7B</color>
     <color name="color_locate_site">#FF7D7D</color>
     <color name="color_locate_divider">#2E598C</color>
+    <color name="color_main_bg">#00FFFFFF</color>
 </resources>

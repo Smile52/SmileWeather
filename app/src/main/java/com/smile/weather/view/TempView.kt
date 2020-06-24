@@ -93,7 +93,6 @@ class TempView :View{
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         mViewHeight=measuredHeight
-       // Log.e("dandy","hh "+mViewHeight  +" ds "+DisplayUtils.dp2px(context,120f))
     }
 
     override fun onDraw(canvas: Canvas?) {

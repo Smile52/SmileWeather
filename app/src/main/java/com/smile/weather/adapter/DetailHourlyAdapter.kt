@@ -27,7 +27,6 @@ class DetailHourlyAdapter(var context:Context,var dataList:List<Hourly>): Recycl
         for ((i ,hourly) in dataList.withIndex()){
             mTempArray[i]=hourly.tmp.toInt()
         }
-        L.e("max"+mTempArray.max()+" min "+mTempArray.min())
         mMaxTemp= mTempArray.max()!!
         mMinTemp=mTempArray.min()!!
 

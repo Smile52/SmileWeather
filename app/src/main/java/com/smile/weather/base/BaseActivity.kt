@@ -1,12 +1,16 @@
 package com.smile.weather.base
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import rx.subscriptions.CompositeSubscription
+import java.lang.reflect.Field
 
 
 open abstract class BaseActivity :AppCompatActivity(){
@@ -25,9 +29,32 @@ open abstract class BaseActivity :AppCompatActivity(){
                     or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.TRANSPARENT
-            window.navigationBarColor = Color.TRANSPARENT
+            window.navigationBarColor = Color.WHITE
         }
 
+
+       // makeStatusBarTransparent(this)
+
+        //this.window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+    }
+
+    @SuppressLint("ObsoleteSdkInt")
+    open fun makeStatusBarTransparent(activity: Activity) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            return
+        }
+        val window: Window = activity.window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            val option: Int = window.decorView
+                .systemUiVisibility or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            window.decorView.systemUiVisibility = option
+            window.statusBarColor = Color.TRANSPARENT
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
 
     }
 
