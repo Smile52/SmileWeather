@@ -26,9 +26,7 @@ ps：文档整理中
 * 城市管理可以移动城市排列顺序
 * 新增一些天气特效
 
-## 备注
-* DetailFragment是原来版本的详情页面
-* DetailFragment2是为目前新版的详情页面
+
 
 ## code对应温度
  * 100  晴天
@@ -44,5 +42,8 @@ ps：文档整理中
 
 
 #### 备注
+* DetailFragment是原来版本的详情页面
+* DetailFragment2是为目前新版的详情页面
+
 觉得对你有帮助的麻烦给一个小星星了。
 [项目地址](https://github.com/Smile52/SmileWeather)
