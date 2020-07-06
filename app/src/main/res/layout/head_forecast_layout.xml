@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <LinearLayout
         android:id="@+id/head_forecast_view"
         android:layout_width="match_parent"
@@ -9,7 +8,7 @@
         android:orientation="vertical"
         android:background="@color/color_air_bg"
         android:layout_marginTop="20dp">
-        <com.smile.weather.view.SRecyclerView
+        <com.smile.weather.view.HorizontalRecyclerView
             android:id="@+id/head_forecast_rlv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

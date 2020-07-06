@@ -5,8 +5,11 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.ViewConfiguration
+import android.view.ViewParent
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.abs
+import androidx.viewpager.widget.ViewPager
+import com.smile.baselib.utils.L
+import java.lang.Math.abs
 
 
 /**
@@ -14,7 +17,12 @@ import kotlin.math.abs
  */
 class SRecyclerView :RecyclerView {
 
-    private var mTouchSlop = 0
+    private var mTouchSlop = 100
+
+    private var mTouchOffset=30 //触摸偏移量
+
+
+
 
 
     constructor(mContext: Context) : this(mContext, null)
@@ -38,8 +46,6 @@ class SRecyclerView :RecyclerView {
    private var move_x = 0
    private var move_y = 0
 
-
-
     override fun onTouchEvent(e: MotionEvent?): Boolean {
         when (e!!.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -50,7 +56,7 @@ class SRecyclerView :RecyclerView {
             MotionEvent.ACTION_MOVE -> {
                 val y = e.y.toInt()
                 val x = e.x.toInt()
-                if (abs(y - move_y) > mTouchSlop && abs(x - move_x) < mTouchSlop * 2) {
+                if (kotlin.math.abs(y - move_y) > mTouchSlop && kotlin.math.abs(x - move_x) < mTouchSlop * 2) {
                     parent.requestDisallowInterceptTouchEvent(false)
                 } else {
                     parent.requestDisallowInterceptTouchEvent(true)

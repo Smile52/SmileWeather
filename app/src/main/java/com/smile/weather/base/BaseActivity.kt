@@ -9,6 +9,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.smile.weather.R
 import rx.subscriptions.CompositeSubscription
 import java.lang.reflect.Field
 
@@ -30,6 +32,8 @@ open abstract class BaseActivity :AppCompatActivity(){
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.TRANSPARENT
             window.navigationBarColor = Color.WHITE
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.color_main_bg)
+
         }
 
 

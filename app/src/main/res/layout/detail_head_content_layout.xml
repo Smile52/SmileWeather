@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <import type="com.smile.weather.entity.HeWeather6"/>
+        <variable
+            name="weather"
+            type="HeWeather6" />
+        <variable
+            name="loadByCode"
+            type="java.lang.Integer" />
+        <variable
+            name="cityName"
+            type="java.lang.String" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:id="@+id/detail_head_temp_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='@{weather.now.tmp+@string/du}'
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="@color/white"
+        android:textSize="80sp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:id="@+id/detail_head_address_tv"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/detail_head_temp_content_tv"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:text="@{cityName}"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/detail_head_locate_img"
+      />
+    <ImageView
+        android:id="@+id/detail_head_locate_img"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_local"
+        android:layout_marginLeft="30dp"
+
+        app:layout_constraintTop_toTopOf="@id/detail_head_address_tv"
+        app:layout_constraintBottom_toBottomOf="@id/detail_head_address_tv"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/detail_head_weather_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/detail_head_temp_content_tv"
+        app:layout_constraintBaseline_toBaselineOf="@id/detail_head_temp_content_tv"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:text="@{weather.now.cond_txt}"
+        />
+    <TextView
+        android:id="@+id/detail_head_wind_content_tv"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/detail_head_weather_content_tv"
+        app:layout_constraintBaseline_toBaselineOf="@id/detail_head_weather_content_tv"
+        android:text="@{weather.now.wind_dir}"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginLeft="10dp"
+
+        />
+    <ImageView
+        android:id="@+id/head_now_left_more_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/detail_head_temp_content_tv"
+        android:src="@drawable/icon_left_more"
+        android:layout_marginLeft="10dp" />
+
+    <ImageView
+        android:id="@+id/head_now_right_more_img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toTopOf="@id/head_now_left_more_img"
+        android:src="@drawable/icon_right_more" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -14,17 +14,16 @@ import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.smile.baselib.utils.L
 import com.smile.weather.adapter.DetailFragmentAdapter
-import com.smile.weather.adapter.DetailFragmentAdapter2
 import com.smile.weather.base.BaseActivity
-import com.smile.weather.config.Config
+import com.smile.weather.base.BaseFragment
 import com.smile.weather.databinding.ActivityMainBinding
 import com.smile.weather.db.AppDataBase
 import com.smile.weather.db.CityDao
 import com.smile.weather.db.City
 import com.smile.weather.entity.DetailIndex
-import com.smile.weather.entity.RefreshEntity
 import com.smile.weather.location.LocationManageActivity
 import com.smile.weather.location.SearchActivity
+import com.smile.weather.ui.Detail2Fragment
 import com.smile.weather.utils.PermissionUtils
 import com.smile.weather.vm.MainViewModel
 
@@ -37,8 +36,8 @@ class MainActivity : BaseActivity() {
     private lateinit var mListCity:List<City>
 
     private var mCityNameArray= arrayOf<String?>()
-    private var mMapFragment= mutableMapOf<String, DetailFragment>()
-    private var mFragments= arrayListOf<DetailFragment>()
+    private var mMapFragment= mutableMapOf<String, Detail2Fragment>()
+    private var mFragments= arrayListOf<BaseFragment>()
     private var mIsAddCity=false
 
     private val mAdapter:DetailFragmentAdapter by lazy {
@@ -99,14 +98,14 @@ class MainActivity : BaseActivity() {
 
         for ((i, city) in mListCity.withIndex()){
             if (mMapFragment[city.name] == null){
-                val fragment = DetailFragment.newInstance(city.id!!)
+                val fragment = Detail2Fragment.newInstance(city.id!!)
                 mFragments.add(fragment)
             }
             mCityNameArray[i]=city.name!!
         }
         //如果没有则表示当前没有数据，所以创建一个空的fragment
         if (mFragments.isEmpty()){
-            mFragments.add(DetailFragment.newInstance(0))
+            mFragments.add(Detail2Fragment.newInstance(0))
         }
 
         mAdapter.setData(mFragments)

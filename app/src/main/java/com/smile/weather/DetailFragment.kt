@@ -67,6 +67,7 @@ class DetailFragment : BaseFragment() {
     lateinit var mHeadAirViewBinding: HeadAirLayoutBinding
     lateinit var mHourlyRecyclerView: SRecyclerView
     lateinit var mForecastRecyclerView: SRecyclerView
+
     private val mGson: Gson by lazy {
         Gson()
     }
@@ -200,7 +201,6 @@ class DetailFragment : BaseFragment() {
                     mIsRefreshIng = true
                     getData()
                 }
-
             }
         })
 

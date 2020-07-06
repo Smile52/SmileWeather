@@ -8,13 +8,11 @@
             name="viewModel"
             type="com.smile.weather.vm.DetailViewModel" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/dl_content_layout"
-        android:fitsSystemWindows="true"
         >
 
         <ImageView
@@ -61,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
-               />
+
+                />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

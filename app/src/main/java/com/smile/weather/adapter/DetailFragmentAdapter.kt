@@ -9,8 +9,10 @@ import androidx.viewpager2.adapter.FragmentViewHolder
 import com.smile.baselib.utils.L
 import com.smile.weather.DetailFragment
 import com.smile.weather.base.BaseActivity
+import com.smile.weather.base.BaseFragment
+import com.smile.weather.ui.Detail2Fragment
 
-class DetailFragmentAdapter (activity: BaseActivity, var fragments:ArrayList<DetailFragment>):FragmentStateAdapter(activity){
+class DetailFragmentAdapter (activity: BaseActivity, private var fragments:ArrayList<BaseFragment>):FragmentStateAdapter(activity){
 
     private val fragmentFactory = activity.supportFragmentManager.fragmentFactory
     private val classLoader = activity.classLoader
@@ -18,7 +20,7 @@ class DetailFragmentAdapter (activity: BaseActivity, var fragments:ArrayList<Det
 
 
 
-    fun setData( data:ArrayList<DetailFragment>){
+    fun setData( data:ArrayList<BaseFragment>){
         fragments= data
        notifyDataSetChanged()
 
