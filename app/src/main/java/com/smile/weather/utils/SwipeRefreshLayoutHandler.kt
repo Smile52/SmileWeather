@@ -1,9 +1,9 @@
+/*
 package com.smile.weather.utils
 
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 object SwipeRefreshLayoutHandler {
 
@@ -40,4 +40,4 @@ object SwipeRefreshLayoutHandler {
             }
     }
 
-}
+}*/

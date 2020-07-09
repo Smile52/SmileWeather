@@ -1,3 +1,4 @@
+/*
 package com.smile.weather
 
 import android.os.Bundle
@@ -38,9 +39,11 @@ import rx.functions.Action
 import rx.functions.Action1
 import java.util.concurrent.TimeUnit
 
+*/
 /**
  * 天气详情fragment
- */
+ *//*
+
 class DetailFragment : BaseFragment() {
 
     private var mCityName = ""
@@ -167,8 +170,10 @@ class DetailFragment : BaseFragment() {
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         mForecastRecyclerView.adapter = mForecastAdapter
 
-        /* mLeftMore=nowView.findViewById(R.id.head_now_left_more_img)
-        mRightMore=nowView.findViewById(R.id.head_now_right_more_img)*/
+        */
+/* mLeftMore=nowView.findViewById(R.id.head_now_left_more_img)
+        mRightMore=nowView.findViewById(R.id.head_now_right_more_img)*//*
+
         mLeftMore = mHeadNowViewBinding.headNowLeftMoreImg
         mRightMore = mHeadNowViewBinding.headNowRightMoreImg
         mContentView.adapter = mAdapter
@@ -296,9 +301,11 @@ class DetailFragment : BaseFragment() {
         mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
     }
 
-    /**
+    */
+/**
      *记录刷新
-     */
+     *//*
+
     private fun recordRefresh() {
         if (mIsRefreshIng) {
             mAllNetInt++
@@ -311,9 +318,11 @@ class DetailFragment : BaseFragment() {
         }
     }
 
-    /**
+    */
+/**
      * 保存当前天气和今日天气  地点管理需要用到这些数据
-     */
+     *//*
+
     private fun insertData() {
         val cityWeather = CityWeather(mCityId, mNowWeatherJson, mOneDayJson)
         mCityWeatherDao.insertData(cityWeather)
@@ -375,4 +384,4 @@ class DetailFragment : BaseFragment() {
     }
 
 
-}
+}*/

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.smile.weather.entity.HeWeather6"/>
+        <import type="android.view.View"/>
+        <variable
+            name="weather"
+            type="HeWeather6" />
+        <variable
+            name="loadByCode"
+            type="java.lang.Integer" />
+        <variable
+            name="viewModel"
+            type="com.smile.weather.vm.DetailViewModel" />
+        <variable
+            name="cityName"
+            type="java.lang.String" />
+        <variable
+            name="isLocate"
+            type="java.lang.Boolean" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/detail_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_main_bg"
+        >
+
+       <!-- <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_main_bg"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/detail_head_height"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+
+                >
+
+                <include layout="@layout/detail_head_content_layout"
+                    android:id="@+id/detail_head_top_view"
+                    app:weather="@{weather}"
+                    app:loadByCode="@{loadByCode}"
+                    app:cityName="@{cityName}"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>-->
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+
+            app:layout_behavior=".behavior.TopBehavior">
+
+            <TextView
+                android:id="@+id/detail_top_address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@{cityName}"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/detail_top_address_locate_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/detail_top_address_locate_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_local"
+                android:visibility="@{isLocate ? View.VISIBLE : View.GONE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_content_view_rlv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior=".behavior.RecyclerViewBehavior"
+
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

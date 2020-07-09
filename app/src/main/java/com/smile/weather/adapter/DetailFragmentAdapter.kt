@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.adapter.FragmentViewHolder
 import com.smile.baselib.utils.L
-import com.smile.weather.DetailFragment
 import com.smile.weather.base.BaseActivity
 import com.smile.weather.base.BaseFragment
 import com.smile.weather.ui.Detail2Fragment

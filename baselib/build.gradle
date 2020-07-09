@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -27,45 +31,46 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures{
+        dataBinding = true
     }
 
- /*   productFlavors{
-        version1 {
-            applicationId "com.xxx.xxx1"
-            manifestPlaceholders=[
-                    icLauncher: "@mipmap/ic_launcher_version1",
-                    appId     : "com.xxx.version1",
-                    appName   : "@string/app_name_version1",
-                    appScheme : "@string/app_scheme_version1"            ]
-        }
-        version2 {
-            applicationId "com.xxx.xxx2"
-            manifestPlaceholders=[
-                    icLauncher: "@mipmap/ic_launcher_version2",
-                    appId     : "com.xxx.version2",
-                    appName   : "@string/app_name_version2",
-                    appScheme : "@string/app_scheme_version2"            ]
-        }
-    }
 
-    *//*签名文件*//*
-    signingConfigs{
-        version1 {
-            storeFile file("../key/xxx.keystore")
-            storePassword "xxxxxx"
-            keyAlias "xxx"
-            keyPassword "xxxxxx"
-        }
+    /*   productFlavors{
+           version1 {
+               applicationId "com.xxx.xxx1"
+               manifestPlaceholders=[
+                       icLauncher: "@mipmap/ic_launcher_version1",
+                       appId     : "com.xxx.version1",
+                       appName   : "@string/app_name_version1",
+                       appScheme : "@string/app_scheme_version1"            ]
+           }
+           version2 {
+               applicationId "com.xxx.xxx2"
+               manifestPlaceholders=[
+                       icLauncher: "@mipmap/ic_launcher_version2",
+                       appId     : "com.xxx.version2",
+                       appName   : "@string/app_name_version2",
+                       appScheme : "@string/app_scheme_version2"            ]
+           }
+       }
 
-        version2 {
-            storeFile file("../key/xxx.keystore")
-            storePassword "xxxxxxx"
-            keyAlias "xxx"
-            keyPassword "xxxxxxx"
-        }
-    }*/
+       *//*签名文件*//*
+       signingConfigs{
+           version1 {
+               storeFile file("../key/xxx.keystore")
+               storePassword "xxxxxx"
+               keyAlias "xxx"
+               keyPassword "xxxxxx"
+           }
+
+           version2 {
+               storeFile file("../key/xxx.keystore")
+               storePassword "xxxxxxx"
+               keyAlias "xxx"
+               keyPassword "xxxxxxx"
+           }
+       }*/
 
 }
 
@@ -78,11 +83,11 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
