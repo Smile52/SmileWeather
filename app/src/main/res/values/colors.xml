@@ -43,6 +43,7 @@
     <color name="color_locate_site">#FF7D7D</color>
     <color name="color_locate_divider">#2E598C</color>
     <color name="color_main_bg">#00FFFFFF</color>
-
+    
+    <color name="color_navigation_bar">#37F7F7F7</color>
 
 </resources>

@@ -12,11 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.smile.weather.R
 import rx.subscriptions.CompositeSubscription
-import java.lang.reflect.Field
 
 
 open abstract class BaseActivity :AppCompatActivity(){
-    val mCompositeSubscription: CompositeSubscription = CompositeSubscription()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,8 +29,8 @@ open abstract class BaseActivity :AppCompatActivity(){
                     or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.TRANSPARENT
-            window.navigationBarColor = Color.WHITE
-            window.navigationBarColor = ContextCompat.getColor(this, R.color.color_main_bg)
+          //  window.navigationBarColor = Color.WHITE
+          //  window.navigationBarColor = ContextCompat.getColor(this, R.color.color_navigation_bar)
 
         }
 
@@ -60,25 +58,32 @@ open abstract class BaseActivity :AppCompatActivity(){
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
 
-    }
 
-    override fun onDestroy() {
-        if (mCompositeSubscription.hasSubscriptions()) {
-            //取消注册，以避免内存泄露
-            mCompositeSubscription.unsubscribe()
+        getWindow().decorView.setOnSystemUiVisibilityChangeListener { arg->
+            hideBottomUI(getWindow().decorView)
         }
-        super.onDestroy()
     }
 
- /*   open fun <M> addSubscription(observable: io.reactivex.Observable<M>, subscriber: Subscriber<M>) {
-        mCompositeSubscription.add(
-            observable.subscribeOn(io.reactivex.schedulers.Schedulers.io())
-                .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
-                .subscribe(subscriber))
-    }*/
+
+
+
 
     abstract fun initView()
     open fun initData(){
 
+    }
+
+    open fun hideBottomUI(view: View) {
+        var uiFlags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                or View.SYSTEM_UI_FLAG_FULLSCREEN) // hide status bar
+        uiFlags = if (Build.VERSION.SDK_INT >= 19) {
+            uiFlags or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY //View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY: hide navigation bars - compatibility: building API level is lower thatn 19, use magic number directly for higher API target level
+        } else {
+            uiFlags or View.SYSTEM_UI_FLAG_LOW_PROFILE
+        }
+        view.systemUiVisibility = uiFlags
     }
 }
