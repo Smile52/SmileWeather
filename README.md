@@ -57,4 +57,5 @@ ps:图片加载不出来可以查看CSDN[博客](https://blog.csdn.net/qq2727086
 
 #### 备注
 觉得对你有帮助的麻烦给一个小星星了。
+APK不是最新的
 [项目地址](https://github.com/Smile52/SmileWeather)
