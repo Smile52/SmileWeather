@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
+import com.smile.baselib.utils.L
 import com.smile.weather.MainActivity
 import com.smile.weather.R
 import com.smile.weather.adapter.DetailContentAdapter
@@ -36,6 +37,7 @@ import com.smile.weather.utils.DisplayUtils
 import com.smile.weather.view.HorizontalRecyclerView
 import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
+import com.smile.weather.vm.LocateViewModel
 
 class Detail2Fragment : BaseFragment() {
 
@@ -102,6 +104,11 @@ class Detail2Fragment : BaseFragment() {
 
     private val mDetailViewModel: DetailViewModel by lazy {
         ViewModelProviders.of(this)[DetailViewModel::class.java]
+
+    }
+
+    private val mLocateViewModel:LocateViewModel by lazy {
+        ViewModelProviders.of(this)[LocateViewModel::class.java]
 
     }
 
@@ -297,13 +304,21 @@ class Detail2Fragment : BaseFragment() {
 
         mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
         if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()) {
-            mDetailViewModel.getAirDataForLiveData().observe(this, Observer { data ->
+            mDetailViewModel.getLifeStyleLiveData().observe(this, Observer { data ->
                 run {
                 }
 
             })
         }
         checkIndex()
+
+        mLocateViewModel.getCityInfo(mCityName)
+        if (!mLocateViewModel.getCityInfoLiveData().hasActiveObservers()){
+            mLocateViewModel.getCityInfoLiveData().observe(this , Observer { data->
+                L.e("data $data")
+             })
+        }
+
     }
 
 

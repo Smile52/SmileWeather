@@ -73,6 +73,13 @@ class SRecyclerView :RecyclerView {
         return true
     }
 
+    /**
+     *   不让垂直滑动， 滑动事件交给外层recycleViews处理
+     */
+    override fun canScrollVertically(direction: Int): Boolean {
+        return false
+    }
+
 
 }
 

@@ -3,9 +3,7 @@ package com.smile.weather.entity
 
 
 data class City(
-    val location: List<Location>,
-    val refer: Refer,
-    val status: String
+    val location: List<Location>
 )
 
 data class Location(

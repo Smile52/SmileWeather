@@ -6,11 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.smile.baselib.entity.BaseResult
+import com.smile.weather.config.Config
 import com.smile.weather.db.AppDataBase
 import com.smile.weather.db.City
 import com.smile.weather.db.CityDao
 import com.smile.weather.db.CityWeatherDao
 import com.smile.weather.entity.*
+import com.smile.weather.intent.ApiManager
 import com.smile.weather.repository.LocateRepository
 
 class LocateViewModel :ViewModel(){
@@ -27,12 +30,16 @@ class LocateViewModel :ViewModel(){
     private val mRepository by lazy {
         LocateRepository()
     }
-    
+
+
 
     private lateinit var mSearchLiveData: MutableLiveData<CityEntity>
 
     private lateinit var mDaoLiveData:LiveData<List<City>>
     private lateinit var mLocateLiveData:LiveData<List<LocateEntity>>
+
+    private lateinit var mCityInfoLiveData:LiveData<BaseResult<List<Location>>>
+
 
 
     fun searchCity(map: Map<String, String>){
@@ -58,6 +65,8 @@ class LocateViewModel :ViewModel(){
     }
 
 
+
+
     /**
      * 获取city列表并且转换成我们需要的List<LocateEntity>
      */
@@ -69,6 +78,19 @@ class LocateViewModel :ViewModel(){
         }
 
         return mLocateLiveData
+    }
+
+    fun getCityInfo(name:String):LiveData<BaseResult<List<Location>>>{
+        mCityInfoLiveData =ApiManager.getCityInfo(getCityInfoParams(name))
+        return  mCityInfoLiveData
+    }
+
+    fun getCityInfoLiveData():LiveData<BaseResult<List<Location>>>{
+        return mCityInfoLiveData
+    }
+
+    private fun getCityInfoParams(name: String):Map<String, String>{
+        return  mutableMapOf("location" to name,"key" to Config.API_KEY)
     }
 
     private fun transform(list: List<City>):List<LocateEntity>{

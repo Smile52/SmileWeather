@@ -1,7 +1,10 @@
 package com.smile.weather.intent
 
+import androidx.lifecycle.LiveData
+import com.smile.baselib.entity.BaseResult
 import com.smile.weather.entity.City
 import com.smile.weather.entity.CityEntity
+import com.smile.weather.entity.Location
 import com.smile.weather.entity.WeatherEntity
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -24,7 +27,7 @@ interface  ApiService{
      * 获取城市信息
      */
     @GET("v2/city/lookup")
-    fun getCityInfo(@QueryMap map: Map<String, String>): Flowable<City>
+    fun getCityInfo(@QueryMap map: Map<String, String>): LiveData<BaseResult<List<Location>>>
 
 
     @GET("weather/hourly")

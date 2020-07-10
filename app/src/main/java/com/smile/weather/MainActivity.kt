@@ -192,7 +192,6 @@ class MainActivity : BaseActivity() {
 
     inner class MainHandler{
         fun locationClick(view: View){
-            L.e("点击了")
             startActivity(Intent(this@MainActivity, LocationManageActivity::class.java))
         }
 
