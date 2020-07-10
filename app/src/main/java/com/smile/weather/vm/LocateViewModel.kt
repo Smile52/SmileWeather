@@ -48,6 +48,16 @@ class LocateViewModel :ViewModel(){
         return mDao.getAll()
     }
 
+
+    fun insertCity(city: City){
+        mDao.insertCity(city)
+    }
+
+    fun updateCity(city: City){
+        mDao.updateCity(city)
+    }
+
+
     /**
      * 获取city列表并且转换成我们需要的List<LocateEntity>
      */

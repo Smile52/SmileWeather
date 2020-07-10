@@ -1,8 +1,10 @@
 package com.smile.weather.location
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -32,6 +34,7 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
     private var mLastId: Int = 0
     private var mIsOpen = false
     private var mDeleteArrayPos = arrayListOf<Int>()
+    private lateinit var mDialogBuilder:AlertDialog.Builder
     private val mDao: CityDao by lazy {
         AppDataBase.instance.getCityDao()
     }
@@ -61,7 +64,7 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
         mCityListView.addItemDecoration(RecycleViewDivider(this, LinearLayoutManager.VERTICAL))
         mCityListView.adapter = mAdapter
 
-        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { _, view, position ->
             when (view.id) {
                 R.id.item_locate_delete_cb -> {
                     mAdapter.data[position].select = !mAdapter.data[position].select
@@ -133,11 +136,25 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
         }
 
         fun delete(view: View) {
+            //
+           // mIsOpen = false
+            //mBindIng.isOpen = mIsOpen
 
-            mIsOpen = false
-            mBindIng.isOpen = mIsOpen
+            mDialogBuilder=AlertDialog.Builder(this@LocationManageActivity).setTitle("提示")
+                .setMessage("是否确定删除")
+                .setPositiveButton("确定") { _, _ ->  deleteCityList()}
+                .setNegativeButton("取消") { dialog, _ -> dialog.dismiss()}
 
+            mDialogBuilder.create().show()
 
         }
     }
+
+    private fun deleteCityList(){
+        for (mDeleteArrayPo in mDeleteArrayPos) {
+            mDao.deleteCity(mCityList[mDeleteArrayPo].city)
+        }
+    }
+
+
 }

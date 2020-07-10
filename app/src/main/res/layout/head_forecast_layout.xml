@@ -6,9 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/color_air_bg"
+        android:background="@drawable/shape_detail_view_bg"
+        android:layout_marginLeft="@dimen/detail_item_view_margin"
+        android:layout_marginRight="@dimen/detail_item_view_margin"
         android:layout_marginTop="20dp">
-        <androidx.recyclerview.widget.RecyclerView
+        <com.smile.weather.view.SRecyclerView
             android:id="@+id/head_forecast_rlv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

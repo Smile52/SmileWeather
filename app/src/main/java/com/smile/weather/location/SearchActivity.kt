@@ -75,14 +75,14 @@ class SearchActivity :BaseActivity(){
 
             lastId++
             if (mCityDaoList.isEmpty()){
-                var city=City(lastId,c.parent_city, c.parent_city,1,"")
+                var city=City(lastId,c.parent_city, c.parent_city,1,"","")
                 AppDataBase.instance.getCityDao().insertCity(city)
             }else{
                 if (cityExist(c.parent_city)){
                     ToastUtil.showMessage("城市已经添加了")
                     return@setOnItemClickListener
                 }
-                var city=City(lastId,c.parent_city, c.parent_city,0,"")
+                var city=City(lastId,c.parent_city, c.parent_city,0,"","")
                 AppDataBase.instance.getCityDao().insertCity(city)
             }
 

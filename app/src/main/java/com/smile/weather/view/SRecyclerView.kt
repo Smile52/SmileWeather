@@ -22,9 +22,6 @@ class SRecyclerView :RecyclerView {
     private var mTouchOffset=30 //触摸偏移量
 
 
-
-
-
     constructor(mContext: Context) : this(mContext, null)
 
     constructor(mContext: Context, attrs: AttributeSet?) : this(mContext, attrs!!, 0)
@@ -69,6 +66,12 @@ class SRecyclerView :RecyclerView {
         return super.onTouchEvent(e)
     }
 
+    /**
+     * 一直拦截水平滑动，避免滑动到最后一个item的时候带动viewpager2滑动
+     */
+    override fun canScrollHorizontally(direction: Int): Boolean {
+        return true
+    }
 
 
 }

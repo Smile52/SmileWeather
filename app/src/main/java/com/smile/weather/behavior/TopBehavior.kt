@@ -68,7 +68,7 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
         fY += dyConsumed
 
 
-        L.e("Y $dyConsumed  height ${target.height} ")
+      //  L.e("Y $dyConsumed  height ${target.height} ")
 
         fY=if (fY<=0) 0f else fY
 

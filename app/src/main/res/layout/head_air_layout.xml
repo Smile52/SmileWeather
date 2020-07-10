@@ -20,7 +20,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_air_bg">
+        android:layout_marginLeft="@dimen/detail_item_view_margin"
+        android:layout_marginRight="@dimen/detail_item_view_margin"
+        android:background="@drawable/shape_detail_view_bg">
 
         <View
             android:id="@+id/air_line"

@@ -24,10 +24,11 @@ import com.smile.weather.adapter.DetailForecastAdapter
 import com.smile.weather.adapter.DetailHourlyAdapter
 import com.smile.weather.base.BaseFragment
 import com.smile.weather.databinding.DetailHeadContentLayoutBinding
-import com.smile.weather.databinding.FragmentDetail2Binding
 import com.smile.weather.databinding.FragmentDetail3Binding
 import com.smile.weather.databinding.FragmentDetailBinding
+import com.smile.weather.databinding.HeadAirLayoutBinding
 import com.smile.weather.db.*
+import com.smile.weather.db.City
 import com.smile.weather.entity.*
 import com.smile.weather.intent.Api
 import com.smile.weather.utils.BackGroundUtils
@@ -53,12 +54,15 @@ class Detail2Fragment : BaseFragment() {
 
     private lateinit var mTopHeadContentLayoutBinding: DetailHeadContentLayoutBinding
 
+    lateinit var mHeadAirViewBinding: HeadAirLayoutBinding
+
+
     private lateinit var mContentView: RecyclerView
     private lateinit var mAdapter: DetailContentAdapter
     private lateinit var mContentLayout: CoordinatorLayout
 
-    private lateinit var mHourlyRecyclerView: RecyclerView
-    private lateinit var mForecastRecyclerView: RecyclerView
+    private lateinit var mHourlyRecyclerView: SRecyclerView
+    private lateinit var mForecastRecyclerView: SRecyclerView
 
     private lateinit var mLeftMore: ImageView
     private lateinit var mRightMore: ImageView
@@ -83,7 +87,6 @@ class Detail2Fragment : BaseFragment() {
     private val mHourlyAdapter: DetailHourlyAdapter by lazy {
         DetailHourlyAdapter(context!!, mHourlyList)
     }
-
 
     private lateinit var mWeather6: HeWeather6
     private lateinit var mAir_Now_City: Air_Now_City
@@ -148,6 +151,16 @@ class Detail2Fragment : BaseFragment() {
         mTopHeadContentLayoutBinding= DataBindingUtil.bind<DetailHeadContentLayoutBinding>(nowTopView)!!
         mAdapter.addHeaderView(nowTopView)
 
+        mHeadAirViewBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(activity),
+            R.layout.head_air_layout,
+            mContentView,
+            false
+        )
+
+        mAdapter.addHeaderView(mHeadAirViewBinding.root)
+
+
 
 
         var hourlyView =
@@ -196,15 +209,10 @@ class Detail2Fragment : BaseFragment() {
 
         mCityId = arguments?.getInt(Detail2Fragment.KEY_ID, 0)!!
 
-
         mDetailViewModel.refreshing.observe(this, Observer<Boolean> { boolean ->
             if (boolean) {
-                if (mCity == null) {
-                   // mBinding.dlRefreshLayout.isRefreshing = true
-                } else {
-                    mIsRefreshIng = true
-                    getData()
-                }
+                mIsRefreshIng = true
+                getData()
             }
         })
     }
@@ -268,7 +276,7 @@ class Detail2Fragment : BaseFragment() {
             mDetailViewModel.getAirDataForLiveData().observe(this, Observer<WeatherEntity> { data ->
                 if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
                     mAir_Now_City = data.HeWeather6[0].airNowCity
-                   // mHeadAirViewBinding.air = mAir_Now_City
+                    mHeadAirViewBinding.air = mAir_Now_City
                 }
                 recordRefresh()
 

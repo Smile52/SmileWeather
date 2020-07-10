@@ -106,6 +106,8 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="10dp"
             bind:windIcon="@{hourly.wind_dir}"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_hourly_wind_content_tv"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

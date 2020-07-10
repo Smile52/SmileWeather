@@ -12,7 +12,9 @@ data class City(
     var name:String?,
     var town:String?,
     var isLocal:Int?,
-    var updateTime:String?
+    var updateTime:String?,
+
+    var cityId:String?
 
 
 

@@ -159,11 +159,11 @@ class MainActivity : BaseActivity() {
                 val city1=mDao.getLocalCity()
                 if (city1!=null){
                     if (p0.address.district!=city1.name){
-                        val city=City(1,p0.address.district, p0.address.city,1,"")
+                        val city=City(1,p0.address.district, p0.address.city,1,"","")
                         mDao.insertCity(city)
                     }
                 }else{
-                    val city=City(1,p0.address.district, p0.address.city,1,"")
+                    val city=City(1,p0.address.district, p0.address.city,1,"","")
                     mDao.insertCity(city)
                 }
             }

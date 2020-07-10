@@ -36,8 +36,6 @@ open class BaseHttpSubscriber<T:Any>: FlowableSubscriber<T>{
 
     }
 
-
-
     private fun onFinish(t: T){
         data.value =t
     }
