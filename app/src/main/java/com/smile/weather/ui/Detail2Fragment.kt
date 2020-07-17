@@ -34,7 +34,6 @@ import com.smile.weather.entity.*
 import com.smile.weather.intent.Api
 import com.smile.weather.utils.BackGroundUtils
 import com.smile.weather.utils.DisplayUtils
-import com.smile.weather.view.HorizontalRecyclerView
 import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
 import com.smile.weather.vm.LocateViewModel
