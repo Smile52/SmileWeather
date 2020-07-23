@@ -12,33 +12,51 @@ import com.smile.baselib.utils.ToastUtil
 /**
  * 权限申请工具类
  */
-object PermissionUtils{
-    private const val RESULT_CODE_LOCATION=1024
+object PermissionUtils {
+    private const val RESULT_CODE_LOCATION = 1024
 
+    private var locationCallback: (() -> Unit)? = null
 
-    private var locationCallback:(()->Unit)?=null
-
-    fun location(context: Context, locationCallback:()->Unit){
-        this.locationCallback=locationCallback
-        permission(context, Manifest.permission.ACCESS_COARSE_LOCATION, RESULT_CODE_LOCATION, locationCallback)
+    fun location(context: Context, locationCallback: () -> Unit) {
+        this.locationCallback = locationCallback
+        permission(
+            context,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            RESULT_CODE_LOCATION,
+            locationCallback
+        )
     }
 
-    fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         val cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
 
-        when(requestCode){
-            RESULT_CODE_LOCATION ->{
-                if (cameraAccepted){
+        when (requestCode) {
+            RESULT_CODE_LOCATION -> {
+                if (cameraAccepted) {
                     locationCallback?.let { it() }
-                }else{
+                } else {
                     ToastUtil.showMessage("请开启定位权限")
                 }
             }
         }
     }
-        private fun permission(context: Context, systemCode: String, resultCode: Int, callback: () -> Unit){
+
+    private fun permission(
+        context: Context,
+        systemCode: String,
+        resultCode: Int,
+        callback: () -> Unit
+    ) {
         //判断是否有权限
-        if (ContextCompat.checkSelfPermission(context, systemCode) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                context,
+                systemCode
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             callback()
         } else {
             //申请权限

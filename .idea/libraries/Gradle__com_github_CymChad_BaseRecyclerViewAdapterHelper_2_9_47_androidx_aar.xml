@@ -4,6 +4,7 @@
       <root url="jar://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/0362d64d8abb3e1be5893a13e4e14602/jetified-BaseRecyclerViewAdapterHelper-2.9.47-androidx/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
+      <root url="file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/0362d64d8abb3e1be5893a13e4e14602/jetified-BaseRecyclerViewAdapterHelper-2.9.47-androidx/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/0362d64d8abb3e1be5893a13e4e14602/jetified-BaseRecyclerViewAdapterHelper-2.9.47-androidx/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/0362d64d8abb3e1be5893a13e4e14602/jetified-BaseRecyclerViewAdapterHelper-2.9.47-androidx/res" />
     </CLASSES>

@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.smile.baselib.utils.L
 import com.smile.weather.utils.DisplayUtils
+import com.smile.weather.view.BetterGesturesRecyclerView
 
 class TopBehavior constructor(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<View>(context, attrs) {
@@ -68,7 +69,7 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
         fY += dyConsumed
 
 
-      //  L.e("Y $dyConsumed  height ${target.height} ")
+        L.e("Y $fY  height ${target.height} ")
 
         fY=if (fY<=0) 0f else fY
 
@@ -118,7 +119,8 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
     ) {
 
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
-        if (target is RecyclerView){
+
+        if (target is BetterGesturesRecyclerView){
         }
     }
 

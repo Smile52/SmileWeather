@@ -87,7 +87,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.smile.weather.view.BetterGesturesRecyclerView
             android:id="@+id/detail_content_view_rlv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

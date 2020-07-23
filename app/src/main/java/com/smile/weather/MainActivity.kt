@@ -27,23 +27,23 @@ import com.smile.weather.ui.Detail2Fragment
 import com.smile.weather.utils.PermissionUtils
 import com.smile.weather.vm.MainViewModel
 
-class MainActivity : BaseActivity() {
+open class MainActivity : BaseActivity() {
 
 
-    private lateinit var mViewModel:MainViewModel
+    private lateinit var mViewModel: MainViewModel
     private lateinit var mLocationClient: LocationClient
-    private lateinit var mBinding:ActivityMainBinding
-    private lateinit var mListCity:List<City>
+    private lateinit var mBinding: ActivityMainBinding
+    private lateinit var mListCity: List<City>
 
-    private var mCityNameArray= arrayOf<String?>()
-    private var mMapFragment= mutableMapOf<String, Detail2Fragment>()
-    private var mFragments= arrayListOf<BaseFragment>()
-    private var mIsAddCity=false
+    private var mCityNameArray = arrayOf<String?>()
+    private var mMapFragment = mutableMapOf<String, Detail2Fragment>()
+    private var mFragments = arrayListOf<BaseFragment>()
+    private var mIsAddCity = false
 
-    private val mAdapter:DetailFragmentAdapter by lazy {
-        DetailFragmentAdapter(this , mFragments)
+    private val mAdapter: DetailFragmentAdapter by lazy {
+        DetailFragmentAdapter(this, mFragments)
     }
-    private val mViewPager:ViewPager2 by lazy {
+    private val mViewPager: ViewPager2 by lazy {
         mBinding.mainContentPage
     }
 
@@ -51,23 +51,23 @@ class MainActivity : BaseActivity() {
         AppDataBase.instance.getCityDao()
     }
 
-    companion object{
-        const val KEY_IS_ADD="key_is_add"
+    companion object {
+        const val KEY_IS_ADD = "key_is_add"
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mBinding=DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mBinding.handler=MainHandler()
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mBinding.handler = MainHandler()
 
-        mViewModel=ViewModelProviders.of(this)[MainViewModel::class.java]
+        mViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
 
         PermissionUtils.location(this) {
             L.e("获取定位权限")
-            mLocationClient=LocationClient(this)
-            var option=LocationClientOption()
+            mLocationClient = LocationClient(this)
+            val option = LocationClientOption()
             option.isOpenGps = true // 打开gps
             option.setCoorType("bd09ll") // 设置坐标类型
             option.setIsNeedAddress(true)
@@ -76,57 +76,57 @@ class MainActivity : BaseActivity() {
             mLocationClient.locOption = option
 
             //注册LocationListener监听器
-            var locationListener=MyLocationListener()
+            val locationListener = MyLocationListener()
             mLocationClient.registerLocationListener(locationListener)
             mLocationClient.start()
         }
-        mViewPager.adapter =mAdapter
+        mViewPager.adapter = mAdapter
 
-        val list=mDao.getAll()
-        list.observe(this,Observer<List<City>>{
-                data->Log.e("dandy"," main size "+data.size)
-                mListCity=data
-                initData()
+        val list = mDao.getAll()
+        list.observe(this, Observer<List<City>> { data ->
+            Log.e("dandy", " main size " + data.size)
+            mListCity = data
+            initData()
         })
 
     }
 
     override fun initData() {
         super.initData()
-        mFragments= arrayListOf()
-        mCityNameArray=arrayOfNulls(mListCity.size)
+        mFragments = arrayListOf()
+        mCityNameArray = arrayOfNulls(mListCity.size)
 
-        for ((i, city) in mListCity.withIndex()){
-            if (mMapFragment[city.name] == null){
+        for ((i, city) in mListCity.withIndex()) {
+            if (mMapFragment[city.name] == null) {
                 val fragment = Detail2Fragment.newInstance(city.id!!)
                 mFragments.add(fragment)
             }
-            mCityNameArray[i]=city.name!!
+            mCityNameArray[i] = city.name!!
         }
         //如果没有则表示当前没有数据，所以创建一个空的fragment
-        if (mFragments.isEmpty()){
+        if (mFragments.isEmpty()) {
             mFragments.add(Detail2Fragment.newInstance(0))
         }
 
         mAdapter.setData(mFragments)
-        if (mListCity.size==1){
+        if (mListCity.size == 1) {
             mViewModel.setRefresh(mListCity[0].id!!)
 
         }
         //如果为添加城市则跳转到对应fragment
-        if (mIsAddCity){
-            mViewPager.setCurrentItem(mAdapter.itemCount-1,true)
-            mIsAddCity=false
+        if (mIsAddCity) {
+            mViewPager.setCurrentItem(mAdapter.itemCount - 1, true)
+            mIsAddCity = false
         }
-        mBinding.citySize=mListCity.size
+        mBinding.citySize = mListCity.size
 
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         //标记为添加新城市了
-        if (intent!!.getBooleanExtra(KEY_IS_ADD, false)){
-            mIsAddCity=true
+        if (intent!!.getBooleanExtra(KEY_IS_ADD, false)) {
+            mIsAddCity = true
         }
     }
 
@@ -145,25 +145,25 @@ class MainActivity : BaseActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        PermissionUtils.onRequestPermissionsResult(requestCode, permissions,grantResults)
+        PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-    inner class MyLocationListener: BDAbstractLocationListener(){
+    inner class MyLocationListener : BDAbstractLocationListener() {
         override fun onReceiveLocation(p0: BDLocation?) {
 
-            if (p0==null){
+            if (p0 == null) {
                 return
             }
-            if (p0.addrStr!=null){
+            if (p0.addrStr != null) {
                 //判断本地有没有数据，有数据就判断城市是否改变
-                val city1=mDao.getLocalCity()
-                if (city1!=null){
-                    if (p0.address.district!=city1.name){
-                        val city=City(1,p0.address.district, p0.address.city,1,"","")
+                val city1 = mDao.getLocalCity()
+                if (city1 != null) {
+                    if (p0.address.district != city1.name) {
+                        val city = City(1, p0.address.district, p0.address.city, 1, "", "")
                         mDao.insertCity(city)
                     }
-                }else{
-                    val city=City(1,p0.address.district, p0.address.city,1,"","")
+                } else {
+                    val city = City(1, p0.address.district, p0.address.city, 1, "", "")
                     mDao.insertCity(city)
                 }
             }
@@ -172,10 +172,10 @@ class MainActivity : BaseActivity() {
 
     }
 
-    open fun getDetailIndex(name:String):DetailIndex{
-        var lastIndex=mCityNameArray.lastIndex
-        var index=mCityNameArray.indexOf(name)
-        if (mCityNameArray.size==1){
+    open fun getDetailIndex(name: String): DetailIndex {
+        val lastIndex = mCityNameArray.lastIndex
+        val index = mCityNameArray.indexOf(name)
+        if (mCityNameArray.size == 1) {
             return DetailIndex.NONE
         }
         return when (index) {
@@ -190,18 +190,18 @@ class MainActivity : BaseActivity() {
 
     }
 
-    inner class MainHandler{
-        fun locationClick(view: View){
+    inner class MainHandler {
+        fun locationClick(view: View) {
             startActivity(Intent(this@MainActivity, LocationManageActivity::class.java))
         }
 
-        fun searchCity(view: View){
+        fun searchCity(view: View) {
 
-            var intent=Intent(this@MainActivity, SearchActivity::class.java)
-            if (mListCity.isEmpty()){
+            val intent = Intent(this@MainActivity, SearchActivity::class.java)
+            if (mListCity.isEmpty()) {
                 intent.putExtra(SearchActivity.KEY_LAST_ID, 0)
 
-            }else{
+            } else {
                 intent.putExtra(SearchActivity.KEY_LAST_ID, mListCity.last().id)
 
             }

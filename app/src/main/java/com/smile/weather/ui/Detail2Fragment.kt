@@ -34,6 +34,7 @@ import com.smile.weather.entity.*
 import com.smile.weather.intent.Api
 import com.smile.weather.utils.BackGroundUtils
 import com.smile.weather.utils.DisplayUtils
+import com.smile.weather.view.BetterGesturesRecyclerView
 import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
 import com.smile.weather.vm.LocateViewModel
@@ -58,7 +59,7 @@ class Detail2Fragment : BaseFragment() {
     lateinit var mHeadAirViewBinding: HeadAirLayoutBinding
 
 
-    private lateinit var mContentView: RecyclerView
+    private lateinit var mContentView: BetterGesturesRecyclerView
     private lateinit var mAdapter: DetailContentAdapter
     private lateinit var mContentLayout: CoordinatorLayout
 
@@ -106,7 +107,7 @@ class Detail2Fragment : BaseFragment() {
 
     }
 
-    private val mLocateViewModel:LocateViewModel by lazy {
+    private val mLocateViewModel: LocateViewModel by lazy {
         ViewModelProviders.of(this)[LocateViewModel::class.java]
 
     }
@@ -132,7 +133,7 @@ class Detail2Fragment : BaseFragment() {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail3, container, false)
         mBinding.viewModel = mDetailViewModel
-       // mHeadBinding=DataBindingUtil.inflate(inflater, R.layout.detail_head_content_layout, container, false);
+        // mHeadBinding=DataBindingUtil.inflate(inflater, R.layout.detail_head_content_layout, container, false);
 
 
         mRootView = mBinding.root
@@ -146,15 +147,18 @@ class Detail2Fragment : BaseFragment() {
 
         mAdapter = DetailContentAdapter()
         mContentView.layoutManager = LinearLayoutManager(activity)
-        mContentView.adapter=mAdapter
+        mContentView.adapter = mAdapter
 
-        var nowTopView=LayoutInflater.from(activity).inflate(R.layout.detail_head_content_layout, mContentView, false)
+        var nowTopView = LayoutInflater.from(activity)
+            .inflate(R.layout.detail_head_content_layout, mContentView, false)
 
-
-
-        nowTopView.layoutParams=ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtils.dp2px(
-            context!!, 200f))
-        mTopHeadContentLayoutBinding= DataBindingUtil.bind<DetailHeadContentLayoutBinding>(nowTopView)!!
+        nowTopView.layoutParams = ConstraintLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtils.dp2px(
+                context!!, 200f
+            )
+        )
+        mTopHeadContentLayoutBinding =
+            DataBindingUtil.bind<DetailHeadContentLayoutBinding>(nowTopView)!!
         mAdapter.addHeaderView(nowTopView)
 
         mHeadAirViewBinding = DataBindingUtil.inflate(
@@ -167,8 +171,6 @@ class Detail2Fragment : BaseFragment() {
         mAdapter.addHeaderView(mHeadAirViewBinding.root)
 
 
-
-
         var hourlyView =
             LayoutInflater.from(activity).inflate(R.layout.head_hourly_layout, mContentView, false)
 
@@ -176,9 +178,9 @@ class Detail2Fragment : BaseFragment() {
         //获取头部布局的左右imageView
 
 
-        mLeftMore=nowTopView.findViewById(R.id.head_now_left_more_img)
+        mLeftMore = nowTopView.findViewById(R.id.head_now_left_more_img)
 
-        mRightMore=nowTopView.findViewById(R.id.head_now_right_more_img)
+        mRightMore = nowTopView.findViewById(R.id.head_now_right_more_img)
 
         mHourlyRecyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -209,7 +211,8 @@ class Detail2Fragment : BaseFragment() {
         mAdapter.addHeaderView(title)
         mAdapter.addHeaderView(forecastView)
 
-        var airView= LayoutInflater.from(activity).inflate(R.layout.air_view_layout, mContentView, false)
+        var airView =
+            LayoutInflater.from(activity).inflate(R.layout.air_view_layout, mContentView, false)
         mAdapter.addHeaderView(airView)
 
 
@@ -227,17 +230,17 @@ class Detail2Fragment : BaseFragment() {
 
         mCityName = mCity.name!!
         //mBinding.dlCityNameTv.text = mCity.name
-        mBinding.cityName=mCity.name
-        mTopHeadContentLayoutBinding.cityName=mCity.name
+        mBinding.cityName = mCity.name
+        mTopHeadContentLayoutBinding.cityName = mCity.name
 
 
-      /*  if (mCity.isLocal == 1) {
+        /*  if (mCity.isLocal == 1) {
 
-            mBinding.detailHeadTopView.detailHeadLocateImg.visibility = View.VISIBLE
-        } else
-           mBinding.detailHeadTopView.detailHeadLocateImg.visibility = View.INVISIBLE*/
+              mBinding.detailHeadTopView.detailHeadLocateImg.visibility = View.VISIBLE
+          } else
+             mBinding.detailHeadTopView.detailHeadLocateImg.visibility = View.INVISIBLE*/
         //设置是否为本地
-        mBinding.isLocate = mCity.isLocal==1
+        mBinding.isLocate = mCity.isLocal == 1
 
         mDetailViewModel.getNowData(getParams(mCity.name!!))
         if (!mDetailViewModel.getNowDataForLiveData().hasActiveObservers()) {
@@ -245,10 +248,10 @@ class Detail2Fragment : BaseFragment() {
                 if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
                     mWeather6 = data.HeWeather6[0]
                     mBinding.weather = mWeather6
-                    mTopHeadContentLayoutBinding.weather=mWeather6
+                    mTopHeadContentLayoutBinding.weather = mWeather6
                     mNowWeatherJson = mGson.toJson(data.HeWeather6[0].now)
                     mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(data.HeWeather6[0].now.cond_code.toInt()))
-                    Log.e("dandy1","int "+data.HeWeather6[0].now.cond_code.toInt())
+                    Log.e("dandy1", "int " + data.HeWeather6[0].now.cond_code.toInt())
                     mNetInt++
                     if (mNetInt == 2) {
                         insertData()
@@ -312,10 +315,10 @@ class Detail2Fragment : BaseFragment() {
         checkIndex()
 
         mLocateViewModel.getCityInfo(mCityName)
-        if (!mLocateViewModel.getCityInfoLiveData().hasActiveObservers()){
-            mLocateViewModel.getCityInfoLiveData().observe(this , Observer { data->
+        if (!mLocateViewModel.getCityInfoLiveData().hasActiveObservers()) {
+            mLocateViewModel.getCityInfoLiveData().observe(this, Observer { data ->
                 L.e("data $data")
-             })
+            })
         }
 
     }
@@ -331,7 +334,7 @@ class Detail2Fragment : BaseFragment() {
                 mIsRefreshIng = false
                 mAllNetInt = 0
                 mNetInt = 0
-               // mBinding.dlRefreshLayout.isRefreshing = false
+                // mBinding.dlRefreshLayout.isRefreshing = false
             }
         }
     }
@@ -367,7 +370,7 @@ class Detail2Fragment : BaseFragment() {
         }
     }
 
-    fun checkIndex() {
+    private fun checkIndex() {
         if (activity is MainActivity) {
             var e = (activity as MainActivity).getDetailIndex(mCityName)
             //  e=DetailIndex.NONE
@@ -395,8 +398,6 @@ class Detail2Fragment : BaseFragment() {
     override fun onStop() {
         super.onStop()
         Log.e("dandy1", "pos $mCityName" + "onStop")
-
-
     }
 
     override fun onPause() {
@@ -408,7 +409,6 @@ class Detail2Fragment : BaseFragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
     }
-
 
 
 }
