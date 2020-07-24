@@ -2,11 +2,9 @@ package com.smile.weather.behavior
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.smile.baselib.utils.L
 import com.smile.weather.utils.DisplayUtils
 import com.smile.weather.view.BetterGesturesRecyclerView
@@ -66,10 +64,12 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
             consumed
         )
 
+
+/*
         fY += dyConsumed
 
 
-        L.e("Y $fY  height ${target.height} ")
+       // L.e("Y $fY  height ${target.height} ")
 
         fY=if (fY<=0) 0f else fY
 
@@ -79,7 +79,7 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
             child.alpha=a
         }else{
             child.alpha=1f
-        }
+        }*/
     }
 
 
@@ -120,9 +120,43 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
 
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
 
-        if (target is BetterGesturesRecyclerView){
+
+
+        fY += dy
+
+
+        fY=if (fY<=0) 0f else fY
+
+        L.e("fy $fY")
+        if (fY<=headViewHeight){
+            var  a=1+(fY-headViewHeight)/headViewHeight
+            a=if (a>1f)1f else a
+            child.alpha=a
+        }else{
+            child.alpha=1f
         }
+
+
+
+        if (target is BetterGesturesRecyclerView){
+          //  L.e("ddd")
+        }
+
     }
+
+
+
+
+    override fun onStopNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: View,
+        target: View,
+        type: Int
+    ) {
+        super.onStopNestedScroll(coordinatorLayout, child, target, type)
+
+    }
+
 
 
 }

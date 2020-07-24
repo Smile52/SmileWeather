@@ -61,6 +61,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+
+
     // room
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
@@ -77,6 +80,6 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation project(path: ':baselib')
 
-    kapt "androidx.databinding:databinding-compiler:4.0.0"
+    kapt "androidx.databinding:databinding-compiler:4.0.1"
 
 }

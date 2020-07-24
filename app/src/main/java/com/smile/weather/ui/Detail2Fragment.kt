@@ -39,6 +39,10 @@ import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
 import com.smile.weather.vm.LocateViewModel
 
+/**
+ * 天气详情fragment
+ * @author silence
+ */
 class Detail2Fragment : BaseFragment() {
 
     private var mCityName = ""
