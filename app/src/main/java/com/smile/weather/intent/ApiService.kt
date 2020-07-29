@@ -2,10 +2,7 @@ package com.smile.weather.intent
 
 import androidx.lifecycle.LiveData
 import com.smile.baselib.entity.BaseResult
-import com.smile.weather.entity.City
-import com.smile.weather.entity.CityEntity
-import com.smile.weather.entity.Location
-import com.smile.weather.entity.WeatherEntity
+import com.smile.weather.entity.*
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -23,11 +20,6 @@ interface  ApiService{
     @GET("weather/now")
     fun loadNowData(@QueryMap map: Map<String, String>):Flowable<WeatherEntity>
 
-    /**
-     * 获取城市信息
-     */
-    @GET("v2/city/lookup")
-    fun getCityInfo(@QueryMap map: Map<String, String>): LiveData<BaseResult<List<Location>>>
 
 
     @GET("weather/hourly")
@@ -42,6 +34,18 @@ interface  ApiService{
     @GET("top")
     fun topCities(@QueryMap map: Map<String, String>):Flowable<CityEntity>
 
+
+    //======新版接口
+
+    /**
+     * 获取城市信息
+     */
+    @GET("v2/city/lookup")
+    fun getCityInfo(@QueryMap map: Map<String, String>): LiveData<BaseResult<List<Location>>>
+
+
+    @GET("v7/weather/now")
+    fun getNoWData(@QueryMap map: Map<String, String>):LiveData<BaseResult<NowEntity>>
 
 
 }

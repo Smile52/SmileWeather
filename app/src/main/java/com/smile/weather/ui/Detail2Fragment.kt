@@ -60,7 +60,7 @@ class Detail2Fragment : BaseFragment() {
 
     private lateinit var mTopHeadContentLayoutBinding: DetailHeadContentLayoutBinding
 
-    lateinit var mHeadAirViewBinding: HeadAirLayoutBinding
+    private lateinit var mHeadAirViewBinding: HeadAirLayoutBinding
 
 
     private lateinit var mContentView: BetterGesturesRecyclerView
@@ -321,7 +321,14 @@ class Detail2Fragment : BaseFragment() {
         mLocateViewModel.getCityInfo(mCityName)
         if (!mLocateViewModel.getCityInfoLiveData().hasActiveObservers()) {
             mLocateViewModel.getCityInfoLiveData().observe(this, Observer { data ->
-                L.e("data $data")
+                L.e("data:  $data")
+                val location = data.location
+
+                if (location != null) {
+                    for (i in location.indices){
+                        L.e("city $i "+location[i].toString())
+                    }
+                }
             })
         }
 
@@ -391,6 +398,7 @@ class Detail2Fragment : BaseFragment() {
                     mLeftMore.visibility = View.VISIBLE
                     mRightMore.visibility = View.INVISIBLE
                 }
+
                 DetailIndex.NONE -> {
                     mLeftMore.visibility = View.INVISIBLE
                     mRightMore.visibility = View.INVISIBLE

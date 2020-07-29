@@ -33,6 +33,8 @@ class LocateViewModel :ViewModel(){
 
 
 
+
+
     private lateinit var mSearchLiveData: MutableLiveData<CityEntity>
 
     private lateinit var mDaoLiveData:LiveData<List<City>>
@@ -81,7 +83,7 @@ class LocateViewModel :ViewModel(){
     }
 
     fun getCityInfo(name:String):LiveData<BaseResult<List<Location>>>{
-        mCityInfoLiveData =ApiManager.getCityInfo(getCityInfoParams(name))
+        mCityInfoLiveData =mRepository.getCityInfo(getCityInfoParams(name))
         return  mCityInfoLiveData
     }
 

@@ -107,7 +107,9 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
         return true
     }
 
-
+    /**
+     * 父view的滑动调用
+     */
     override fun onNestedPreScroll(
         coordinatorLayout: CoordinatorLayout,
         child: View,
@@ -119,8 +121,6 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
     ) {
 
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
-
-
 
         fY += dy
 
@@ -135,13 +135,6 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
         }else{
             child.alpha=1f
         }
-
-
-
-        if (target is BetterGesturesRecyclerView){
-          //  L.e("ddd")
-        }
-
     }
 
 

@@ -2,6 +2,7 @@ package com.smile.weather
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,7 @@ import com.smile.weather.location.LocationManageActivity
 import com.smile.weather.location.SearchActivity
 import com.smile.weather.ui.Detail2Fragment
 import com.smile.weather.utils.PermissionUtils
+import com.smile.weather.vm.LocateViewModel
 import com.smile.weather.vm.MainViewModel
 
 open class MainActivity : BaseActivity() {
@@ -40,6 +42,7 @@ open class MainActivity : BaseActivity() {
     private var mFragments = arrayListOf<BaseFragment>()
     private var mIsAddCity = false
 
+
     private val mAdapter: DetailFragmentAdapter by lazy {
         DetailFragmentAdapter(this, mFragments)
     }
@@ -53,6 +56,11 @@ open class MainActivity : BaseActivity() {
 
     companion object {
         const val KEY_IS_ADD = "key_is_add"
+    }
+
+    private val mLocateViewModel: LocateViewModel by lazy {
+        ViewModelProviders.of(this)[LocateViewModel::class.java]
+
     }
 
 
@@ -157,13 +165,27 @@ open class MainActivity : BaseActivity() {
             if (p0.addrStr != null) {
                 //判断本地有没有数据，有数据就判断城市是否改变
                 val city1 = mDao.getLocalCity()
-                if (city1 != null) {
-                    if (p0.address.district != city1.name) {
-                        val city = City(1, p0.address.district, p0.address.city, 1, "", "")
-                        mDao.insertCity(city)
-                    }
-                } else {
-                    val city = City(1, p0.address.district, p0.address.city, 1, "", "")
+                if (city1==null){
+                    mLocateViewModel.getCityInfo(p0.address.district)
+                    mLocateViewModel.getCityInfoLiveData().observe(this@MainActivity , Observer { data ->
+                        run {
+                            L.e("定位后${data.location?.get(0)} ")
+
+                            val city = City(1, p0.address.district, p0.address.city, 1, ""
+                                , data.location?.get(0)!!.id)
+                            mDao.insertCity(city)
+                        }
+                    })
+
+
+                }else if (p0.address.district != city1.name) {
+                    mLocateViewModel.getCityInfo(p0.address.district)
+                    mLocateViewModel.getCityInfoLiveData().observe(this@MainActivity , Observer { data ->
+                        run {
+                        }
+                    })
+
+                    val city = City(1, p0.address.district, p0.address.city, 1, "","")
                     mDao.insertCity(city)
                 }
             }

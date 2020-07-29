@@ -13,8 +13,7 @@ data class City(
     var town:String?,
     var isLocal:Int?,
     var updateTime:String?,
-
-    var cityId:String?
+    var cityId:String
 
 
 
