@@ -28,7 +28,9 @@ import com.smile.weather.ui.Detail2Fragment
 import com.smile.weather.utils.PermissionUtils
 import com.smile.weather.vm.LocateViewModel
 import com.smile.weather.vm.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 open class MainActivity : BaseActivity() {
 
 

@@ -83,6 +83,7 @@ dependencies {
 
     kapt "androidx.databinding:databinding-compiler:4.0.1"
 
+    
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"

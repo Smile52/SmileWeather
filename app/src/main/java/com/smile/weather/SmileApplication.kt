@@ -4,7 +4,9 @@ import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.smile.baselib.utils.ToastUtil
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class SmileApplication :Application(){
 
     companion object{
