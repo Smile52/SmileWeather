@@ -12,6 +12,7 @@ import com.smile.weather.intent.ApiManager
 import com.smile.weather.ir.ILocateRepository
 
 class LocateRepository : BaseRepository<CityEntity>(),ILocateRepository{
+
     override fun searchCity(map: Map<String, String>): MutableLiveData<CityEntity> {
 
         return request(ApiManager.searchCity(map),"searchCity").send()!!.get()
@@ -24,6 +25,8 @@ class LocateRepository : BaseRepository<CityEntity>(),ILocateRepository{
     override fun getCityInfo(map: Map<String, String>): LiveData<BaseResult<List<Location>>> {
         return ApiManager.getCityInfo(map)
     }
+
+
 
 
     /* override fun getCityInfo(map: Map<String, String>): MutableLiveData<City>{

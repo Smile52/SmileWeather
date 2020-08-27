@@ -54,7 +54,7 @@ object RetrofitClient{
         return retrofit.create(ApiService::class.java)
     }
 
-    fun retrofitForGetCityInfo():ApiService{
+    fun retrofitForLiveData():ApiService{
         val builder=OkHttpClient.Builder()
         if (BuildConfig.DEBUG){
             val loggingInterceptor=HttpLoggingInterceptor()

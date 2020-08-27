@@ -92,7 +92,6 @@ open class MainActivity : BaseActivity() {
 
         val list = mDao.getAll()
         list.observe(this, Observer<List<City>> { data ->
-            Log.e("dandy", " main size " + data.size)
             mListCity = data
             initData()
         })
@@ -165,27 +164,33 @@ open class MainActivity : BaseActivity() {
             if (p0.addrStr != null) {
                 //判断本地有没有数据，有数据就判断城市是否改变
                 val city1 = mDao.getLocalCity()
-                if (city1==null){
+                if (city1 == null) {
                     mLocateViewModel.getCityInfo(p0.address.district)
-                    mLocateViewModel.getCityInfoLiveData().observe(this@MainActivity , Observer { data ->
-                        run {
-                            L.e("定位后${data.location?.get(0)} ")
+                    //获取城市信息
+                    mLocateViewModel.getCityInfoLiveData()
+                        .observe(this@MainActivity, Observer { data ->
+                            run {
+                                L.e("定位后${data.location?.get(0)} ")
 
-                            val city = City(1, p0.address.district, p0.address.city, 1, ""
-                                , data.location?.get(0)!!.id)
-                            mDao.insertCity(city)
-                        }
-                    })
+                                val city = City(
+                                    1, p0.address.district, p0.address.city, 1, ""
+                                    , data.location?.get(0)!!.id
+                                )
+                                mDao.insertCity(city)
+                            }
+                        })
 
 
-                }else if (p0.address.district != city1.name) {
+                } else if (p0.address.district != city1.name) {
                     mLocateViewModel.getCityInfo(p0.address.district)
-                    mLocateViewModel.getCityInfoLiveData().observe(this@MainActivity , Observer { data ->
-                        run {
-                        }
-                    })
+                    mLocateViewModel.getCityInfoLiveData()
+                        .observe(this@MainActivity, Observer { data ->
+                            run {
 
-                    val city = City(1, p0.address.district, p0.address.city, 1, "","")
+                            }
+                        })
+
+                    val city = City(1, p0.address.district, p0.address.city, 1, "", "")
                     mDao.insertCity(city)
                 }
             }

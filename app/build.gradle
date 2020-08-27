@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 
 android {
@@ -70,7 +72,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
-
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47-androidx'
 
     implementation 'com.android.support:multidex:1.0.3'
@@ -81,5 +82,11 @@ dependencies {
     implementation project(path: ':baselib')
 
     kapt "androidx.databinding:databinding-compiler:4.0.1"
+
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+
 
 }

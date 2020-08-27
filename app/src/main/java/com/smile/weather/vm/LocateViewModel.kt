@@ -32,9 +32,6 @@ class LocateViewModel :ViewModel(){
     }
 
 
-
-
-
     private lateinit var mSearchLiveData: MutableLiveData<CityEntity>
 
     private lateinit var mDaoLiveData:LiveData<List<City>>
@@ -90,6 +87,8 @@ class LocateViewModel :ViewModel(){
     fun getCityInfoLiveData():LiveData<BaseResult<List<Location>>>{
         return mCityInfoLiveData
     }
+
+
 
     private fun getCityInfoParams(name: String):Map<String, String>{
         return  mutableMapOf("location" to name,"key" to Config.API_KEY)

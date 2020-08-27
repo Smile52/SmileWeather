@@ -127,7 +127,6 @@ class TopBehavior constructor(context: Context, attrs: AttributeSet) :
 
         fY=if (fY<=0) 0f else fY
 
-        L.e("fy $fY")
         if (fY<=headViewHeight){
             var  a=1+(fY-headViewHeight)/headViewHeight
             a=if (a>1f)1f else a

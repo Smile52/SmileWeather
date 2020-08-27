@@ -1,6 +1,7 @@
 package com.smile.weather.intent
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.smile.baselib.entity.BaseResult
 import com.smile.weather.entity.City
 import com.smile.weather.entity.CityEntity
@@ -40,7 +41,7 @@ class ApiManager{
         }
 
         fun getCityInfo(map: Map<String, String>):LiveData<BaseResult<List<Location>>>{
-            return RetrofitClient.retrofitForGetCityInfo().getCityInfo(map)
+            return RetrofitClient.retrofitForLiveData().getCityInfo(map)
         }
 
 

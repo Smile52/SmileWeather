@@ -18,7 +18,7 @@ class LiveDataCallAdapter<T>(private val responseType: Type) : CallAdapter<T, Li
                 if (started.compareAndSet(false, true)) {//确保执行一次
                     call.enqueue(object : Callback<T> {
                         override fun onFailure(call: Call<T>, t: Throwable) {
-                            val value = BaseResult<T>("500","500", "", "",null) as T
+                            val value = BaseResult<T>("500","500", "", "",null,null) as T
                             postValue(value)
                         }
 

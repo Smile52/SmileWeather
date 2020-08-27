@@ -48,4 +48,6 @@ interface  ApiService{
     fun getNoWData(@QueryMap map: Map<String, String>):LiveData<BaseResult<NowEntity>>
 
 
+
+
 }
