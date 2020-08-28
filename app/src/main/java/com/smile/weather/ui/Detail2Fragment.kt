@@ -38,11 +38,13 @@ import com.smile.weather.view.BetterGesturesRecyclerView
 import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
 import com.smile.weather.vm.LocateViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 天气详情fragment
  * @author silence
  */
+@AndroidEntryPoint
 class Detail2Fragment : BaseFragment() {
 
     private var mCityName = ""

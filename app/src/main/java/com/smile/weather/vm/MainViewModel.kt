@@ -7,6 +7,7 @@ import com.smile.weather.entity.RefreshEntity
 import com.smile.weather.entity.WeatherEntity
 import com.smile.weather.repository.MainRepository
 
+
 class MainViewModel : ViewModel() {
     private var mainRepository: MainRepository = MainRepository()
     private lateinit var mLiveData:MutableLiveData<WeatherEntity>

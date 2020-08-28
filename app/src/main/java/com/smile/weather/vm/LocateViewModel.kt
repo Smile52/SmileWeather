@@ -1,6 +1,7 @@
 package com.smile.weather.vm
 
 import android.text.TextUtils
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -16,7 +17,8 @@ import com.smile.weather.entity.*
 import com.smile.weather.intent.ApiManager
 import com.smile.weather.repository.LocateRepository
 
-class LocateViewModel :ViewModel(){
+
+class LocateViewModel @ViewModelInject constructor() :ViewModel(){
 
 
     private val mDao: CityDao by lazy {

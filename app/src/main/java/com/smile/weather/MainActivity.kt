@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.baidu.location.BDAbstractLocationListener
@@ -29,6 +31,7 @@ import com.smile.weather.utils.PermissionUtils
 import com.smile.weather.vm.LocateViewModel
 import com.smile.weather.vm.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 open class MainActivity : BaseActivity() {
@@ -52,18 +55,14 @@ open class MainActivity : BaseActivity() {
         mBinding.mainContentPage
     }
 
-    private val mDao: CityDao by lazy {
-        AppDataBase.instance.getCityDao()
-    }
+    @Inject
+    lateinit var mDao: CityDao
 
     companion object {
         const val KEY_IS_ADD = "key_is_add"
     }
 
-    private val mLocateViewModel: LocateViewModel by lazy {
-        ViewModelProviders.of(this)[LocateViewModel::class.java]
-
-    }
+    private val mLocateViewModel: LocateViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
