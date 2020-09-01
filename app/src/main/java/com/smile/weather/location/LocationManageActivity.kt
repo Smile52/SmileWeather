@@ -22,10 +22,12 @@ import com.smile.weather.db.CityWeatherDao
 import com.smile.weather.entity.LocateEntity
 import com.smile.weather.utils.RecycleViewDivider
 import com.smile.weather.vm.LocateViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 地点管理Activity
  */
+@AndroidEntryPoint
 class LocationManageActivity : com.smile.weather.base.BaseActivity() {
 
     private lateinit var mCityListView: RecyclerView

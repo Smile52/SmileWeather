@@ -5,12 +5,13 @@ import com.smile.baselib.entity.BaseResult
 import com.smile.weather.db.City
 import com.smile.weather.db.CityDao
 import com.smile.weather.entity.Location
-import com.smile.weather.intent.ApiService
+import com.smile.weather.intent.ApiService2
 import com.smile.weather.ir.Repository
 import javax.inject.Inject
+import javax.inject.Named
 
 
-class LocationRepository @Inject constructor(private val cityDao: CityDao, private var apiService: ApiService):Repository {
+class LocationRepository @Inject constructor(private val cityDao: CityDao, @Named("city") private var  apiService: ApiService2):Repository {
 
 
     fun insertCity(city: City){
@@ -19,6 +20,10 @@ class LocationRepository @Inject constructor(private val cityDao: CityDao, priva
 
     fun getCityInfo(map: Map<String, String>):LiveData<BaseResult<List<Location>>>{
         return apiService.getCityInfo(map)
+    }
+
+    fun searchCity(map: Map<String, String>):LiveData<BaseResult<List<Location>>>{
+        return apiService.searchCity(map)
     }
 
 

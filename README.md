@@ -20,11 +20,15 @@ ps:图片加载不出来可以查看CSDN[博客](https://blog.csdn.net/qq2727086
 
 
 ## 技术点
-* retrofit+RxJava结合LiveData使用
+* ~~retrofit+RxJava结合LiveData使用~~
+* retrofit+LiveData实现网络请求
+* hilt依赖注入
 * 自定义柱状温度View
 * CoordinatorLayout自定义behavior
 * room数据库的使用以及版本更新
 * DataBindIng的基本使用
+
+
 
 
 
@@ -51,6 +55,7 @@ ps:图片加载不出来可以查看CSDN[博客](https://blog.csdn.net/qq2727086
  * 305 小雨 306 中雨 307 大雨 310-318 暴雨
  * 400 雪
  * 500 雾
+
 
 
 

@@ -39,10 +39,10 @@ class ApiManager{
         fun topCities(map: Map<String, String>):Flowable<CityEntity>{
             return RetrofitClient.retrofitForCity().topCities(map)
         }
-
+/*
         fun getCityInfo(map: Map<String, String>):LiveData<BaseResult<List<Location>>>{
             return RetrofitClient.retrofitForLiveData().getCityInfo(map)
-        }
+        }*/
 
 
     }

@@ -37,11 +37,6 @@ interface  ApiService{
 
     //======新版接口
 
-    /**
-     * 获取城市信息
-     */
-    @GET("city/lookup")
-    fun getCityInfo(@QueryMap map: Map<String, String>): LiveData<BaseResult<List<Location>>>
 
 /*
     @GET("v7/weather/now")

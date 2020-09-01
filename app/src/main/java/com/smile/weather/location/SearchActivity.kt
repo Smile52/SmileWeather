@@ -4,11 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.smile.baselib.entity.BaseResult
 import com.smile.baselib.utils.L
 import com.smile.baselib.utils.ToastUtil
 import com.smile.weather.MainActivity
@@ -21,8 +24,12 @@ import com.smile.weather.db.AppDataBase
 import com.smile.weather.db.City
 import com.smile.weather.entity.CityBasic
 import com.smile.weather.entity.CityEntity
+import com.smile.weather.entity.Location
 import com.smile.weather.vm.LocateViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class SearchActivity :BaseActivity(){
 
 
@@ -33,11 +40,8 @@ class SearchActivity :BaseActivity(){
 
     private var mCityDaoList= listOf<City>()
 
-    private val mLocateModel by lazy {
-        ViewModelProviders.of(this)[LocateViewModel::class.java]
-    }
-
-    private var mCityList= arrayListOf<CityBasic>()
+    private val mLocateViewModel: LocateViewModel by viewModels()
+    private var mCityList= arrayListOf<Location>()
 
     private lateinit var mRecyclerView:RecyclerView
 
@@ -62,7 +66,7 @@ class SearchActivity :BaseActivity(){
 
     override fun initData() {
         super.initData()
-        mLocateModel.getCityList().observe(this, Observer<List<City>>{
+        mLocateViewModel.getCityList().observe(this, Observer<List<City>>{
             data-> mCityDaoList=data
         })
     }
@@ -75,15 +79,15 @@ class SearchActivity :BaseActivity(){
 
             lastId++
             if (mCityDaoList.isEmpty()){
-                var city=City(lastId,c.parent_city, c.parent_city,1,"","")
+                var city=City(lastId,c.name, c.adm1,1,"",c.id)
 
                 AppDataBase.instance.getCityDao().insertCity(city)
             }else{
-                if (cityExist(c.parent_city)){
+                if (cityExist(c.name)){
                     ToastUtil.showMessage("城市已经添加了")
                     return@setOnItemClickListener
                 }
-                var city=City(lastId,c.parent_city, c.parent_city,0,"","")
+                var city=City(lastId,c.name, c.adm1,0,"",c.id)
                 AppDataBase.instance.getCityDao().insertCity(city)
             }
 
@@ -94,14 +98,22 @@ class SearchActivity :BaseActivity(){
     }
 
    private fun searchCity(content:String){
-        mLocateModel.searchCity(getParams(content))
-        if (!mLocateModel.getSearchLiveData().hasActiveObservers()){
+      // mLocateViewModel.searchCity(getParams(content))
+      /*  if (!mLocateModel.getSearchLiveData().hasActiveObservers()){
             mLocateModel.getSearchLiveData().observe(this, Observer<CityEntity>{
                 data->
                 mCityList= data.HeWeather6[0].basics as ArrayList<CityBasic>
                 mAdapter.setNewData(mCityList)
             })
-        }
+        }*/
+       mLocateViewModel.searchCity(content).observe(this, Observer<BaseResult<List<Location>>> { data ->
+           run {
+               mCityList = data.location as ArrayList<Location>
+               mAdapter.setNewData(mCityList)
+           }
+       })
+
+
     }
 
 

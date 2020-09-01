@@ -21,10 +21,12 @@ class LocateRepository : BaseRepository<CityEntity>(),ILocateRepository{
     override fun topCities(map: Map<String, String>): MutableLiveData<CityEntity> {
         return request(ApiManager.topCities(map),"topCities").send()!!.get()
     }
+/*
 
     override fun getCityInfo(map: Map<String, String>): LiveData<BaseResult<List<Location>>> {
         return ApiManager.getCityInfo(map)
     }
+*/
 
 
 

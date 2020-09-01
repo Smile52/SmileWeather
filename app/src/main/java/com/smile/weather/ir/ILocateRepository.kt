@@ -15,5 +15,5 @@ interface ILocateRepository {
 
    // fun getCityInfo(map: Map<String, String>):MutableLiveData<City>
 
-    fun getCityInfo(map: Map<String, String>):LiveData<BaseResult<List<Location>>>
+    //fun getCityInfo(map: Map<String, String>):LiveData<BaseResult<List<Location>>>
 }

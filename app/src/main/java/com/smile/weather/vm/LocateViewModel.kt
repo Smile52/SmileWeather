@@ -8,6 +8,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.smile.baselib.entity.BaseResult
+import com.smile.weather.base.BaseViewModel
 import com.smile.weather.config.Config
 import com.smile.weather.db.AppDataBase
 import com.smile.weather.db.City
@@ -19,12 +20,10 @@ import com.smile.weather.repository.LocateRepository
 import com.smile.weather.repository2.LocationRepository
 
 
-class LocateViewModel @ViewModelInject constructor(private val locationRepository: LocationRepository) :ViewModel(){
+class LocateViewModel @ViewModelInject constructor(private val locationRepository: LocationRepository, private val mDao: CityDao) :BaseViewModel(){
 
 
-    private val mDao: CityDao by lazy {
-        AppDataBase.instance.getCityDao()
-    }
+
 
     private val mCityWeatherDao: CityWeatherDao by lazy {
         AppDataBase.instance.getCityWeatherDao()
@@ -47,6 +46,11 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
     fun searchCity(map: Map<String, String>){
         mSearchLiveData=mRepository.searchCity(map)
     }
+
+    fun searchCity(name:String):LiveData<BaseResult<List<Location>>>{
+        return locationRepository.searchCity(getParams(name))
+    }
+
 
     fun getSearchLiveData():LiveData<CityEntity>{
         return mSearchLiveData

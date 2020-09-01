@@ -63,6 +63,17 @@ object NetModule {
             .build()
     }
 
+    @Named("cityRetrofit")
+    @Provides
+    @Singleton
+    fun providerCityRetrofit(okHttpClient: OkHttpClient):Retrofit{
+        return Retrofit.Builder()
+            .baseUrl(Api.CITY_BASE_URL2)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .client(okHttpClient)
+            .build()
+    }
 
 
 
@@ -78,6 +89,15 @@ object NetModule {
     fun providerApiService2(@Named("retrofit2") retrofit:  Retrofit):ApiService2{
         return retrofit.create(ApiService2::class.java)
     }
+
+    @Named("city")
+    @Provides
+    @Singleton
+    fun providerApiService2ByCity(@Named("cityRetrofit")retrofit: Retrofit):ApiService2{
+        return retrofit.create(ApiService2::class.java)
+    }
+
+
 
     // 初始化日志
     private fun initLogInterceptor(): Interceptor {
