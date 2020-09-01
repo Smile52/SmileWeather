@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +39,7 @@ import com.smile.weather.view.BetterGesturesRecyclerView
 import com.smile.weather.view.SRecyclerView
 import com.smile.weather.vm.DetailViewModel
 import com.smile.weather.vm.LocateViewModel
+import com.smile.weather.vm.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -117,6 +119,8 @@ class Detail2Fragment : BaseFragment() {
         ViewModelProviders.of(this)[LocateViewModel::class.java]
 
     }
+
+    private val mWeatherViewModel:WeatherViewModel by viewModels()
 
 
     companion object {
@@ -320,19 +324,18 @@ class Detail2Fragment : BaseFragment() {
         }
         checkIndex()
 
-        mLocateViewModel.getCityInfo(mCityName)
-        if (!mLocateViewModel.getCityInfoLiveData().hasActiveObservers()) {
-            mLocateViewModel.getCityInfoLiveData().observe(this, Observer { data ->
-                L.e("data:  $data")
-                val location = data.location
+        mLocateViewModel.getCityInfo(mCityName).observe(this, Observer { data ->
+            val location = data.location
 
-                if (location != null) {
-                    for (i in location.indices){
-                        L.e("city $i "+location[i].toString())
-                    }
+            if (location != null) {
+                for (i in location.indices){
                 }
-            })
-        }
+            }
+        })
+
+        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(this, Observer { data ->
+            L.e("now: $data")
+        })
 
     }
 

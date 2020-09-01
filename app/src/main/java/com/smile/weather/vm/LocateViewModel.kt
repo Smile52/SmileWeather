@@ -16,9 +16,10 @@ import com.smile.weather.db.CityWeatherDao
 import com.smile.weather.entity.*
 import com.smile.weather.intent.ApiManager
 import com.smile.weather.repository.LocateRepository
+import com.smile.weather.repository2.LocationRepository
 
 
-class LocateViewModel @ViewModelInject constructor() :ViewModel(){
+class LocateViewModel @ViewModelInject constructor(private val locationRepository: LocationRepository) :ViewModel(){
 
 
     private val mDao: CityDao by lazy {
@@ -82,8 +83,8 @@ class LocateViewModel @ViewModelInject constructor() :ViewModel(){
     }
 
     fun getCityInfo(name:String):LiveData<BaseResult<List<Location>>>{
-        mCityInfoLiveData =mRepository.getCityInfo(getCityInfoParams(name))
-        return  mCityInfoLiveData
+        //mCityInfoLiveData =mRepository.getCityInfo(getCityInfoParams(name))
+        return  locationRepository.getCityInfo(getCityInfoParams(name))
     }
 
     fun getCityInfoLiveData():LiveData<BaseResult<List<Location>>>{

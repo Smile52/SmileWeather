@@ -40,12 +40,12 @@ interface  ApiService{
     /**
      * 获取城市信息
      */
-    @GET("v2/city/lookup")
+    @GET("city/lookup")
     fun getCityInfo(@QueryMap map: Map<String, String>): LiveData<BaseResult<List<Location>>>
 
-
+/*
     @GET("v7/weather/now")
-    fun getNoWData(@QueryMap map: Map<String, String>):LiveData<BaseResult<NowEntity>>
+    fun getNoWData(@QueryMap map: Map<String, String>):LiveData<BaseResult<NowEntity>>*/
 
 
 

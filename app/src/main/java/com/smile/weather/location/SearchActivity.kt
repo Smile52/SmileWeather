@@ -76,6 +76,7 @@ class SearchActivity :BaseActivity(){
             lastId++
             if (mCityDaoList.isEmpty()){
                 var city=City(lastId,c.parent_city, c.parent_city,1,"","")
+
                 AppDataBase.instance.getCityDao().insertCity(city)
             }else{
                 if (cityExist(c.parent_city)){

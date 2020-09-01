@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.smile.weather.db.AppDataBase
 import com.smile.weather.db.CityDao
+import com.smile.weather.db.CityWeatherDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +35,9 @@ object RoomModule {
         return appDataBase.getCityDao()
     }
 
+    @Provides
+    @Singleton
+    fun providerWeatherDao(appDataBase: AppDataBase): CityWeatherDao{
+        return appDataBase.getCityWeatherDao()
+    }
 }
