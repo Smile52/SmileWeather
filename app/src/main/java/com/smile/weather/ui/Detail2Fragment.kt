@@ -110,15 +110,9 @@ class Detail2Fragment : BaseFragment() {
 
     private var mForecastList = arrayListOf<DailyForecast>()
 
-    private val mDetailViewModel: DetailViewModel by lazy {
-        ViewModelProviders.of(this)[DetailViewModel::class.java]
+    private val mDetailViewModel: DetailViewModel  by viewModels()
 
-    }
-
-    private val mLocateViewModel: LocateViewModel by lazy {
-        ViewModelProviders.of(this)[LocateViewModel::class.java]
-
-    }
+    private val mLocateViewModel: LocateViewModel by viewModels()
 
     private val mWeatherViewModel:WeatherViewModel by viewModels()
 

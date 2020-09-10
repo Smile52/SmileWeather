@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -37,7 +38,7 @@ import javax.inject.Inject
 open class MainActivity : BaseActivity() {
 
 
-    private lateinit var mViewModel: MainViewModel
+    private  val mViewModel: MainViewModel by viewModels()
     private lateinit var mLocationClient: LocationClient
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mListCity: List<City>
@@ -71,7 +72,7 @@ open class MainActivity : BaseActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.handler = MainHandler()
 
-        mViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
+       // mViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
 
         PermissionUtils.location(this) {
             L.e("获取定位权限")
