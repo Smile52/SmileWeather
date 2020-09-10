@@ -43,7 +43,6 @@ object NetModule {
     }
 
 
-
     @Provides
     @Singleton
     fun providerRetrofit(okHttpClient: OkHttpClient):Retrofit{
@@ -103,7 +102,6 @@ object NetModule {
     fun providerApiService2ByCity(@Named("cityRetrofit")retrofit: Retrofit):ApiService2{
         return retrofit.create(ApiService2::class.java)
     }
-
 
 
     // 初始化日志

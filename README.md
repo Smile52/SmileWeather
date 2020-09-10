@@ -18,6 +18,8 @@ ps:图片加载不出来可以查看CSDN[博客](https://blog.csdn.net/qq2727086
 * 数据库采用Room，此项目展示了基本的增删改差，数据库更新（添加列和新表）
 * 温度柱状条是自定义view来实现（主要是计算高度）
 
+## 项目结构描述
+* module 第三方库和网络库的提供者
 
 ## 技术点
 * ~~retrofit+RxJava结合LiveData使用~~

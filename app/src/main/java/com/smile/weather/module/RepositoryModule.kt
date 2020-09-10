@@ -10,6 +10,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object RepositoryModule {
