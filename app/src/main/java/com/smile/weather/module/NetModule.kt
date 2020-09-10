@@ -19,6 +19,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
+/**
+ * 网络相关的module 对外提供retrofit
+ * 目前项目中的API还没有迁移完，所以需要提供不同版本的retrofit
+ */
 @Module
 @InstallIn(ApplicationComponent::class)
 object NetModule {
@@ -63,6 +67,9 @@ object NetModule {
             .build()
     }
 
+    /**
+     *提供城市的retrofit
+     */
     @Named("cityRetrofit")
     @Provides
     @Singleton

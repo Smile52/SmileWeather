@@ -30,14 +30,11 @@ ps:图片加载不出来可以查看CSDN[博客](https://blog.csdn.net/qq2727086
 
 
 
-
-
 ## 后续迭代计划
 * API接口升级（和风天气升级了）
 * 添加更多生活数据
 * 网络请求采用retrofit+LiveData实现（舍弃RxJava）
 * 增加天气动效
-
 
 
 
