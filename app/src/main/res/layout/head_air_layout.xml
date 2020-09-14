@@ -5,10 +5,10 @@
     >
 
     <data>
-        <import type="com.smile.weather.entity.Air_Now_City"/>
+        <import type="com.smile.weather.entity.AirEntity"/>
         <variable
             name="air"
-            type="Air_Now_City" />
+            type="AirEntity" />
         <variable
             name="airQuality"
             type="java.lang.String" />
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/air_aqi_tv"
             app:layout_constraintTop_toBottomOf="@id/air_aqi_tv"
-            android:text="@{air.qlty}"
+            android:text="@{air.aqi}"
             android:textSize="@dimen/text_20dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/color_white" />
@@ -74,8 +74,8 @@
             app:layout_constraintLeft_toLeftOf="@id/air_aqi_tv"
             app:layout_constraintTop_toBottomOf="@id/air_content_text_tv"
             android:textColor="@color/color_white"
-            bind:airQuality="@{air.qlty}"
-            android:text="@{air.aqi}"
+            bind:airQuality="@{air.aqi}"
+            android:text="@{air.category}"
             android:gravity="center"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBaseline_toBaselineOf="@id/air_content_text_tv"
             app:layout_constraintLeft_toLeftOf="@id/air_pm2_5_tv"
-            android:text="@{air.qlty}"
+            android:text="@{air.pm2p5}"
             android:textColor="@color/color_white"
             android:textSize="@dimen/text_20dp" />
 
@@ -118,10 +118,10 @@
             android:layout_height="20dp"
             app:layout_constraintLeft_toLeftOf="@id/air_pm2_5_tv"
             app:layout_constraintTop_toBottomOf="@id/air_content_text_tv"
-            bind:airQuality="@{air.qlty}"
+            bind:airQuality="@{air.pm2p5}"
 
             android:textColor="@color/color_white"
-            android:text="@{air.pm25}"
+            android:text="@{air.category}"
             android:gravity="center"
             android:layout_marginTop="10dp"
             android:textSize="@dimen/text_16dp" />

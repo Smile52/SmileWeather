@@ -6,6 +6,7 @@ data class BaseResult<T>(
     var updateTime: String,
     var fxLink: String,
     var location: T?,
-    var now: T?
+    var now: T?,
+    var daily:T?
 )
 

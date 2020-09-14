@@ -33,6 +33,7 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
         LocateRepository()
     }
 
+    val mInputCity:MutableLiveData<String> = MutableLiveData()
 
     private lateinit var mSearchLiveData: MutableLiveData<CityEntity>
 

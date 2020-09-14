@@ -8,17 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smile.weather.R
 import com.smile.weather.databinding.ItemForecastLayoutBinding
 import com.smile.weather.databinding.ItemHourlyLayoutBinding
+import com.smile.weather.entity.DailyEntity
 import com.smile.weather.entity.DailyForecast
 import com.smile.weather.utils.DateUtils
 
-class DetailForecastAdapter(val context:Context,private var dataList:List<DailyForecast>) : RecyclerView.Adapter<DetailForecastAdapter.ForecastHolder>() {
+class DetailForecastAdapter(val context:Context,private var dataList:List<DailyEntity>) : RecyclerView.Adapter<DetailForecastAdapter.ForecastHolder>() {
 
     private var mMaxAll=0
     private var mMinAll=0
 
 
 
-    fun setData(data: List<DailyForecast>){
+    fun setData(data: List<DailyEntity>){
         dataList=data
 
         var maxArray=IntArray(dataList.size)
@@ -26,8 +27,8 @@ class DetailForecastAdapter(val context:Context,private var dataList:List<DailyF
 
 
         for ((i, forecast) in dataList.withIndex()){
-            maxArray[i]=forecast.tmp_max.toInt()
-            minArray[i]=forecast.tmp_min.toInt()
+            maxArray[i]=forecast.tempMax.toInt()
+            minArray[i]=forecast.tempMin.toInt()
 
         }
         mMaxAll= maxArray.max()!!
@@ -54,12 +55,12 @@ class DetailForecastAdapter(val context:Context,private var dataList:List<DailyF
     override fun onBindViewHolder(holder: ForecastHolder, position: Int) {
         val  entity=dataList[position]
         holder.bindIng.dailyForecast=entity
-        holder.bindIng.itemFTempView.setData(mMaxAll, mMinAll,entity.tmp_max.toInt(),entity.tmp_min.toInt() )
+        holder.bindIng.itemFTempView.setData(mMaxAll, mMinAll,entity.tempMax.toInt(),entity.tempMin.toInt() )
 
         if (position==0){
             holder.bindIng.itemFTimeTv.text="今天"
         }else{
-            holder.bindIng.itemFTimeTv.text=DateUtils.getTime(DateUtils.dateToStamp(entity.date).toString())
+            holder.bindIng.itemFTimeTv.text=DateUtils.getTime(DateUtils.dateToStamp(entity.fxDate).toString())
         }
 
     }

@@ -1,7 +1,6 @@
 package com.smile.weather.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
 import com.smile.baselib.utils.L
 import com.smile.weather.MainActivity
@@ -27,7 +26,6 @@ import com.smile.weather.adapter.DetailHourlyAdapter
 import com.smile.weather.base.BaseFragment
 import com.smile.weather.databinding.DetailHeadContentLayoutBinding
 import com.smile.weather.databinding.FragmentDetail3Binding
-import com.smile.weather.databinding.FragmentDetailBinding
 import com.smile.weather.databinding.HeadAirLayoutBinding
 import com.smile.weather.db.*
 import com.smile.weather.db.City
@@ -73,6 +71,7 @@ class Detail2Fragment : BaseFragment() {
 
     private lateinit var mHourlyRecyclerView: SRecyclerView
     private lateinit var mForecastRecyclerView: SRecyclerView
+    private lateinit var mRefreshLayout:SwipeRefreshLayout
 
     private lateinit var mLeftMore: ImageView
     private lateinit var mRightMore: ImageView
@@ -95,20 +94,19 @@ class Detail2Fragment : BaseFragment() {
     }
 
     private val mHourlyAdapter: DetailHourlyAdapter by lazy {
-        DetailHourlyAdapter(context!!, mHourlyList)
+        DetailHourlyAdapter(requireContext(), mHourlyList)
     }
 
     private lateinit var mWeather6: HeWeather6
-    private lateinit var mAir_Now_City: Air_Now_City
     private var mHourlyList = arrayListOf<Hourly>()
 
     private val mForecastAdapter: DetailForecastAdapter by lazy {
-        DetailForecastAdapter(context!!, mForecastList)
+        DetailForecastAdapter(requireContext(), mForecastList)
     }
 
     private var mRootView: View? = null
 
-    private var mForecastList = arrayListOf<DailyForecast>()
+    private var mForecastList = arrayListOf<DailyEntity>()
 
     private val mDetailViewModel: DetailViewModel  by viewModels()
 
@@ -136,8 +134,13 @@ class Detail2Fragment : BaseFragment() {
     ): View? {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail3, container, false)
-        mBinding.viewModel = mDetailViewModel
-        // mHeadBinding=DataBindingUtil.inflate(inflater, R.layout.detail_head_content_layout, container, false);
+
+        mBinding?.let {
+            //todo 很重要
+            it.viewModel=mDetailViewModel
+            it.lifecycleOwner=this
+        }
+      //  mBinding.viewModel = mDetailViewModel
 
 
         mRootView = mBinding.root
@@ -146,23 +149,53 @@ class Detail2Fragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mContentView = mBinding.detailContentViewRlv
-        mContentLayout = mBinding.detailContentLayout
-
+        initView()
         mAdapter = DetailContentAdapter()
         mContentView.layoutManager = LinearLayoutManager(activity)
         mContentView.adapter = mAdapter
 
-        var nowTopView = LayoutInflater.from(activity)
+        initDetailView()
+
+
+
+        mCityId = arguments?.getInt(Detail2Fragment.KEY_ID, 0)!!
+
+        mDetailViewModel.refreshing.observe(viewLifecycleOwner, Observer<Boolean> { boolean ->
+            L.e("下拉了 $boolean")
+            if (boolean) {
+                L.e("下拉刷新了")
+                mIsRefreshIng = true
+                getData()
+            }
+        })
+    }
+
+    /**
+     * 初始化view
+     */
+    private fun initView(){
+        mContentView = mBinding.detailContentViewRlv
+        mContentLayout = mBinding.detailContentLayout
+        mRefreshLayout=mBinding.detailRefreshLayout
+        mRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+    }
+
+    /**
+     * 初始化详情view 给recycleView添加内容
+     */
+    private fun initDetailView(){
+        //初始化当前天气布局view
+        val nowTopView = LayoutInflater.from(activity)
             .inflate(R.layout.detail_head_content_layout, mContentView, false)
 
         nowTopView.layoutParams = ConstraintLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, DisplayUtils.dp2px(
-                context!!, 200f
+                requireContext(), 200f
             )
         )
+
         mTopHeadContentLayoutBinding =
-            DataBindingUtil.bind<DetailHeadContentLayoutBinding>(nowTopView)!!
+            DataBindingUtil.bind(nowTopView)!!
         mAdapter.addHeaderView(nowTopView)
 
         mHeadAirViewBinding = DataBindingUtil.inflate(
@@ -171,11 +204,12 @@ class Detail2Fragment : BaseFragment() {
             mContentView,
             false
         )
+        mHeadAirViewBinding.let { it.lifecycleOwner=this }
 
         mAdapter.addHeaderView(mHeadAirViewBinding.root)
 
-
-        var hourlyView =
+        //初始化未来24小时view
+        val hourlyView =
             LayoutInflater.from(activity).inflate(R.layout.head_hourly_layout, mContentView, false)
 
         mHourlyRecyclerView = hourlyView.findViewById(R.id.head_hourly_rlv)
@@ -190,8 +224,8 @@ class Detail2Fragment : BaseFragment() {
             LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         mHourlyRecyclerView.adapter = mHourlyAdapter
 
-
-        var forecastView = LayoutInflater.from(activity)
+        //初始化未来几天的view
+        val forecastView = LayoutInflater.from(activity)
             .inflate(R.layout.head_forecast_layout, mContentView, false)
         mForecastRecyclerView = forecastView.findViewById(R.id.head_forecast_rlv)
 
@@ -206,28 +240,20 @@ class Detail2Fragment : BaseFragment() {
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        layoutParams.leftMargin = DisplayUtils.dp2px(context!!, 20f)
-        layoutParams.bottomMargin = DisplayUtils.dp2px(context!!, 10f)
-        layoutParams.topMargin = DisplayUtils.dp2px(context!!, 10f)
+        layoutParams.leftMargin = DisplayUtils.dp2px(requireContext(), 20f)
+        layoutParams.bottomMargin = DisplayUtils.dp2px(requireContext(), 10f)
+        layoutParams.topMargin = DisplayUtils.dp2px(requireContext(), 10f)
         title.layoutParams = layoutParams
         title.text = "每日"
-        title.setTextColor(ContextCompat.getColor(activity!!, R.color.white))
+        title.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
         mAdapter.addHeaderView(title)
         mAdapter.addHeaderView(forecastView)
 
-        var airView =
+        //
+        val airView =
             LayoutInflater.from(activity).inflate(R.layout.air_view_layout, mContentView, false)
         mAdapter.addHeaderView(airView)
 
-
-        mCityId = arguments?.getInt(Detail2Fragment.KEY_ID, 0)!!
-
-        mDetailViewModel.refreshing.observe(this, Observer<Boolean> { boolean ->
-            if (boolean) {
-                mIsRefreshIng = true
-                getData()
-            }
-        })
     }
 
     private fun initData() {
@@ -238,11 +264,6 @@ class Detail2Fragment : BaseFragment() {
         mTopHeadContentLayoutBinding.cityName = mCity.name
 
 
-        /*  if (mCity.isLocal == 1) {
-
-              mBinding.detailHeadTopView.detailHeadLocateImg.visibility = View.VISIBLE
-          } else
-             mBinding.detailHeadTopView.detailHeadLocateImg.visibility = View.INVISIBLE*/
         //设置是否为本地
         mBinding.isLocate = mCity.isLocal == 1
 
@@ -251,11 +272,9 @@ class Detail2Fragment : BaseFragment() {
             mDetailViewModel.getNowDataForLiveData().observe(this, Observer<WeatherEntity> { data ->
                 if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
                     mWeather6 = data.HeWeather6[0]
-                    mBinding.weather = mWeather6
-                    mTopHeadContentLayoutBinding.weather = mWeather6
+                   // mTopHeadContentLayoutBinding.weather = mWeather6
                     mNowWeatherJson = mGson.toJson(data.HeWeather6[0].now)
                     mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(data.HeWeather6[0].now.cond_code.toInt()))
-                    Log.e("dandy1", "int " + data.HeWeather6[0].now.cond_code.toInt())
                     mNetInt++
                     if (mNetInt == 2) {
                         insertData()
@@ -265,26 +284,7 @@ class Detail2Fragment : BaseFragment() {
             })
         }
 
-        mDetailViewModel.getForecastData(getParams(mCity.name!!))
-        if (!mDetailViewModel.getForecastForeLiveData().hasActiveObservers()) {
-            mDetailViewModel.getForecastForeLiveData()
-                .observe(this, Observer<WeatherEntity> { data ->
-                    if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
-                        mForecastList =
-                            data.HeWeather6[0].daily_forecast as ArrayList<DailyForecast>
-                        mForecastAdapter.setData(mForecastList)
-                        mOneDayJson = mGson.toJson(mForecastList[0])
-                        mNetInt++
-                        if (mNetInt == 2) {
-                            insertData()
-                        }
-                    }
-                    recordRefresh()
-
-                })
-        }
-
-        mDetailViewModel.getAirData(getParams(mCity.town!!))
+     /*   mDetailViewModel.getAirData(getParams(mCity.town!!))
         if (!mDetailViewModel.getAirDataForLiveData().hasActiveObservers()) {
             mDetailViewModel.getAirDataForLiveData().observe(this, Observer<WeatherEntity> { data ->
                 if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
@@ -292,9 +292,8 @@ class Detail2Fragment : BaseFragment() {
                     mHeadAirViewBinding.air = mAir_Now_City
                 }
                 recordRefresh()
-
             })
-        }
+        }*/
 
         mDetailViewModel.getHourlyData(getParams(mCity.name!!))
         if (!mDetailViewModel.getHourlyForLiveData().hasActiveObservers()) {
@@ -327,8 +326,36 @@ class Detail2Fragment : BaseFragment() {
             }
         })
 
-        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(this, Observer { data ->
-            L.e("now: $data")
+        //新版API
+        //当前天气
+        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(this, Observer {
+            if (it.code==Api.SUCCESS_STATUS){
+                mTopHeadContentLayoutBinding.nowData=it.now
+
+            }
+            recordRefresh()
+
+        })
+        //未来天气
+        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(this,{
+            if (it.code==Api.SUCCESS_STATUS){
+                mForecastList=it.daily as ArrayList<DailyEntity>
+                mForecastAdapter.setData(mForecastList)
+                mOneDayJson = mGson.toJson(mForecastList[0])
+                mNetInt++
+                if (mNetInt == 2) {
+                    insertData()
+                }
+                recordRefresh()
+            }
+        })
+
+        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(this,{
+            if (it.code==Api.SUCCESS_STATUS){
+                mHeadAirViewBinding.air=it.now
+            }
+            recordRefresh()
+
         })
 
     }
@@ -344,18 +371,32 @@ class Detail2Fragment : BaseFragment() {
                 mIsRefreshIng = false
                 mAllNetInt = 0
                 mNetInt = 0
-                // mBinding.dlRefreshLayout.isRefreshing = false
+
+               //  mBinding.d.isRefreshing = false
             }
+           mDetailViewModel.refreshing.value=false
+          //  mBinding.detailRefreshLayout.isRefreshing=false
+
         }
     }
 
 
     private fun getData() {
-        mDetailViewModel.getNowData(getParams(mCity.name!!))
+      /*  mDetailViewModel.getNowData(getParams(mCity.name!!))
         mDetailViewModel.getForecastData(getParams(mCity.name!!))
         mDetailViewModel.getAirData(getParams(mCity.town!!))
         mDetailViewModel.getHourlyData(getParams(mCity.name!!))
-        mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
+        mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))*/
+
+       // mWeatherViewModel.getWeatherNowInfo(mCity.cityId)
+        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(viewLifecycleOwner, Observer { data ->
+            L.e("now1: $data")
+            recordRefresh()
+
+        })
+
+
+
     }
 
 
@@ -408,12 +449,10 @@ class Detail2Fragment : BaseFragment() {
 
     override fun onStop() {
         super.onStop()
-        Log.e("dandy1", "pos $mCityName" + "onStop")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.e("dandy1", "pos $mCityName" + "onPause")
 
     }
 

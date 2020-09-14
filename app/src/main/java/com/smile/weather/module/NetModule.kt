@@ -2,10 +2,12 @@ package com.smile.weather.module
 
 import android.util.Log
 import com.smile.baselib.liveData.LiveDataCallAdapterFactory
+import com.smile.baselib.utils.L
 import com.smile.weather.BuildConfig
 import com.smile.weather.intent.Api
 import com.smile.weather.intent.ApiService
 import com.smile.weather.intent.ApiService2
+import com.smile.weather.intent.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,23 +31,21 @@ object NetModule {
 
     @Provides
     @Singleton
-    fun providerOkHttpClient():OkHttpClient{
-        val builder=OkHttpClient.Builder()
-        if (BuildConfig.DEBUG){
-            val loggingInterceptor= HttpLoggingInterceptor()
-            loggingInterceptor.level= HttpLoggingInterceptor.Level.BODY
+    fun providerOkHttpClient(): OkHttpClient {
+        val builder = OkHttpClient.Builder()
 
-            builder.addInterceptor(loggingInterceptor)
-        }
 
         builder.addInterceptor(initLogInterceptor())
-        return OkHttpClient.Builder().build()
+
+        //  builder.addInterceptor(initLogInterceptor())
+
+        return builder.build()
     }
 
 
     @Provides
     @Singleton
-    fun providerRetrofit(okHttpClient: OkHttpClient):Retrofit{
+    fun providerRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Api.CITY_BASE_URL2)
             .addConverterFactory(GsonConverterFactory.create())
@@ -57,9 +57,10 @@ object NetModule {
     @Named("retrofit2")
     @Provides
     @Singleton
-    fun providerRetrofit2(okHttpClient: OkHttpClient):Retrofit{
+    fun providerRetrofit2(okHttpClient: OkHttpClient): Retrofit {
+
         return Retrofit.Builder()
-            .baseUrl(Api.BASE_URL_1)
+            .baseUrl(Api.BASE_URL_2)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .client(okHttpClient)
@@ -72,7 +73,7 @@ object NetModule {
     @Named("cityRetrofit")
     @Provides
     @Singleton
-    fun providerCityRetrofit(okHttpClient: OkHttpClient):Retrofit{
+    fun providerCityRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Api.CITY_BASE_URL2)
             .addConverterFactory(GsonConverterFactory.create())
@@ -82,32 +83,33 @@ object NetModule {
     }
 
 
-
     @Provides
     @Singleton
-    fun providerApiService(retrofit: Retrofit):ApiService{
+    fun providerApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
 
     @Provides
     @Singleton
-    fun providerApiService2(@Named("retrofit2") retrofit:  Retrofit):ApiService2{
+    fun providerApiService2(@Named("retrofit2") retrofit: Retrofit): ApiService2 {
         return retrofit.create(ApiService2::class.java)
     }
 
     @Named("city")
     @Provides
     @Singleton
-    fun providerApiService2ByCity(@Named("cityRetrofit")retrofit: Retrofit):ApiService2{
+    fun providerApiService2ByCity(@Named("cityRetrofit") retrofit: Retrofit): ApiService2 {
         return retrofit.create(ApiService2::class.java)
     }
 
 
-    // 初始化日志
+    /**
+     * 初始化日志输出
+     */
     private fun initLogInterceptor(): Interceptor {
 
-        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {message ->  Log.i("dandy",message) })
+        val loggingInterceptor = HttpLoggingInterceptor { message -> Log.i("dandy", message) }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         return loggingInterceptor

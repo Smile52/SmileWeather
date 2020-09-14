@@ -2,11 +2,16 @@ package com.smile.weather.intent
 
 import androidx.lifecycle.LiveData
 import com.smile.baselib.entity.BaseResult
+import com.smile.weather.entity.AirEntity
+import com.smile.weather.entity.DailyEntity
 import com.smile.weather.entity.Location
 import com.smile.weather.entity.NowEntity
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 
+/**
+ * 新版和风天气API接口
+ */
 interface ApiService2 {
 
     @GET("weather/now")
@@ -26,4 +31,16 @@ interface ApiService2 {
     @GET("city/lookup")
     fun getCityInfo(@QueryMap map: Map<String, String>): LiveData<BaseResult<List<Location>>>
 
+    /**
+     * 获取未来7天天气信息
+     */
+    @GET("weather/7d")
+    fun getFutureWeatherList(@QueryMap map: Map<String, String>):LiveData<BaseResult<List<DailyEntity>>>
+
+
+    /**
+     * 获取当前空气质量实体类
+     */
+    @GET("air/now")
+    fun getAriNow(@QueryMap map: Map<String, String>):LiveData<BaseResult<AirEntity>>
 }

@@ -1,10 +1,10 @@
-package com.smile.weather.utils
+package com.smile.weather.databinding
 
 import android.widget.ImageView
-import android.widget.MultiAutoCompleteTextView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.smile.weather.R
+import com.smile.weather.utils.IconUtils
 
 
 /**

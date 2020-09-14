@@ -9,7 +9,7 @@
     <string name="tg_temp">体感温度&#160;&#160;</string>
     <string name="du">°</string>
     
-    <string name="percent">%</string>
+    <string name="percent">毫米</string>
 
     <string name="wind">风</string>
     <string name="level">级</string>

@@ -9,6 +9,9 @@
         <variable
             name="inputContent"
             type="String" />
+        <variable
+            name="viewModel"
+            type="com.smile.weather.vm.LocateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +40,7 @@
             android:background="@drawable/shape_search_input"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="@={inputContent}"
+            android:text="@={ viewModel.mInputCity }"
             android:maxLines="1"
             />
         <ImageView
@@ -57,5 +60,11 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_input_et"
             android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/search_img"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@={ viewModel.mInputCity }"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

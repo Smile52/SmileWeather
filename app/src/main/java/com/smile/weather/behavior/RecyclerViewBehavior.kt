@@ -6,9 +6,10 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.smile.weather.view.BetterGesturesRecyclerView
 
-class RecyclerViewBehavior : CoordinatorLayout.Behavior<BetterGesturesRecyclerView> {
+class RecyclerViewBehavior : CoordinatorLayout.Behavior<SwipeRefreshLayout> {
     constructor() {}
     constructor(context: Context?, attrs: AttributeSet?) : super(
         context,
@@ -18,7 +19,7 @@ class RecyclerViewBehavior : CoordinatorLayout.Behavior<BetterGesturesRecyclerVi
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
-        child: BetterGesturesRecyclerView,
+        child: SwipeRefreshLayout,
         dependency: View
     ): Boolean {
         return dependency is ConstraintLayout
@@ -26,7 +27,7 @@ class RecyclerViewBehavior : CoordinatorLayout.Behavior<BetterGesturesRecyclerVi
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
-        child: BetterGesturesRecyclerView,
+        child: SwipeRefreshLayout,
         dependency: View
     ): Boolean {
         //计算列表y坐标，最小为0

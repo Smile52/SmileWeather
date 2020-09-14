@@ -2,6 +2,7 @@ package com.smile.weather.location
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -53,6 +54,7 @@ class SearchActivity :BaseActivity(){
         super.onCreate(savedInstanceState)
         val bindIng:ActivitySearchBinding=DataBindingUtil.setContentView(this, R.layout.activity_search)
         bindIng.handler=SearchHandler()
+        bindIng.viewModel=mLocateViewModel
         mRecyclerView=bindIng.searchRlv
         initView()
         initData()
@@ -69,6 +71,10 @@ class SearchActivity :BaseActivity(){
         mLocateViewModel.getCityList().observe(this, Observer<List<City>>{
             data-> mCityDaoList=data
         })
+        mLocateViewModel.mInputCity.observe(this, Observer<String>{
+            data->L.e("输入的内容$data")
+        })
+        Handler().postDelayed({mLocateViewModel.mInputCity.value="南京"},2000)
     }
 
     private fun initListener(){

@@ -6,9 +6,13 @@
 
     <data>
         <import type="com.smile.weather.entity.HeWeather6"/>
+        <import type="com.smile.weather.entity.NowEntity"/>
         <variable
             name="weather"
             type="HeWeather6" />
+        <variable
+            name="nowData"
+            type="NowEntity" />
         <variable
             name="loadByCode"
             type="java.lang.Integer" />
@@ -24,7 +28,7 @@
         android:id="@+id/detail_head_temp_content_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text='@{weather.now.tmp+@string/du}'
+        android:text='@{nowData.temp+@string/du}'
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -63,7 +67,7 @@
         app:layout_constraintBaseline_toBaselineOf="@id/detail_head_temp_content_tv"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:text="@{weather.now.cond_txt}"
+        android:text="@{nowData.text}"
         />
     <TextView
         android:id="@+id/detail_head_wind_content_tv"
@@ -72,7 +76,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/detail_head_weather_content_tv"
         app:layout_constraintBaseline_toBaselineOf="@id/detail_head_weather_content_tv"
-        android:text="@{weather.now.wind_dir}"
+        android:text="@{nowData.windDir}"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginLeft="10dp"

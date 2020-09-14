@@ -12,4 +12,6 @@ open class BaseViewModel :ViewModel(){
         return mutableMapOf("location" to location,"key" to Config.API_KEY)
 
     }
+
+
 }

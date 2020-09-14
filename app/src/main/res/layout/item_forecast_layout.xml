@@ -4,10 +4,10 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     >
     <data>
-        <import type="com.smile.weather.entity.DailyForecast"/>
+        <import type="com.smile.weather.entity.DailyEntity"/>
         <variable
             name="dailyForecast"
-            type="DailyForecast" />
+            type="DailyEntity" />
         <variable
             name="loadByCode"
             type="java.lang.Integer" />
@@ -35,7 +35,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/s_unknown"
-            bind:loadByCode="@{dailyForecast.cond_code_d}"
+            bind:loadByCode="@{dailyForecast.iconDay}"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="10dp"
             app:layout_constraintTop_toBottomOf="@id/item_f_time_tv" />
@@ -48,7 +48,7 @@
             android:src="@drawable/s_unknown"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="10dp"
-            bind:loadByCode="@{dailyForecast.cond_code_n}"
+            bind:loadByCode="@{dailyForecast.iconNight}"
 
             app:layout_constraintTop_toBottomOf="@id/item_f_icon_day_img" />
 
@@ -77,7 +77,7 @@
             android:id="@+id/item_f_rain_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{dailyForecast.pop+@string/percent}'
+            android:text='@{dailyForecast.precip+@string/percent}'
             android:layout_marginLeft="2dp"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@id/item_f_rain_img"
