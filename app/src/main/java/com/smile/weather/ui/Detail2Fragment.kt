@@ -98,7 +98,7 @@ class Detail2Fragment : BaseFragment() {
     }
 
     private lateinit var mWeather6: HeWeather6
-    private var mHourlyList = arrayListOf<Hourly>()
+    private var mHourlyList = arrayListOf<HourlyEntity>()
 
     private val mForecastAdapter: DetailForecastAdapter by lazy {
         DetailForecastAdapter(requireContext(), mForecastList)
@@ -267,45 +267,7 @@ class Detail2Fragment : BaseFragment() {
         //设置是否为本地
         mBinding.isLocate = mCity.isLocal == 1
 
-        mDetailViewModel.getNowData(getParams(mCity.name!!))
-        if (!mDetailViewModel.getNowDataForLiveData().hasActiveObservers()) {
-            mDetailViewModel.getNowDataForLiveData().observe(this, Observer<WeatherEntity> { data ->
-                if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
-                    mWeather6 = data.HeWeather6[0]
-                   // mTopHeadContentLayoutBinding.weather = mWeather6
-                    mNowWeatherJson = mGson.toJson(data.HeWeather6[0].now)
-                    mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(data.HeWeather6[0].now.cond_code.toInt()))
-                    mNetInt++
-                    if (mNetInt == 2) {
-                        insertData()
-                    }
-                }
-                recordRefresh()
-            })
-        }
 
-     /*   mDetailViewModel.getAirData(getParams(mCity.town!!))
-        if (!mDetailViewModel.getAirDataForLiveData().hasActiveObservers()) {
-            mDetailViewModel.getAirDataForLiveData().observe(this, Observer<WeatherEntity> { data ->
-                if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
-                    mAir_Now_City = data.HeWeather6[0].airNowCity
-                    mHeadAirViewBinding.air = mAir_Now_City
-                }
-                recordRefresh()
-            })
-        }*/
-
-        mDetailViewModel.getHourlyData(getParams(mCity.name!!))
-        if (!mDetailViewModel.getHourlyForLiveData().hasActiveObservers()) {
-            mDetailViewModel.getHourlyForLiveData().observe(this, Observer<WeatherEntity> { data ->
-                if (data.HeWeather6[0].status == Api.RESPONSE_STATUS) {
-                    mHourlyList = data.HeWeather6[0].hourlyList as ArrayList<Hourly>
-                    mHourlyAdapter.setData(mHourlyList)
-                }
-                recordRefresh()
-
-            })
-        }
 
         mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
         if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()) {
@@ -325,13 +287,45 @@ class Detail2Fragment : BaseFragment() {
                 }
             }
         })
+        getData()
+
+
+    }
+
+    /**
+     *记录刷新
+     */
+    private fun recordRefresh() {
+        if (mIsRefreshIng) {
+            mAllNetInt++
+            if (mAllNetInt >= 4) {
+                mIsRefreshIng = false
+                mAllNetInt = 0
+                mNetInt = 0
+                mDetailViewModel.refreshing.value=false
+
+                //  mBinding.d.isRefreshing = false
+            }
+          //  mBinding.detailRefreshLayout.isRefreshing=false
+
+        }
+    }
+
+
+    private fun getData() {
 
         //新版API
         //当前天气
         mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(this, Observer {
             if (it.code==Api.SUCCESS_STATUS){
                 mTopHeadContentLayoutBinding.nowData=it.now
+                mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(it.now!!.icon.toInt()))
+                mNetInt++
+                mNowWeatherJson = mGson.toJson(it.now)
 
+                if (mNetInt == 2) {
+                    insertData()
+                }
             }
             recordRefresh()
 
@@ -349,7 +343,7 @@ class Detail2Fragment : BaseFragment() {
                 recordRefresh()
             }
         })
-
+        //当前空气状况
         mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(this,{
             if (it.code==Api.SUCCESS_STATUS){
                 mHeadAirViewBinding.air=it.now
@@ -357,45 +351,15 @@ class Detail2Fragment : BaseFragment() {
             recordRefresh()
 
         })
+        //未来24小时预报
+        mWeatherViewModel.getHourlyList(mCity.cityId).observe(this,{
+            if (it.code==Api.SUCCESS_STATUS){
+                mHourlyList=it.hourly as ArrayList<HourlyEntity>
+                mHourlyAdapter.setData(mHourlyList)
 
-    }
-
-
-    /**
-     *记录刷新
-     */
-    private fun recordRefresh() {
-        if (mIsRefreshIng) {
-            mAllNetInt++
-            if (mAllNetInt >= 4) {
-                mIsRefreshIng = false
-                mAllNetInt = 0
-                mNetInt = 0
-
-               //  mBinding.d.isRefreshing = false
             }
-           mDetailViewModel.refreshing.value=false
-          //  mBinding.detailRefreshLayout.isRefreshing=false
-
-        }
-    }
-
-
-    private fun getData() {
-      /*  mDetailViewModel.getNowData(getParams(mCity.name!!))
-        mDetailViewModel.getForecastData(getParams(mCity.name!!))
-        mDetailViewModel.getAirData(getParams(mCity.town!!))
-        mDetailViewModel.getHourlyData(getParams(mCity.name!!))
-        mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))*/
-
-       // mWeatherViewModel.getWeatherNowInfo(mCity.cityId)
-        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(viewLifecycleOwner, Observer { data ->
-            L.e("now1: $data")
             recordRefresh()
-
         })
-
-
 
     }
 

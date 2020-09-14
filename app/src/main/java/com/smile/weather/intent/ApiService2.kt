@@ -2,10 +2,7 @@ package com.smile.weather.intent
 
 import androidx.lifecycle.LiveData
 import com.smile.baselib.entity.BaseResult
-import com.smile.weather.entity.AirEntity
-import com.smile.weather.entity.DailyEntity
-import com.smile.weather.entity.Location
-import com.smile.weather.entity.NowEntity
+import com.smile.weather.entity.*
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 
@@ -43,4 +40,10 @@ interface ApiService2 {
      */
     @GET("air/now")
     fun getAriNow(@QueryMap map: Map<String, String>):LiveData<BaseResult<AirEntity>>
+
+    /**
+     * 获取未来24小时天气信息
+     */
+    @GET("weather/24h?")
+    fun getHourlyList(@QueryMap map: Map<String, String>):LiveData<BaseResult<List<HourlyEntity>>>
 }

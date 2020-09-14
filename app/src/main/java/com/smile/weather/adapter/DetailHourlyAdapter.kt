@@ -11,8 +11,9 @@ import com.smile.baselib.utils.L
 import com.smile.weather.R
 import com.smile.weather.databinding.ItemHourlyLayoutBinding
 import com.smile.weather.entity.Hourly
+import com.smile.weather.entity.HourlyEntity
 
-class DetailHourlyAdapter(var context:Context,var dataList:List<Hourly>): RecyclerView.Adapter<DetailHourlyAdapter.HourlyHolder>() {
+class DetailHourlyAdapter(var context:Context,var dataList:List<HourlyEntity>): RecyclerView.Adapter<DetailHourlyAdapter.HourlyHolder>() {
 
 
     lateinit var mTempArray:IntArray
@@ -21,11 +22,11 @@ class DetailHourlyAdapter(var context:Context,var dataList:List<Hourly>): Recycl
 
 
 
-    fun setData(dataList: List<Hourly>){
+    fun setData(dataList: List<HourlyEntity>){
         this.dataList=dataList
           mTempArray= IntArray(dataList.size)
         for ((i ,hourly) in dataList.withIndex()){
-            mTempArray[i]=hourly.tmp.toInt()
+            mTempArray[i]=hourly.temp.toInt()
         }
         mMaxTemp= mTempArray.max()!!
         mMinTemp=mTempArray.min()!!
@@ -46,9 +47,9 @@ class DetailHourlyAdapter(var context:Context,var dataList:List<Hourly>): Recycl
     }
 
     override fun onBindViewHolder(holder: HourlyHolder, position: Int) {
-        holder.bindIng.itemHourlyTimeTv.text=getTime(dataList[position].time)
+        holder.bindIng.itemHourlyTimeTv.text=getTime(dataList[position].fxTime)
         holder.bindIng.hourly=dataList[position]
-        holder.bindIng.itemHourlyTempView.setData(mMaxTemp,mMinTemp,dataList[position].tmp.toInt(), mMinTemp,false)
+        holder.bindIng.itemHourlyTempView.setData(mMaxTemp,mMinTemp,dataList[position].temp.toInt(), mMinTemp,false)
 
         if (position==0){
             holder.bindIng.itemHourlyWindTv.visibility=View.VISIBLE
@@ -67,7 +68,7 @@ class DetailHourlyAdapter(var context:Context,var dataList:List<Hourly>): Recycl
         var index=time.indexOf(":")
 
 
-        return time.substring(index-2,time.length)
+        return time.substring(index-2,index+3)
     }
 
 }

@@ -5,6 +5,7 @@ import com.smile.baselib.entity.BaseResult
 import com.smile.weather.db.CityWeatherDao
 import com.smile.weather.entity.AirEntity
 import com.smile.weather.entity.DailyEntity
+import com.smile.weather.entity.HourlyEntity
 import com.smile.weather.entity.NowEntity
 import com.smile.weather.intent.ApiService
 import com.smile.weather.intent.ApiService2
@@ -28,5 +29,8 @@ class WeatherRepository @Inject constructor(private val weatherDao: CityWeatherD
         return apiService.getAriNow(map)
     }
 
+    fun getHourlyList(map: Map<String, String>):LiveData<BaseResult<List<HourlyEntity>>>{
+        return apiService.getHourlyList(map)
+    }
 
 }

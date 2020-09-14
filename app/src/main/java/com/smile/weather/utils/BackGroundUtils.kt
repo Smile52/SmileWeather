@@ -11,7 +11,6 @@ object BackGroundUtils{
 
     fun getBackGroundByCode(code:Int):Int{
 
-        Log.e("dandy1","code $code")
 
         if (code==100){
             return R.drawable.sun1

@@ -7,6 +7,7 @@ import com.smile.baselib.entity.BaseResult
 import com.smile.weather.base.BaseViewModel
 import com.smile.weather.entity.AirEntity
 import com.smile.weather.entity.DailyEntity
+import com.smile.weather.entity.HourlyEntity
 import com.smile.weather.entity.NowEntity
 import com.smile.weather.repository2.WeatherRepository
 import javax.inject.Inject
@@ -27,6 +28,11 @@ class WeatherViewModel @ViewModelInject constructor(private val weatherRepositor
 
     fun getAirNowInfo(id:String):LiveData<BaseResult<AirEntity>>{
         return weatherRepository.getAirNowInfo(getParams(id))
+    }
+
+
+    fun getHourlyList(id: String):LiveData<BaseResult<List<HourlyEntity>>>{
+        return weatherRepository.getHourlyList(getParams(id))
     }
 
 
