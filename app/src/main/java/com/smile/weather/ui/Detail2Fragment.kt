@@ -161,7 +161,6 @@ class Detail2Fragment : BaseFragment() {
         mCityId = arguments?.getInt(Detail2Fragment.KEY_ID, 0)!!
 
         mDetailViewModel.refreshing.observe(viewLifecycleOwner, Observer<Boolean> { boolean ->
-            L.e("下拉了 $boolean")
             if (boolean) {
                 L.e("下拉刷新了")
                 mIsRefreshIng = true
@@ -269,14 +268,7 @@ class Detail2Fragment : BaseFragment() {
 
         mTopHeadContentLayoutBinding.isLocate=mCity.isLocal == 1
 
-        mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
-        if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()) {
-            mDetailViewModel.getLifeStyleLiveData().observe(this, Observer { data ->
-                run {
-                }
 
-            })
-        }
         checkIndex()
 
         mLocateViewModel.getCityInfo(mCityName).observe(this, Observer { data ->

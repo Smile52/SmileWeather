@@ -3,11 +3,8 @@ package com.smile.weather.module
 import android.util.Log
 import com.smile.baselib.liveData.LiveDataCallAdapterFactory
 import com.smile.baselib.utils.L
-import com.smile.weather.BuildConfig
 import com.smile.weather.intent.Api
-import com.smile.weather.intent.ApiService
 import com.smile.weather.intent.ApiService2
-import com.smile.weather.intent.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +13,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -83,12 +79,12 @@ object NetModule {
     }
 
 
-    @Provides
+  /*  @Provides
     @Singleton
     fun providerApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
-
+*/
 
     @Provides
     @Singleton
@@ -109,7 +105,7 @@ object NetModule {
      */
     private fun initLogInterceptor(): Interceptor {
 
-        val loggingInterceptor = HttpLoggingInterceptor { message -> Log.i("dandy", message) }
+        val loggingInterceptor = HttpLoggingInterceptor { message -> L.i( message) }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         return loggingInterceptor

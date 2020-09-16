@@ -2,15 +2,13 @@ package com.smile.weather.vm
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.smile.baselib.entity.BaseResult
 import com.smile.weather.base.BaseViewModel
 import com.smile.weather.entity.AirEntity
 import com.smile.weather.entity.DailyEntity
 import com.smile.weather.entity.HourlyEntity
 import com.smile.weather.entity.NowEntity
-import com.smile.weather.repository2.WeatherRepository
-import javax.inject.Inject
+import com.smile.weather.repository.WeatherRepository
 
 class WeatherViewModel @ViewModelInject constructor(private val weatherRepository: WeatherRepository) :BaseViewModel(){
 

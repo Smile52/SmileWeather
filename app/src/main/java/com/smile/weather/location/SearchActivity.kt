@@ -41,10 +41,6 @@ class SearchActivity :BaseActivity(){
         const val KEY_LAST_ID="last_id"
     }
 
-
-    @Inject
-    lateinit var mDao: CityDao
-
     private var mCityDaoList= listOf<City>()
 
     private val mLocateViewModel: LocateViewModel by viewModels()
@@ -81,9 +77,7 @@ class SearchActivity :BaseActivity(){
         mLocateViewModel.getCityList().observe(this, Observer<List<City>>{
             data-> mCityDaoList=data
         })
-        mLocateViewModel.mInputCity.observe(this, Observer<String>{
 
-        })
     }
 
     private fun initListener(){
@@ -96,14 +90,14 @@ class SearchActivity :BaseActivity(){
             if (mCityDaoList.isEmpty()){
                 val city=City(lastId,c.name, c.adm1,1,"",c.id)
 
-                mDao.insertCity(city)
+                mLocateViewModel.insertCity(city)
             }else{
                 if (cityExist(c.name)){
                     ToastUtil.showMessage("城市已经添加了")
                     return@setOnItemClickListener
                 }
                 val city=City(lastId,c.name, c.adm1,0,"",c.id)
-                mDao.insertCity(city)
+                mLocateViewModel.insertCity(city)
             }
 
             val  intent=Intent(this, MainActivity::class.java)
@@ -137,6 +131,7 @@ class SearchActivity :BaseActivity(){
 
 
     inner class SearchHandler{
+        //搜索点击事件  获取的值是liveData里面的值
         fun  search(view:View,content:String){
             searchCity(content)
         }

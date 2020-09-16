@@ -5,7 +5,6 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.smile.baselib.entity.BaseResult
 import com.smile.weather.base.BaseViewModel
@@ -15,9 +14,7 @@ import com.smile.weather.db.City
 import com.smile.weather.db.CityDao
 import com.smile.weather.db.CityWeatherDao
 import com.smile.weather.entity.*
-import com.smile.weather.intent.ApiManager
-import com.smile.weather.repository.LocateRepository
-import com.smile.weather.repository2.LocationRepository
+import com.smile.weather.repository.LocationRepository
 
 
 class LocateViewModel @ViewModelInject constructor(private val locationRepository: LocationRepository, private val mDao: CityDao) :BaseViewModel(){
@@ -26,33 +23,23 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
         AppDataBase.instance.getCityWeatherDao()
     }
 
-    private val mRepository by lazy {
-        LocateRepository()
-    }
 
     val mInputCity:MutableLiveData<String> = MutableLiveData()
 
     private lateinit var mSearchLiveData: MutableLiveData<CityEntity>
 
-    private lateinit var mDaoLiveData:LiveData<List<City>>
     private lateinit var mLocateLiveData:LiveData<List<LocateEntity>>
 
     private lateinit var mCityInfoLiveData:LiveData<BaseResult<List<Location>>>
 
 
 
-    fun searchCity(map: Map<String, String>){
-        mSearchLiveData=mRepository.searchCity(map)
-    }
+
 
     fun searchCity(name:String):LiveData<BaseResult<List<Location>>>{
         return locationRepository.searchCity(getParams(name))
     }
 
-
-    fun getSearchLiveData():LiveData<CityEntity>{
-        return mSearchLiveData
-    }
 
 
     fun getCityList():LiveData<List<City>>{
@@ -61,11 +48,11 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
 
 
     fun insertCity(city: City){
-        mDao.insertCity(city)
+       mDao.insertCity(city)
     }
 
-    fun updateCity(city: City){
-        mDao.updateCity(city)
+    fun deleteCity(city: City){
+        mDao.deleteCity(city)
     }
 
 

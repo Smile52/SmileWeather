@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -39,16 +40,12 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
     private var mDeleteArrayPos = arrayListOf<Int>()
     private lateinit var mDialogBuilder:AlertDialog.Builder
 
-    @Inject
-    lateinit var mDao: CityDao
 
     private val mAdapter: LocateManageAdapter by lazy {
         LocateManageAdapter(mCityList)
     }
 
-    private val mLocateViewModel: LocateViewModel by lazy {
-        ViewModelProviders.of(this)[LocateViewModel::class.java]
-    }
+    private val mLocateViewModel: LocateViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,7 +152,7 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
 
     private fun deleteCityList(){
         for (mDeleteArrayPo in mDeleteArrayPos) {
-            mDao.deleteCity(mCityList[mDeleteArrayPo].city)
+            mLocateViewModel.deleteCity(mCityList[mDeleteArrayPo].city)
 
         }
     }

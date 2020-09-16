@@ -1,4 +1,4 @@
-package com.smile.weather.repository2
+package com.smile.weather.repository
 
 import androidx.lifecycle.LiveData
 import com.smile.baselib.entity.BaseResult

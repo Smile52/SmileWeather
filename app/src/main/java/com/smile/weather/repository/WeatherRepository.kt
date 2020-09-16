@@ -1,4 +1,4 @@
-package com.smile.weather.repository2
+package com.smile.weather.repository
 
 import androidx.lifecycle.LiveData
 import com.smile.baselib.entity.BaseResult
@@ -7,7 +7,6 @@ import com.smile.weather.entity.AirEntity
 import com.smile.weather.entity.DailyEntity
 import com.smile.weather.entity.HourlyEntity
 import com.smile.weather.entity.NowEntity
-import com.smile.weather.intent.ApiService
 import com.smile.weather.intent.ApiService2
 import com.smile.weather.ir.Repository
 import javax.inject.Inject
