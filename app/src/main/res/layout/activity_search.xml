@@ -50,7 +50,7 @@
             android:src="@drawable/icon_search"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="20dp"
-            android:onClick="@{(view)->handler.search(view,inputContent)}"
+            android:onClick="@{(view)->handler.search(view,viewModel.mInputCity)}"
             app:layout_constraintTop_toTopOf="@id/search_return_img"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_rlv"
@@ -60,11 +60,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_input_et"
             android:layout_marginTop="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/search_img"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@={ viewModel.mInputCity }"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

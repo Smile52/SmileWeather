@@ -22,9 +22,6 @@ import com.smile.weather.repository2.LocationRepository
 
 class LocateViewModel @ViewModelInject constructor(private val locationRepository: LocationRepository, private val mDao: CityDao) :BaseViewModel(){
 
-
-
-
     private val mCityWeatherDao: CityWeatherDao by lazy {
         AppDataBase.instance.getCityWeatherDao()
     }
@@ -105,17 +102,16 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
     private fun transform(list: List<City>):List<LocateEntity>{
         var locateList= ArrayList<LocateEntity>()
         for (city in list){
-            var now:Now?=null
-            var oneDay:DailyForecast?=null
+            var now:NowEntity?=null
+            var oneDay:DailyEntity?=null
             val weather=mCityWeatherDao.getWeatherById(city.id!!)
 
             if (weather.nowWeather!=null&&!TextUtils.isEmpty(weather.nowWeather)){
-               now =Gson().fromJson(weather.nowWeather, Now::class.javaObjectType)
+               now =Gson().fromJson(weather.nowWeather, NowEntity::class.javaObjectType)
 
             }
             if (weather.oneDay!=null&&!TextUtils.isEmpty(weather.oneDay)){
-                oneDay=Gson().fromJson(weather.oneDay, DailyForecast::class.javaObjectType)
-
+                oneDay=Gson().fromJson(weather.oneDay, DailyEntity::class.javaObjectType)
             }
 
             locateList.add(
@@ -130,10 +126,6 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
         return locateList
 
     }
-
-
-
-
 
 
 }

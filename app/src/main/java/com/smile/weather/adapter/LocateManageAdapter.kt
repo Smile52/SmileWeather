@@ -37,23 +37,20 @@ class LocateManageAdapter( data:ArrayList<LocateEntity>):BaseQuickAdapter<Locate
                 helper.setGone(R.id.item_locate_delete_cb, false)
             }
             if(item.now!=null){
-                helper.setText(R.id.item_locate_temp_tv, item.now?.tmp+" °")
-                helper.setImageResource(R.id.item_locate_icon_img, IconUtils.getSmallIcon(item.now?.cond_code!!.toInt()))
+                helper.setText(R.id.item_locate_temp_tv, item.now?.temp+" °")
+                helper.setImageResource(R.id.item_locate_icon_img, IconUtils.getSmallIcon(item.now?.icon!!.toInt()))
             }
             if (item.oneDay!=null){
                 var builder=StringBuilder()
-                builder.append(item.oneDay?.tmp_max)
+                builder.append(item.oneDay?.tempMax)
                 builder.append("° ")
                 builder.append("/")
-                builder.append(item.oneDay?.tmp_min)
+                builder.append(item.oneDay?.tempMin)
                 builder.append("°")
                 helper.setText(R.id.item_locate_temp_a_tv, builder.toString())
             }
 
         helper.setText(R.id.item_locate_time_tv, DateUtils.getCurrentTime())
-
-
-
     }
 
 

@@ -43,7 +43,7 @@ open class MainActivity : BaseActivity() {
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mListCity: List<City>
 
-    private var mCityNameArray = arrayOf<String?>()
+    private var mCityNameArray = arrayListOf<String?>()
     private var mMapFragment = mutableMapOf<String, Detail2Fragment>()
     private var mFragments = arrayListOf<BaseFragment>()
     private var mIsAddCity = false
@@ -90,11 +90,14 @@ open class MainActivity : BaseActivity() {
             mLocationClient.registerLocationListener(locationListener)
             mLocationClient.start()
         }
+        mViewPager.offscreenPageLimit=4
         mViewPager.adapter = mAdapter
 
         val list = mDao.getAll()
-        list.observe(this, Observer<List<City>> { data ->
+        list.observe(this, { data ->
             mListCity = data
+
+
             initData()
         })
 
@@ -102,25 +105,37 @@ open class MainActivity : BaseActivity() {
 
     override fun initData() {
         super.initData()
-        mFragments = arrayListOf()
-        mCityNameArray = arrayOfNulls(mListCity.size)
 
-        for ((i, city) in mListCity.withIndex()) {
-            if (mMapFragment[city.name] == null) {
-                val fragment = Detail2Fragment.newInstance(city.id!!)
-                mFragments.add(fragment)
+       // mFragments = arrayListOf()
+       // mCityNameArray = arrayOfNulls(mListCity.size)
+
+        if (mIsAddCity){
+            val last = mListCity.last()
+            val fragment = Detail2Fragment.newInstance(last.id!!)
+            mFragments.add(fragment)
+            mCityNameArray
+        }else{
+            mFragments = arrayListOf()
+            mCityNameArray = arrayListOf()
+            for ((i, city) in mListCity.withIndex()) {
+                if (mMapFragment[city.name] == null) {
+                    val fragment = Detail2Fragment.newInstance(city.id!!)
+                    mFragments.add(fragment)
+                }
+                // mCityNameArray[i] = city.name!!
+                mCityNameArray.add(city.name)
             }
-            mCityNameArray[i] = city.name!!
         }
+
+
         //如果没有则表示当前没有数据，所以创建一个空的fragment
         if (mFragments.isEmpty()) {
             mFragments.add(Detail2Fragment.newInstance(0))
         }
-
         mAdapter.setData(mFragments)
+
         if (mListCity.size == 1) {
             mViewModel.setRefresh(mListCity[0].id!!)
-
         }
         //如果为添加城市则跳转到对应fragment
         if (mIsAddCity) {
@@ -179,19 +194,6 @@ open class MainActivity : BaseActivity() {
                                 mDao.insertCity(city)
                             }
                         })
-                    //获取城市信息
-                /*    mLocateViewModel.getCityInfoLiveData()
-                        .observe(this@MainActivity, Observer { data ->
-                            run {
-                                L.e("定位后${data.location?.get(0)} ")
-
-                                val city = City(
-                                    1, p0.address.district, p0.address.city, 1, ""
-                                    , data.location?.get(0)!!.id
-                                )
-                                mDao.insertCity(city)
-                            }
-                        })*/
 
 
                 } else if (p0.address.district != city1.name) {
@@ -201,13 +203,7 @@ open class MainActivity : BaseActivity() {
 
                             }
                         })
-                  /*  mLocateViewModel.getCityInfoLiveData()
-                        .observe(this@MainActivity, Observer { data ->
-                            run {
 
-                            }
-                        })
-*/
                     val city = City(1, p0.address.district, p0.address.city, 1, "", "")
                     mDao.insertCity(city)
                 }

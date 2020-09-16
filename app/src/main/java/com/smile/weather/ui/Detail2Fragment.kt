@@ -267,7 +267,7 @@ class Detail2Fragment : BaseFragment() {
         //设置是否为本地
         mBinding.isLocate = mCity.isLocal == 1
 
-
+        mTopHeadContentLayoutBinding.isLocate=mCity.isLocal == 1
 
         mDetailViewModel.getLifeStyleData(getParams(mCity.name!!))
         if (!mDetailViewModel.getLifeStyleLiveData().hasActiveObservers()) {
@@ -304,9 +304,7 @@ class Detail2Fragment : BaseFragment() {
                 mNetInt = 0
                 mDetailViewModel.refreshing.value=false
 
-                //  mBinding.d.isRefreshing = false
             }
-          //  mBinding.detailRefreshLayout.isRefreshing=false
 
         }
     }
@@ -316,7 +314,7 @@ class Detail2Fragment : BaseFragment() {
 
         //新版API
         //当前天气
-        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(this, Observer {
+        mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(viewLifecycleOwner, Observer {
             if (it.code==Api.SUCCESS_STATUS){
                 mTopHeadContentLayoutBinding.nowData=it.now
                 mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(it.now!!.icon.toInt()))
@@ -331,7 +329,7 @@ class Detail2Fragment : BaseFragment() {
 
         })
         //未来天气
-        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(this,{
+        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(viewLifecycleOwner,{
             if (it.code==Api.SUCCESS_STATUS){
                 mForecastList=it.daily as ArrayList<DailyEntity>
                 mForecastAdapter.setData(mForecastList)
@@ -344,7 +342,7 @@ class Detail2Fragment : BaseFragment() {
             }
         })
         //当前空气状况
-        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(this,{
+        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(viewLifecycleOwner,{
             if (it.code==Api.SUCCESS_STATUS){
                 mHeadAirViewBinding.air=it.now
             }
@@ -352,7 +350,7 @@ class Detail2Fragment : BaseFragment() {
 
         })
         //未来24小时预报
-        mWeatherViewModel.getHourlyList(mCity.cityId).observe(this,{
+        mWeatherViewModel.getHourlyList(mCity.cityId).observe(viewLifecycleOwner,{
             if (it.code==Api.SUCCESS_STATUS){
                 mHourlyList=it.hourly as ArrayList<HourlyEntity>
                 mHourlyAdapter.setData(mHourlyList)

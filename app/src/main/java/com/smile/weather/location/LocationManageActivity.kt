@@ -23,6 +23,7 @@ import com.smile.weather.entity.LocateEntity
 import com.smile.weather.utils.RecycleViewDivider
 import com.smile.weather.vm.LocateViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * 地点管理Activity
@@ -37,9 +38,9 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
     private var mIsOpen = false
     private var mDeleteArrayPos = arrayListOf<Int>()
     private lateinit var mDialogBuilder:AlertDialog.Builder
-    private val mDao: CityDao by lazy {
-        AppDataBase.instance.getCityDao()
-    }
+
+    @Inject
+    lateinit var mDao: CityDao
 
     private val mAdapter: LocateManageAdapter by lazy {
         LocateManageAdapter(mCityList)
@@ -155,6 +156,7 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
     private fun deleteCityList(){
         for (mDeleteArrayPo in mDeleteArrayPos) {
             mDao.deleteCity(mCityList[mDeleteArrayPo].city)
+
         }
     }
 

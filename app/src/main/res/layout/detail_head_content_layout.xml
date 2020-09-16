@@ -7,6 +7,8 @@
     <data>
         <import type="com.smile.weather.entity.HeWeather6"/>
         <import type="com.smile.weather.entity.NowEntity"/>
+        <import type="android.view.View"/>
+
         <variable
             name="weather"
             type="HeWeather6" />
@@ -19,6 +21,9 @@
         <variable
             name="cityName"
             type="java.lang.String" />
+        <variable
+            name="isLocate"
+            type="java.lang.Boolean" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -54,6 +59,7 @@
         android:layout_height="20dp"
         android:src="@drawable/icon_local"
         android:layout_marginLeft="30dp"
+        android:visibility="@{isLocate ? View.VISIBLE : View.INVISIBLE }"
 
         app:layout_constraintTop_toTopOf="@id/detail_head_address_tv"
         app:layout_constraintBottom_toBottomOf="@id/detail_head_address_tv"
