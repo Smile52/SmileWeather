@@ -16,12 +16,14 @@ object PermissionUtils {
     private const val RESULT_CODE_LOCATION = 1024
 
     private var locationCallback: (() -> Unit)? = null
+    private val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+
 
     fun location(context: Context, locationCallback: () -> Unit) {
         this.locationCallback = locationCallback
-        permission(
+        permission1(
             context,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
+            permissions,
             RESULT_CODE_LOCATION,
             locationCallback
         )
@@ -64,4 +66,30 @@ object PermissionUtils {
         }
     }
 
+    private fun permission1(
+        context: Context,
+        permissions: Array<String>,
+        resultCode: Int,
+        callback: () -> Unit
+    ) {
+        val mPermissionList = ArrayList<String>()
+        mPermissionList.clear()
+        for (permission in permissions) {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                mPermissionList.add(permission)
+            }
+        }
+        if (mPermissionList.isNotEmpty()) {
+            ActivityCompat.requestPermissions(context as Activity, permissions, resultCode)
+
+        }else{
+            callback()
+        }
+
+
+    }
 }

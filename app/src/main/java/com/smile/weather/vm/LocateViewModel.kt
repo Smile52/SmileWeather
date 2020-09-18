@@ -46,6 +46,10 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
         return mDao.getAll()
     }
 
+    fun getLocateCity():City{
+       return mDao.getLocalCity()
+    }
+
 
     fun insertCity(city: City){
        mDao.insertCity(city)
@@ -55,6 +59,10 @@ class LocateViewModel @ViewModelInject constructor(private val locationRepositor
         mDao.deleteCity(city)
     }
 
+
+    fun getCityById(i:Int):City{
+        return mDao.getCityById(i)
+    }
 
 
 

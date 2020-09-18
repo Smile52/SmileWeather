@@ -9,8 +9,6 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
@@ -21,10 +19,9 @@ import com.smile.weather.adapter.DetailFragmentAdapter
 import com.smile.weather.base.BaseActivity
 import com.smile.weather.base.BaseFragment
 import com.smile.weather.databinding.ActivityMainBinding
-import com.smile.weather.db.AppDataBase
-import com.smile.weather.db.CityDao
 import com.smile.weather.db.City
 import com.smile.weather.entity.DetailIndex
+import com.smile.weather.intent.Api
 import com.smile.weather.location.LocationManageActivity
 import com.smile.weather.location.SearchActivity
 import com.smile.weather.ui.Detail2Fragment
@@ -44,7 +41,6 @@ open class MainActivity : BaseActivity() {
     private lateinit var mListCity: List<City>
 
     private var mCityNameArray = arrayListOf<String?>()
-    private var mMapFragment = mutableMapOf<String, Detail2Fragment>()
     private var mFragments = arrayListOf<BaseFragment>()
     private var mIsAddCity = false
 
@@ -56,8 +52,6 @@ open class MainActivity : BaseActivity() {
         mBinding.mainContentPage
     }
 
-    @Inject
-    lateinit var mDao: CityDao
 
     companion object {
         const val KEY_IS_ADD = "key_is_add"
@@ -93,7 +87,7 @@ open class MainActivity : BaseActivity() {
         mViewPager.offscreenPageLimit=4
         mViewPager.adapter = mAdapter
 
-        val list = mDao.getAll()
+        val list = mLocateViewModel.getCityList()
         list.observe(this, { data ->
             mListCity = data
 
@@ -118,10 +112,9 @@ open class MainActivity : BaseActivity() {
             mFragments = arrayListOf()
             mCityNameArray = arrayListOf()
             for ((i, city) in mListCity.withIndex()) {
-                if (mMapFragment[city.name] == null) {
                     val fragment = Detail2Fragment.newInstance(city.id!!)
                     mFragments.add(fragment)
-                }
+
                 // mCityNameArray[i] = city.name!!
                 mCityNameArray.add(city.name)
             }
@@ -178,9 +171,10 @@ open class MainActivity : BaseActivity() {
             if (p0 == null) {
                 return
             }
+            L.e("l "+p0.locType)
             if (p0.addrStr != null) {
                 //判断本地有没有数据，有数据就判断城市是否改变
-                val city1 = mDao.getLocalCity()
+                val city1 = mLocateViewModel.getLocateCity()
                 if (city1 == null) {
                     mLocateViewModel.getCityInfo(p0.address.district)
                         .observe(this@MainActivity, Observer { data ->
@@ -191,7 +185,7 @@ open class MainActivity : BaseActivity() {
                                     1, p0.address.district, p0.address.city, 1, ""
                                     , data.location?.get(0)!!.id
                                 )
-                                mDao.insertCity(city)
+                                mLocateViewModel.insertCity(city)
                             }
                         })
 
@@ -200,12 +194,16 @@ open class MainActivity : BaseActivity() {
                     mLocateViewModel.getCityInfo(p0.address.district)
                         .observe(this@MainActivity, Observer { data ->
                             run {
+                                if (data.code==Api.SUCCESS_STATUS){
+                                    if (data.location?.size!! >0){
+                                        val city = City(1, p0.address.district, p0.address.city, 1, "", data.location!![0].id)
+                                        mLocateViewModel.insertCity(city)
+                                    }
+                                }
 
                             }
                         })
 
-                    val city = City(1, p0.address.district, p0.address.city, 1, "", "")
-                    mDao.insertCity(city)
                 }
             }
 
@@ -228,7 +226,6 @@ open class MainActivity : BaseActivity() {
             }
             else -> DetailIndex.MIDDLE
         }
-
     }
 
     inner class MainHandler {

@@ -82,12 +82,10 @@ class Detail2Fragment : BaseFragment() {
     }
 
     private val mCity: City by lazy {
-        mCityDao.getCityById(mCityId)
+        mLocateViewModel.getCityById(mCityId)
     }
 
-    private val mCityDao: CityDao by lazy {
-        AppDataBase.instance.getCityDao()
-    }
+
 
     private val mCityWeatherDao: CityWeatherDao by lazy {
         AppDataBase.instance.getCityWeatherDao()
@@ -280,7 +278,6 @@ class Detail2Fragment : BaseFragment() {
             }
         })
         getData()
-
 
     }
 

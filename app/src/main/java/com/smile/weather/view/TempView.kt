@@ -149,10 +149,7 @@ class TempView :View{
         var rect= RectF(x.toFloat(),
             rectTop,(x+mColumnWidth).toFloat(),(rectTop+(allValue*tempPro)))
 
-
-
         canvas?.drawRoundRect(rect,30f,30f,paint)
-
 
         val maxText= "${mMaxValue}°"
         val minText= "${mMinValue}°"
@@ -160,7 +157,6 @@ class TempView :View{
         var x1 = width / 2 - paint.measureText(maxText) / 2
 
         canvas?.drawText(maxText,x1,(rect.top+offset),paint)
-
 
 
         if (mIsShowBottomTemp){
