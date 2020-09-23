@@ -34,7 +34,7 @@ Databinding是属于Jetpack组件中一部分，它的使命主要是将数据�
 * 自定义温度柱状条
 
 
-
+下一篇文章《SmileWeather之Jetpack介绍和集成》
 
 
 
