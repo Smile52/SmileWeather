@@ -1,4 +1,4 @@
-# 学习Kotlin实现一个简易天气APP（MVVM+JetPack组件+Databinding）
+# SmileWeather之项目简单介绍
 因为最近在学习Kotlin所以准备通过写一个小项目来试试水，所以这个简易版天气APP出来了
 ps：文档整理中
 
@@ -7,59 +7,37 @@ ps：文档整理中
 ps:图片加载不出来可以查看CSDN[博客](https://blog.csdn.net/qq272708698/article/details/103698652)
 
 
-## 主要功能
-* 定位（百度地图SDK）
-* 添加，删除城市
-* 获取天气数据（实时天气和未来一周天气，数据由和风天气提供）
-
-## 项目基本介绍
-整个项目采用MVVM架构，也是现在比较流行的一个架构，通过ViewModel+LiveData来很好实现低耦合以及更加容易管理生命周期，数据变化驱动UI变化,尤其是加入Databinding（又爱又恨）。
-* 网络请求模块还是采用Retrofit+RxJava+LiveData
-* 数据库采用Room，此项目展示了基本的增删改差，数据库更新（添加列和新表）
-* 温度柱状条是自定义view来实现（主要是计算高度）
-
-## 项目结构描述
-* module 第三方库和网络库的提供者
-
-## 技术点
-* ~~retrofit+RxJava结合LiveData使用~~
-* retrofit+LiveData实现网络请求
-* hilt依赖注入
-* 自定义柱状温度View
-* CoordinatorLayout自定义behavior
-* room数据库的使用以及版本更新
-* DataBindIng的基本使用
+## Jetpack是什么
+总结成一句话，Jetpack就是Google为了帮助Android开发者更加轻松和高效开发Android应用程序推出的一系列工具。主要分为四大类：Foundation（基础组件）、Architecture（架构组件）、Behavior（行为）以及UI（界面组件）。
 
 
+### 什么是MVVM
+* MVVM对应的就是Model,View,ViewModel。
+* Model:负责获取数据模型
+* View:负责页面的绘制和与用户的交互
+* ViewModel:将Model与View进行关联，负责处理一些业务逻辑和处理数据，然后通知View层刷新。当然View层的交互也同样可以影响到ViewModel，这种实现可能就需要通过框架了（Databinding）
 
-## 后续迭代计划
-* API接口升级（和风天气升级了）
-* 添加更多生活数据
-* 网络请求采用retrofit+LiveData实现（舍弃RxJava）
-* 增加天气动效
+### 简单了解一下Databinding
+Databinding是属于Jetpack组件中一部分，它的使命主要是将数据与UI进行绑定，既支持单向绑定，也支持双向绑定。怎么理解呢？单向绑定就是数据绑定了UI，当数据改变的时候，UI改变；双向绑定就是UI改变的时候数据也会改变，举个栗子，EditTextView，用户输入内容了，具体的内容会映射到绑定的数据体，这个在该项目中已经使用了。多说一句单向绑定和双向绑定的区别就是双向绑定前面多了一个=  `android:text="@={ viewModel.mInputCity }"`
 
 
+当然Databinding还支持很多自定义方法来完成我们的一些奇葩需求。
 
-## 备注
-* DetailFragment是原来版本的详情页面
-* DetailFragment2是为目前新版的详情页面
 
-## code对应温度
- * 100  晴天
- * 104 多云
+### 技术点分析
+本项目采用Kotlin编写。
+* 项目基础架构MVVM
+* 网络请求:Retrofit+LiveData
+* 数据库:Room
+* 依赖注入:Hint
+* 自定义Databinding
+* 自定义温度柱状条
 
- * 200 风
- * 300  阵雨
- *  301- 304 雷
- * 305 小雨 306 中雨 307 大雨 310-318 暴雨
- * 400 雪
- * 500 雾
 
 
 
 
 
 #### 备注
-觉得对你有帮助的麻烦给一个小星星了。
-APK不是最新的
+觉得对你有帮助的麻烦给一个小星星了。文章陆续更新
 [项目地址](https://github.com/Smile52/SmileWeather)

@@ -2,21 +2,18 @@ package com.smile.weather
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
+import com.smile.baselib.base.BaseActivity
 import com.smile.baselib.utils.L
 import com.smile.weather.adapter.DetailFragmentAdapter
-import com.smile.weather.base.BaseActivity
 import com.smile.weather.base.BaseFragment
 import com.smile.weather.databinding.ActivityMainBinding
 import com.smile.weather.db.City
@@ -29,7 +26,6 @@ import com.smile.weather.utils.PermissionUtils
 import com.smile.weather.vm.LocateViewModel
 import com.smile.weather.vm.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 open class MainActivity : BaseActivity() {
@@ -52,7 +48,6 @@ open class MainActivity : BaseActivity() {
         mBinding.mainContentPage
     }
 
-
     companion object {
         const val KEY_IS_ADD = "key_is_add"
     }
@@ -66,7 +61,6 @@ open class MainActivity : BaseActivity() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.handler = MainHandler()
 
-       // mViewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
 
         PermissionUtils.location(this) {
             L.e("获取定位权限")
@@ -91,7 +85,6 @@ open class MainActivity : BaseActivity() {
         list.observe(this, { data ->
             mListCity = data
 
-
             initData()
         })
 
@@ -100,8 +93,6 @@ open class MainActivity : BaseActivity() {
     override fun initData() {
         super.initData()
 
-       // mFragments = arrayListOf()
-       // mCityNameArray = arrayOfNulls(mListCity.size)
 
         if (mIsAddCity){
             val last = mListCity.last()
@@ -119,7 +110,6 @@ open class MainActivity : BaseActivity() {
                 mCityNameArray.add(city.name)
             }
         }
-
 
         //如果没有则表示当前没有数据，所以创建一个空的fragment
         if (mFragments.isEmpty()) {

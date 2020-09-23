@@ -8,7 +8,6 @@ open class BaseViewModel :ViewModel(){
 
     open fun getParams(location:String):Map<String, String>{
 
-
         return mutableMapOf("location" to location,"key" to Config.API_KEY)
 
     }

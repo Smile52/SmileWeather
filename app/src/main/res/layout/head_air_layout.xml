@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.smile.weather.entity.AirEntity"/>
+
+        <import type="com.smile.weather.entity.AirEntity" />
+
         <variable
             name="air"
             type="AirEntity" />
+
         <variable
             name="airQuality"
             type="java.lang.String" />
@@ -17,114 +19,113 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/head_air_view"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/detail_item_view_margin"
         android:layout_marginRight="@dimen/detail_item_view_margin"
-        android:background="@drawable/shape_detail_view_bg">
+        android:background="@drawable/shape_detail_view_bg"
+        android:orientation="vertical">
 
         <View
             android:id="@+id/air_line"
             android:layout_width="1dp"
             android:layout_height="60dp"
             android:background="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/air_quality_img"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/icon_air_quality"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginLeft="20dp" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/air_aqi_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/air_quality_img"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/AQI"
             android:layout_marginLeft="20dp"
-            android:textSize="@dimen/text_20dp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/color_white" />
+            android:text="@string/AQI"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_20dp"
+            app:layout_constraintLeft_toRightOf="@id/air_quality_img"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/air_content_text_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/air_aqi_tv"
-            app:layout_constraintTop_toBottomOf="@id/air_aqi_tv"
-            android:text="@{air.aqi}"
-            android:textSize="@dimen/text_20dp"
             android:layout_marginTop="5dp"
-            android:textColor="@color/color_white" />
+            android:text="@{air.aqi}"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_20dp"
+            app:layout_constraintLeft_toLeftOf="@id/air_aqi_tv"
+            app:layout_constraintTop_toBottomOf="@id/air_aqi_tv" />
 
         <TextView
             android:id="@+id/air_index_tv"
             android:layout_width="35dp"
             android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="@{air.category}"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/air_aqi_tv"
             app:layout_constraintTop_toBottomOf="@id/air_content_text_tv"
-            android:textColor="@color/color_white"
-            bind:airQuality="@{air.aqi}"
-            android:text="@{air.category}"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"
-            android:textSize="@dimen/text_16dp" />
+            bind:airQuality="@{air.category}" />
 
         <ImageView
             android:id="@+id/air_pm2_5_img"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            app:layout_constraintLeft_toRightOf="@id/air_line"
-            app:layout_constraintTop_toTopOf="@id/air_quality_img"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/icon_pm_2_5" />
+            android:src="@drawable/icon_pm_2_5"
+            app:layout_constraintLeft_toRightOf="@id/air_line"
+            app:layout_constraintTop_toTopOf="@id/air_quality_img" />
 
         <TextView
             android:id="@+id/air_pm2_5_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/air_aqi_tv"
-            app:layout_constraintLeft_toRightOf="@id/air_pm2_5_img"
             android:layout_marginLeft="20dp"
-            android:textSize="@dimen/text_20dp"
             android:text="@string/pm2_5"
-            android:textColor="@color/color_white" />
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_20dp"
+            app:layout_constraintLeft_toRightOf="@id/air_pm2_5_img"
+            app:layout_constraintTop_toTopOf="@id/air_aqi_tv" />
 
         <TextView
             android:id="@+id/air_pm2_5_content_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@id/air_content_text_tv"
-            app:layout_constraintLeft_toLeftOf="@id/air_pm2_5_tv"
             android:text="@{air.pm2p5}"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/text_20dp" />
+            android:textSize="@dimen/text_20dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/air_content_text_tv"
+            app:layout_constraintLeft_toLeftOf="@id/air_pm2_5_tv" />
 
         <TextView
             android:id="@+id/air_pm2_5_index_tv"
             android:layout_width="35dp"
             android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@{air.category}"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_16dp"
             app:layout_constraintLeft_toLeftOf="@id/air_pm2_5_tv"
             app:layout_constraintTop_toBottomOf="@id/air_content_text_tv"
-            bind:airQuality="@{air.pm2p5}"
-
-            android:textColor="@color/color_white"
-            android:text="@{air.category}"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:textSize="@dimen/text_16dp" />
+            bind:airQuality="@{air.category}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

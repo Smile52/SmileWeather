@@ -4,7 +4,7 @@ import android.util.Log
 
 class L {
     companion object{
-        private const val isDebug=false
+        private const val isDebug=true
         private const val TAG="dandy"
         fun i(msg:String){
             if (isDebug) {

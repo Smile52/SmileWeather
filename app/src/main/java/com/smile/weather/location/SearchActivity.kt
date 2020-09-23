@@ -2,40 +2,27 @@ package com.smile.weather.location
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.smile.baselib.entity.BaseResult
-import com.smile.baselib.utils.L
+import com.smile.baselib.base.BaseActivity
 import com.smile.baselib.utils.ToastUtil
 import com.smile.weather.MainActivity
 import com.smile.weather.R
 import com.smile.weather.adapter.SearchAdapter
-import com.smile.weather.base.BaseActivity
-import com.smile.weather.config.Config
 import com.smile.weather.databinding.ActivitySearchBinding
-import com.smile.weather.db.AppDataBase
 import com.smile.weather.db.City
-import com.smile.weather.db.CityDao
-import com.smile.weather.entity.CityBasic
-import com.smile.weather.entity.CityEntity
 import com.smile.weather.entity.Location
 import com.smile.weather.intent.Api
 import com.smile.weather.vm.LocateViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class SearchActivity :BaseActivity(){
-
+class SearchActivity : BaseActivity(){
 
     companion object{
         const val KEY_LAST_ID="last_id"
@@ -65,6 +52,9 @@ class SearchActivity :BaseActivity(){
         initView()
         initData()
     }
+
+
+
     override fun initView() {
         mRecyclerView.layoutManager=LinearLayoutManager(this)
         mRecyclerView.adapter=mAdapter

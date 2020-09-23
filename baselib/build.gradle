@@ -36,14 +36,11 @@ android {
     }
 
 
-
-
 }
 
 dependencies {
 
     def lifecycle_version = "2.2.0"
-    def roomVersion = '2.2.2'
 
 
 
@@ -55,7 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-
+    //lifecycle
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     // Optional : Kotlin extension (https://d.android.com/kotlin/ktx)
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -67,15 +64,13 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
 
-
+    //retrofit
     api "com.squareup.retrofit2:retrofit:2.6.2"
 
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
     //okhttp提供的请求日志拦截器
     api 'com.squareup.okhttp3:logging-interceptor:3.14.4'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    api "io.reactivex:rxkotlin:0.60.0"
-    api "io.reactivex:rxandroid:1.2.1"
+
 
 }

@@ -12,41 +12,36 @@ import com.smile.weather.utils.IconUtils
  */
 object DataBindingHandler {
 
+    @BindingAdapter("loadByCode")
+    @JvmStatic
+    fun loadImageByCode(imageView: ImageView, code: String?) {
+        if (code != null) {
+            imageView.setImageResource(IconUtils.getSmallIcon(code.toInt()!!))
+        }
+    }
 
-        @BindingAdapter("loadByCode")
-        @JvmStatic
-        fun loadImageByCode(imageView: ImageView, code:String?){
-            if (code != null) {
-                imageView.setImageResource(IconUtils.getSmallIcon(code.toInt()!!))
+    @BindingAdapter("airQuality")
+    @JvmStatic
+    fun airQuality(textView: TextView, type: String?) {
+        when (type) {
+            "优", "良" -> {
+                textView.setBackgroundResource(R.drawable.shape_air_quality_1_bg)
+            }
+
+            "轻度污染" -> {
+                textView.setBackgroundResource(R.drawable.shape_air_quality_2_bg)
+            }
+
+            "中度污染", "重度污染" -> {
+                textView.setBackgroundResource(R.drawable.shape_air_quality_3_bg)
             }
         }
-
-        @BindingAdapter("airQuality")
-        @JvmStatic
-        fun airQuality(textView: TextView, type:String?){
-            when(type){
-                "优","良"->{
-                    textView.setBackgroundResource(R.drawable.shape_air_quality_1_bg)
-                }
-
-
-                "轻度污染"->{
-                    textView.setBackgroundResource(R.drawable.shape_air_quality_2_bg)
-
-
-                }
-                "中度污染","重度污染"->{
-                    textView.setBackgroundResource(R.drawable.shape_air_quality_3_bg)
-
-                }
-
-            }
-        }
+    }
 
     @BindingAdapter("windIcon")
     @JvmStatic
-    fun windIcon(imageView: ImageView, content:String?){
-        if (content!=null){
+    fun windIcon(imageView: ImageView, content: String?) {
+        if (content != null) {
             imageView.setImageResource(IconUtils.getWindIcon(content))
 
         }

@@ -71,7 +71,7 @@ class Detail2Fragment : BaseFragment() {
 
     private lateinit var mHourlyRecyclerView: SRecyclerView
     private lateinit var mForecastRecyclerView: SRecyclerView
-    private lateinit var mRefreshLayout:SwipeRefreshLayout
+    private lateinit var mRefreshLayout: SwipeRefreshLayout
 
     private lateinit var mLeftMore: ImageView
     private lateinit var mRightMore: ImageView
@@ -86,7 +86,6 @@ class Detail2Fragment : BaseFragment() {
     }
 
 
-
     private val mCityWeatherDao: CityWeatherDao by lazy {
         AppDataBase.instance.getCityWeatherDao()
     }
@@ -95,7 +94,6 @@ class Detail2Fragment : BaseFragment() {
         DetailHourlyAdapter(requireContext(), mHourlyList)
     }
 
-    private lateinit var mWeather6: HeWeather6
     private var mHourlyList = arrayListOf<HourlyEntity>()
 
     private val mForecastAdapter: DetailForecastAdapter by lazy {
@@ -106,11 +104,11 @@ class Detail2Fragment : BaseFragment() {
 
     private var mForecastList = arrayListOf<DailyEntity>()
 
-    private val mDetailViewModel: DetailViewModel  by viewModels()
+    private val mDetailViewModel: DetailViewModel by viewModels()
 
     private val mLocateViewModel: LocateViewModel by viewModels()
 
-    private val mWeatherViewModel:WeatherViewModel by viewModels()
+    private val mWeatherViewModel: WeatherViewModel by viewModels()
 
 
     companion object {
@@ -122,7 +120,6 @@ class Detail2Fragment : BaseFragment() {
             }
         }
 
-
     }
 
     override fun onCreateView(
@@ -133,13 +130,11 @@ class Detail2Fragment : BaseFragment() {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail3, container, false)
 
-        mBinding?.let {
+        mBinding.let {
             //todo 很重要
-            it.viewModel=mDetailViewModel
-            it.lifecycleOwner=this
+            it.viewModel = mDetailViewModel
+            it.lifecycleOwner = this
         }
-      //  mBinding.viewModel = mDetailViewModel
-
 
         mRootView = mBinding.root
         return mRootView
@@ -153,8 +148,6 @@ class Detail2Fragment : BaseFragment() {
         mContentView.adapter = mAdapter
 
         initDetailView()
-
-
 
         mCityId = arguments?.getInt(Detail2Fragment.KEY_ID, 0)!!
 
@@ -170,17 +163,21 @@ class Detail2Fragment : BaseFragment() {
     /**
      * 初始化view
      */
-    private fun initView(){
+    private fun initView() {
         mContentView = mBinding.detailContentViewRlv
         mContentLayout = mBinding.detailContentLayout
-        mRefreshLayout=mBinding.detailRefreshLayout
-        mRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        mRefreshLayout = mBinding.detailRefreshLayout
+        mRefreshLayout.setColorSchemeResources(
+            R.color.colorAccent,
+            R.color.colorPrimary,
+            R.color.colorPrimaryDark
+        );
     }
 
     /**
      * 初始化详情view 给recycleView添加内容
      */
-    private fun initDetailView(){
+    private fun initDetailView() {
         //初始化当前天气布局view
         val nowTopView = LayoutInflater.from(activity)
             .inflate(R.layout.detail_head_content_layout, mContentView, false)
@@ -201,7 +198,7 @@ class Detail2Fragment : BaseFragment() {
             mContentView,
             false
         )
-        mHeadAirViewBinding.let { it.lifecycleOwner=this }
+        mHeadAirViewBinding.let { it.lifecycleOwner = this }
 
         mAdapter.addHeaderView(mHeadAirViewBinding.root)
 
@@ -264,19 +261,19 @@ class Detail2Fragment : BaseFragment() {
         //设置是否为本地
         mBinding.isLocate = mCity.isLocal == 1
 
-        mTopHeadContentLayoutBinding.isLocate=mCity.isLocal == 1
+        mTopHeadContentLayoutBinding.isLocate = mCity.isLocal == 1
 
 
         checkIndex()
 
-        mLocateViewModel.getCityInfo(mCityName).observe(this, Observer { data ->
+   /*     mLocateViewModel.getCityInfo(mCityName).observe(this, Observer { data ->
             val location = data.location
 
             if (location != null) {
-                for (i in location.indices){
+                for (i in location.indices) {
                 }
             }
-        })
+        })*/
         getData()
 
     }
@@ -291,21 +288,20 @@ class Detail2Fragment : BaseFragment() {
                 mIsRefreshIng = false
                 mAllNetInt = 0
                 mNetInt = 0
-                mDetailViewModel.refreshing.value=false
+                mDetailViewModel.refreshing.value = false
 
             }
 
         }
     }
 
-
     private fun getData() {
 
         //新版API
         //当前天气
         mWeatherViewModel.getWeatherNowInfo(mCity.cityId).observe(viewLifecycleOwner, Observer {
-            if (it.code==Api.SUCCESS_STATUS){
-                mTopHeadContentLayoutBinding.nowData=it.now
+            if (it.code == Api.SUCCESS_STATUS) {
+                mTopHeadContentLayoutBinding.nowData = it.now
                 mContentLayout.setBackgroundResource(BackGroundUtils.getBackGroundByCode(it.now!!.icon.toInt()))
                 mNetInt++
                 mNowWeatherJson = mGson.toJson(it.now)
@@ -318,9 +314,9 @@ class Detail2Fragment : BaseFragment() {
 
         })
         //未来天气
-        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(viewLifecycleOwner,{
-            if (it.code==Api.SUCCESS_STATUS){
-                mForecastList=it.daily as ArrayList<DailyEntity>
+        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(viewLifecycleOwner, {
+            if (it.code == Api.SUCCESS_STATUS) {
+                mForecastList = it.daily as ArrayList<DailyEntity>
                 mForecastAdapter.setData(mForecastList)
                 mOneDayJson = mGson.toJson(mForecastList[0])
                 mNetInt++
@@ -331,17 +327,17 @@ class Detail2Fragment : BaseFragment() {
             }
         })
         //当前空气状况
-        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(viewLifecycleOwner,{
-            if (it.code==Api.SUCCESS_STATUS){
-                mHeadAirViewBinding.air=it.now
+        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(viewLifecycleOwner, {
+            if (it.code == Api.SUCCESS_STATUS) {
+                mHeadAirViewBinding.air = it.now
             }
             recordRefresh()
 
         })
         //未来24小时预报
-        mWeatherViewModel.getHourlyList(mCity.cityId).observe(viewLifecycleOwner,{
-            if (it.code==Api.SUCCESS_STATUS){
-                mHourlyList=it.hourly as ArrayList<HourlyEntity>
+        mWeatherViewModel.getHourlyList(mCity.cityId).observe(viewLifecycleOwner, {
+            if (it.code == Api.SUCCESS_STATUS) {
+                mHourlyList = it.hourly as ArrayList<HourlyEntity>
                 mHourlyAdapter.setData(mHourlyList)
 
             }

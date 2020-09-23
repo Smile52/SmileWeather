@@ -8,10 +8,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.switchMap
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.smile.baselib.base.BaseActivity
 import com.smile.baselib.utils.L
 import com.smile.weather.R
 import com.smile.weather.adapter.LocateManageAdapter
@@ -30,7 +29,7 @@ import javax.inject.Inject
  * 地点管理Activity
  */
 @AndroidEntryPoint
-class LocationManageActivity : com.smile.weather.base.BaseActivity() {
+class LocationManageActivity : BaseActivity() {
 
     private lateinit var mCityListView: RecyclerView
     private var mCityList = arrayListOf<LocateEntity>()
@@ -136,9 +135,7 @@ class LocationManageActivity : com.smile.weather.base.BaseActivity() {
         }
 
         fun delete(view: View) {
-            //
-           // mIsOpen = false
-            //mBindIng.isOpen = mIsOpen
+
 
             mDialogBuilder=AlertDialog.Builder(this@LocationManageActivity).setTitle("提示")
                 .setMessage("是否确定删除")

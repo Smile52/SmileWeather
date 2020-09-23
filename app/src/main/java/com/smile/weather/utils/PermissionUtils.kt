@@ -66,6 +66,9 @@ object PermissionUtils {
         }
     }
 
+    /**
+     * 权限组申请
+     */
     private fun permission1(
         context: Context,
         permissions: Array<String>,
