@@ -26,5 +26,4 @@ class LocationRepository @Inject constructor(private val cityDao: CityDao, @Name
         return apiService.searchCity(map)
     }
 
-
 }

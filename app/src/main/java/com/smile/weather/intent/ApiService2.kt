@@ -11,6 +11,9 @@ import retrofit2.http.QueryMap
  */
 interface ApiService2 {
 
+    /**
+     * 获取实时天气
+     */
     @GET("weather/now")
     fun getNoWData(@QueryMap map: Map<String, String>): LiveData<BaseResult<NowEntity>>
 

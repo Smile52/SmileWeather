@@ -11,10 +11,12 @@ import com.smile.weather.intent.ApiService2
 import com.smile.weather.ir.Repository
 import javax.inject.Inject
 
+/**
+ * 天气相关的仓库类，负责从网络获取天气相关的数据
+ */
 class WeatherRepository @Inject constructor(private val weatherDao: CityWeatherDao,
                     private val apiService: ApiService2
 ):Repository{
-
 
     fun getNowWeatherInfo(map: Map<String, String>):LiveData<BaseResult<NowEntity>>{
         return apiService.getNoWData(map)

@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -41,8 +40,6 @@ android {
 dependencies {
 
 
-
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -60,7 +57,6 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.5.0'
     //okhttp提供的请求日志拦截器
     api 'com.squareup.okhttp3:logging-interceptor:3.14.4'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
 
 
 }

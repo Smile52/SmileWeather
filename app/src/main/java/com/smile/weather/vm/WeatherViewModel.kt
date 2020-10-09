@@ -13,7 +13,6 @@ import com.smile.weather.repository.WeatherRepository
 class WeatherViewModel @ViewModelInject constructor(private val weatherRepository: WeatherRepository) :BaseViewModel(){
 
 
-
     fun getWeatherNowInfo(id:String):LiveData<BaseResult<NowEntity>>{
        return weatherRepository.getNowWeatherInfo(getParams(id))
 

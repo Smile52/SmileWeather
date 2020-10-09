@@ -29,15 +29,9 @@ object NetModule {
     @Singleton
     fun providerOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
-
-
         builder.addInterceptor(initLogInterceptor())
-
-        //  builder.addInterceptor(initLogInterceptor())
-
         return builder.build()
     }
-
 
     @Provides
     @Singleton
@@ -54,7 +48,6 @@ object NetModule {
     @Provides
     @Singleton
     fun providerRetrofit2(okHttpClient: OkHttpClient): Retrofit {
-
         return Retrofit.Builder()
             .baseUrl(Api.BASE_URL_2)
             .addConverterFactory(GsonConverterFactory.create())
