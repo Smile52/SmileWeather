@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -131,7 +132,7 @@ class Detail2Fragment : BaseFragment() {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail3, container, false)
 
         mBinding.let {
-            //todo 很重要
+            //todo 很重要- 绑定
             it.viewModel = mDetailViewModel
             it.lifecycleOwner = this
         }
@@ -207,8 +208,8 @@ class Detail2Fragment : BaseFragment() {
             LayoutInflater.from(activity).inflate(R.layout.head_hourly_layout, mContentView, false)
 
         mHourlyRecyclerView = hourlyView.findViewById(R.id.head_hourly_rlv)
-        //获取头部布局的左右imageView
 
+        //获取头部布局的左右imageView
 
         mLeftMore = nowTopView.findViewById(R.id.head_now_left_more_img)
 
@@ -243,7 +244,7 @@ class Detail2Fragment : BaseFragment() {
         mAdapter.addHeaderView(title)
         mAdapter.addHeaderView(forecastView)
 
-        //
+        //空气信息
         val airView =
             LayoutInflater.from(activity).inflate(R.layout.air_view_layout, mContentView, false)
         mAdapter.addHeaderView(airView)
@@ -257,7 +258,6 @@ class Detail2Fragment : BaseFragment() {
         mBinding.cityName = mCity.name
         mTopHeadContentLayoutBinding.cityName = mCity.name
 
-
         //设置是否为本地
         mBinding.isLocate = mCity.isLocal == 1
 
@@ -266,14 +266,7 @@ class Detail2Fragment : BaseFragment() {
 
         checkIndex()
 
-   /*     mLocateViewModel.getCityInfo(mCityName).observe(this, Observer { data ->
-            val location = data.location
 
-            if (location != null) {
-                for (i in location.indices) {
-                }
-            }
-        })*/
         getData()
 
     }
@@ -314,7 +307,7 @@ class Detail2Fragment : BaseFragment() {
 
         })
         //未来天气
-        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(viewLifecycleOwner, {
+        mWeatherViewModel.getFutureWeatherList(mCity.cityId).observe(viewLifecycleOwner) {
             if (it.code == Api.SUCCESS_STATUS) {
                 mForecastList = it.daily as ArrayList<DailyEntity>
                 mForecastAdapter.setData(mForecastList)
@@ -325,24 +318,24 @@ class Detail2Fragment : BaseFragment() {
                 }
                 recordRefresh()
             }
-        })
+        }
         //当前空气状况
-        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(viewLifecycleOwner, {
+        mWeatherViewModel.getAirNowInfo(mCity.cityId).observe(viewLifecycleOwner) {
             if (it.code == Api.SUCCESS_STATUS) {
                 mHeadAirViewBinding.air = it.now
             }
             recordRefresh()
 
-        })
+        }
         //未来24小时预报
-        mWeatherViewModel.getHourlyList(mCity.cityId).observe(viewLifecycleOwner, {
+        mWeatherViewModel.getHourlyList(mCity.cityId).observe(viewLifecycleOwner) {
             if (it.code == Api.SUCCESS_STATUS) {
                 mHourlyList = it.hourly as ArrayList<HourlyEntity>
                 mHourlyAdapter.setData(mHourlyList)
 
             }
             recordRefresh()
-        })
+        }
 
     }
 

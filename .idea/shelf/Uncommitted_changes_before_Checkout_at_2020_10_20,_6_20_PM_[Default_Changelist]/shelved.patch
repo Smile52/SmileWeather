@@ -1,0 +1,19 @@
+Index: .idea/libraries/Gradle__com_jaeger_statusbarutil_library_1_5_1_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\n  <library name=\"Gradle: com.jaeger.statusbarutil:library:1.5.1@aar\">\n    <CLASSES>\n      <root url=\"file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/e0ff6a62bfe669b9f297bf5ba4c5d1d6/jetified-library-1.5.1/AndroidManifest.xml\" />\n      <root url=\"jar://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/e0ff6a62bfe669b9f297bf5ba4c5d1d6/jetified-library-1.5.1/jars/classes.jar!/\" />\n      <root url=\"file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/e0ff6a62bfe669b9f297bf5ba4c5d1d6/jetified-library-1.5.1/res\" />\n    </CLASSES>\n    <JAVADOC>\n      <root url=\"jar://$USER_HOME$/work/gradle/caches/modules-2/files-2.1/com.jaeger.statusbarutil/library/1.5.1/bfdbaf66523ddb99f921eaaa53f5e14f49d5e896/library-1.5.1-javadoc.jar!/\" />\n    </JAVADOC>\n    <SOURCES>\n      <root url=\"jar://$USER_HOME$/work/gradle/caches/modules-2/files-2.1/com.jaeger.statusbarutil/library/1.5.1/c3e0d2ff5d9698337ae590420367625104362091/library-1.5.1-sources.jar!/\" />\n    </SOURCES>\n  </library>\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/Gradle__com_jaeger_statusbarutil_library_1_5_1_aar.xml	(revision 8e0e08967c8b2d4cc130461200c3936fba99353f)
++++ .idea/libraries/Gradle__com_jaeger_statusbarutil_library_1_5_1_aar.xml	(date 1603181066000)
+@@ -4,6 +4,9 @@
+       <root url="file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/e0ff6a62bfe669b9f297bf5ba4c5d1d6/jetified-library-1.5.1/AndroidManifest.xml" />
+       <root url="jar://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/e0ff6a62bfe669b9f297bf5ba4c5d1d6/jetified-library-1.5.1/jars/classes.jar!/" />
+       <root url="file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/e0ff6a62bfe669b9f297bf5ba4c5d1d6/jetified-library-1.5.1/res" />
++      <root url="file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/ca64c0722db1bcd3903081e95ecf975a/jetified-library-1.5.1/res" />
++      <root url="file://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/ca64c0722db1bcd3903081e95ecf975a/jetified-library-1.5.1/AndroidManifest.xml" />
++      <root url="jar://$USER_HOME$/work/gradle/caches/transforms-2/files-2.1/ca64c0722db1bcd3903081e95ecf975a/jetified-library-1.5.1/jars/classes.jar!/" />
+     </CLASSES>
+     <JAVADOC>
+       <root url="jar://$USER_HOME$/work/gradle/caches/modules-2/files-2.1/com.jaeger.statusbarutil/library/1.5.1/bfdbaf66523ddb99f921eaaa53f5e14f49d5e896/library-1.5.1-javadoc.jar!/" />

@@ -21,14 +21,16 @@ object SwipeRefreshLayoutHandler {
     @JvmStatic
     @InverseBindingAdapter(
         attribute = "app:bind_swipeRefreshLayout_refreshing",
-        event = "app:bind_swipeRefreshLayout_refreshingAttrChanged")
+        event = "app:bind_swipeRefreshLayout_refreshingAttrChanged"
+    )
     fun isSwipeRefreshLayoutRefreshing(swipeRefreshLayout: SwipeRefreshLayout): Boolean? =
         swipeRefreshLayout.isRefreshing
-    
+
 
     @BindingAdapter(
         "app:bind_swipeRefreshLayout_refreshingAttrChanged",
-        requireAll = false)
+        requireAll = false
+    )
     @JvmStatic
     fun setOnRefreshListener(
         swipeRefreshLayout: SwipeRefreshLayout,

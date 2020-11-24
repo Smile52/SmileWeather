@@ -9,7 +9,4 @@ class DetailViewModel : ViewModel() {
     val refreshing: MutableLiveData<Boolean> = MutableLiveData()
 
 
-
-
-
 }

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
@@ -82,11 +83,11 @@ open class MainActivity : BaseActivity() {
         mViewPager.adapter = mAdapter
 
         val list = mLocateViewModel.getCityList()
-        list.observe(this, { data ->
+        list.observe(this) { data ->
             mListCity = data
 
             initData()
-        })
+        }
 
     }
 

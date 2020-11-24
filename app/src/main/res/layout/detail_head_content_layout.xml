@@ -3,15 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     >
-
     <data>
-        <import type="com.smile.weather.entity.HeWeather6"/>
         <import type="com.smile.weather.entity.NowEntity"/>
         <import type="android.view.View"/>
 
-        <variable
-            name="weather"
-            type="HeWeather6" />
         <variable
             name="nowData"
             type="NowEntity" />
@@ -43,7 +38,6 @@
 
     <TextView
         android:id="@+id/detail_head_address_tv"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/detail_head_temp_content_tv"
@@ -60,7 +54,6 @@
         android:src="@drawable/icon_local"
         android:layout_marginLeft="30dp"
         android:visibility="@{isLocate ? View.VISIBLE : View.INVISIBLE }"
-
         app:layout_constraintTop_toTopOf="@id/detail_head_address_tv"
         app:layout_constraintBottom_toBottomOf="@id/detail_head_address_tv"
         app:layout_constraintLeft_toLeftOf="parent"/>

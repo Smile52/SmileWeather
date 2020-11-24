@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.smile.baselib.base.BaseActivity
@@ -98,7 +99,7 @@ class SearchActivity : BaseActivity(){
 
    private fun searchCity(content:String){
 
-       mLocateViewModel.searchCity(content).observe(this, { data ->
+       mLocateViewModel.searchCity(content).observe(this) { data ->
            run {
                if (data.code==Api.SUCCESS_STATUS){
                    mCityList = data.location as ArrayList<Location>
@@ -106,8 +107,8 @@ class SearchActivity : BaseActivity(){
                }
 
            }
-       })
-    }
+       }
+   }
 
 
     private fun cityExist(name:String):Boolean{

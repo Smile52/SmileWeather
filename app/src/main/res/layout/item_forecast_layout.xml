@@ -42,14 +42,12 @@
 
         <ImageView
             android:id="@+id/item_f_icon_night_img"
-
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/s_unknown"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="10dp"
             bind:loadByCode="@{dailyForecast.iconNight}"
-
             app:layout_constraintTop_toBottomOf="@id/item_f_icon_day_img" />
 
         <View
