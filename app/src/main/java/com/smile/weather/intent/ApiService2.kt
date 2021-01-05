@@ -49,4 +49,10 @@ interface ApiService2 {
      */
     @GET("weather/24h?")
     fun getHourlyList(@QueryMap map: Map<String, String>):LiveData<BaseResult<List<HourlyEntity>>>
+
+    /**
+     * 获取日出日落，月相
+     */
+    @GET("astronomy/sunmoon")
+    fun getAstronomyAndSunMoon(@QueryMap map: Map<String, String>):LiveData<BaseResult<List<SumMoonEntity>>>
 }
